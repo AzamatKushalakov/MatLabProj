@@ -119,4 +119,6 @@ int PASCAL WinMain (HINSTANCE hInstance,
 	mxDestroyArray(a);
 	
 	return(0);
+	Engine *Eg;
+	Eg = engOpen("\0");
 }
