@@ -1,12 +1,14 @@
-﻿Сборка начата 19.04.2015 14:41:19.
-     1>Проект "E:\ТимП\MatLabProj\Matlab\Matlab\Matlab.vcxproj" в узле 2 (целевые объекты Build).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files\MATLAB\R2010b\extern\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt enginedemo.cpp
-         enginedemo.cpp
-     1>e:\тимп\matlabproj\matlab\matlab\enginedemo.cpp(108): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(356): см. объявление "sprintf"
-     1>Сборка проекта "E:\ТимП\MatLabProj\Matlab\Matlab\Matlab.vcxproj" завершена (целевые объекты Build) с ошибкой.
+﻿Сборка начата 22.04.2015 22:54:56.
+     1>Проект "C:\Users\Азамат\Desktop\Документы\ЯП\ТиМП\MatLabProj\Matlab\Matlab\Matlab.vcxproj" в узле 2 (целевые объекты Build).
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Азамат\Desktop\Документы\ЯП\ТиМП\MatLabProj\Matlab\Debug\Matlab.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files\MATLAB\R2010b\extern\lib\win64\microsoft" libeng.lib libmx.lib libmat.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Азамат\Desktop\Документы\ЯП\ТиМП\MatLabProj\Matlab\Debug\Matlab.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Азамат\Desktop\Документы\ЯП\ТиМП\MatLabProj\Matlab\Debug\Matlab.lib" /MACHINE:X86 Debug\enginedemo.obj
+     1>enginedemo.obj : error LNK2019: ссылка на неразрешенный внешний символ _mxGetPr в функции _main
+     1>enginedemo.obj : error LNK2019: ссылка на неразрешенный внешний символ _mxCreateDoubleMatrix_730 в функции _main
+     1>enginedemo.obj : error LNK2019: ссылка на неразрешенный внешний символ _engOpen в функции _main
+     1>enginedemo.obj : error LNK2019: ссылка на неразрешенный внешний символ _engPutVariable в функции _main
+     1>C:\Users\Азамат\Desktop\Документы\ЯП\ТиМП\MatLabProj\Matlab\Debug\Matlab.exe : fatal error LNK1120: неразрешенных внешних элементов: 4
+     1>Сборка проекта "C:\Users\Азамат\Desktop\Документы\ЯП\ТиМП\MatLabProj\Matlab\Matlab\Matlab.vcxproj" завершена (целевые объекты Build) с ошибкой.
 
 Ошибка сборки.
 
-Затраченное время: 00:00:05.93
+Затраченное время: 00:00:01.33
