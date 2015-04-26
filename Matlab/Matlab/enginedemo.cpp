@@ -1,9 +1,10 @@
+#include <iostream>
 #include <windows.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include "engine.h"
-
+using namespace std;
 int main()
 {
 	int row = 2;
@@ -39,7 +40,18 @@ int main()
 	engPutVariable(Eg, "Matrix2", Matrix2);
 
 	/* ТЕПЕРЬ НАДО РАЗОБРАТЬСЯ КАК ПРОИЗВОДИТЬ ВЫЧИСЛЕНИЯ С ЭТИМИ МАТРИЦАМИ, ВСЕ УЗНАЛ ИЗ ВИДЮХИ
-	*/
+	*/ 
+
+	// Вот эта часть кода вроде как достает Matrrix2 из Matlaba и помещает в С++. Т е нам надо в Matlab научиться их складывать
+	// Только я не знаю, как вывести полученную матрицу(хотя бы элемент на месте (i, j) ). 
+	// А еще у меня на компе е хватает какого-то файла libeng.dll и проект не запускается
+	double *cresult;
+	mxArray *mresult;
+	mresult = engGetVariable(Eg, "Matrix2");
+	cresult = mxGetPr(mresult);
+	cout << cresult[0];
+
+	
 
 	return 0;
 }
