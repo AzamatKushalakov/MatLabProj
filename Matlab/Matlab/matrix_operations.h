@@ -1,7 +1,2 @@
-#include <windows.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include "engine.h"
-
-
+double** Sum(int row, int col, double** , double **);
+void Print_Matrix(int, int, double**);

@@ -1,3 +1,25 @@
+<<<<<<< HEAD
+﻿Сборка начата 10.05.2015 2:07:40.
+     1>Проект "C:\Users\Азамат\Desktop\Документы\ЯП\ТиМП\MatLabProj\Matlab\Matlab\Matlab.vcxproj" в узле 2 (целевые объекты Build).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Program Files (x86)\MATLAB\R2010b\extern\include" /Zi /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt enginedemo.cpp
+         enginedemo.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Азамат\Desktop\Документы\ЯП\ТиМП\MatLabProj\Matlab\x64\Debug\Matlab.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\MATLAB\R2010b\extern\lib\win32\microsoft" libeng.lib libmx.lib libmat.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Азамат\Desktop\Документы\ЯП\ТиМП\MatLabProj\Matlab\x64\Debug\Matlab.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Азамат\Desktop\Документы\ЯП\ТиМП\MatLabProj\Matlab\x64\Debug\Matlab.lib" /MACHINE:X64 x64\Debug\enginedemo.obj
+         LINK : не найден или не выполнена сборка C:\Users\Азамат\Desktop\Документы\ЯП\ТиМП\MatLabProj\Matlab\x64\Debug\Matlab.exe при последней инкрементной компоновке; выполняется полная компоновка
+     1>enginedemo.obj : error LNK2019: ссылка на неразрешенный внешний символ mxGetPr в функции main
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets(607,5): error MSB6006: "link.exe" завершилась с кодом 1120.
+     1>enginedemo.obj : error LNK2019: ссылка на неразрешенный внешний символ mxCreateDoubleMatrix_730 в функции main
+     1>enginedemo.obj : error LNK2019: ссылка на неразрешенный внешний символ engEvalString в функции main
+     1>enginedemo.obj : error LNK2019: ссылка на неразрешенный внешний символ engOpen в функции main
+     1>enginedemo.obj : error LNK2019: ссылка на неразрешенный внешний символ engPutVariable в функции main
+     1>C:\Users\Азамат\Desktop\Документы\ЯП\ТиМП\MatLabProj\Matlab\x64\Debug\Matlab.exe : fatal error LNK1120: неразрешенных внешних элементов: 5
+     1>Сборка проекта "C:\Users\Азамат\Desktop\Документы\ЯП\ТиМП\MatLabProj\Matlab\Matlab\Matlab.vcxproj" завершена (целевые объекты Build) с ошибкой.
+
+Ошибка сборки.
+
+Затраченное время: 00:00:18.30
+=======
 ﻿Сборка начата 01.05.2015 19:17:39.
      1>Проект "e:\ТимП\MatLabProj\Matlab\Matlab\Matlab.vcxproj" в узле 2 (целевые объекты Build).
      1>Link:
@@ -8,3 +30,4 @@
 Ошибка сборки.
 
 Затраченное время: 00:00:00.09
+>>>>>>> origin/master

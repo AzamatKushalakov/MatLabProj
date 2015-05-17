@@ -4,49 +4,47 @@
 #include <stdio.h>
 #include <string.h>
 #include "engine.h"
-
+#include "matrix_operations.h"
+#include <cstdio>
 using namespace std;
 int main()
 {
-	int row = 2; // число строк
-	int col = 2; // столбцов
+	setlocale(LC_ALL, "Russian");
+	cout << "Введите число строк и столбцов матрицы A:" << endl;
+	int row_a, col_a;
+	cin >> row_a >> col_a;
+	double **A = new double *[row_a];
+	for (int i = 0; i < row_a; ++i)
+		A[i] = new double[col_a];
+	cout << "Введите матрицу A, последовательно заполняя каждую строку:" << endl;
+	for (int i = 0; i < row_a; ++i)
+	{
+		for (int j = 0; j < col_a; ++j)
+			cin >> A[i][j];
+	}
+	cout << "Матрица A:" << endl;
+	Print_Matrix(row_a, col_a, A);
 
-	// Открытие MATLAB
-	Engine *Eg;
+	cout << "Введите число строк и столбцов матрицы B:" << endl;
+	int row_b, col_b;
+	cin >> row_b >> col_b;
+	double **B = new double *[row_b];
+	for (int i = 0; i < row_b; ++i)
+		B[i] = new double[col_b];
+	cout << "Введите матрицу B, последовательно заполняя каждую строку:" << endl;
+	for (int i = 0; i < row_b; ++i)
+	{
+		for (int j = 0; j < col_b; ++j)
+			cin >> B[i][j];
+	}
+	cout << "Матрица B:" << endl;
+	Print_Matrix(row_b, col_b, B);
 
-	Eg = engOpen(NULL);
-
-    // создаем 1-ую матрицу
-	mxArray *Matrix1;
-
-	Matrix1 = mxCreateDoubleMatrix(row, col, mxREAL); // 1-ая матрица
-
-	double *Matrixx1 = mxGetPr(Matrix1);
-
-	double Arrays[] = { 1, 3, 4, 2 };
-
-	// Копируем мы тут потому из Arrays в Matrixx потому что так устроен матлаб 
-	memcpy(Matrixx1, Arrays, row*col* sizeof(double));
-
-	// Помещаем переменную Matrix1 в рабочую область matlab
-	engPutVariable(Eg, "Matrix1", Matrix1);
-
-	// Создаем 2 матрицу и делаем все аналогично
-	mxArray *Matrix2;
-
-	Matrix2 = mxCreateDoubleMatrix(row, col, mxREAL);
-
-	double *Matrixx2 = mxGetPr(Matrix2);
-
-	double Arrays2[] = { 0, 5, 2, 1 };
-
-	memcpy(Matrixx2, Arrays2, row*col* sizeof(double));
-
-	engPutVariable(Eg, "Matrix2", Matrix2);
-
-	// складываем матрицы в рабочей области matlab
-	engEvalString(Eg, "M_sum = Matrix + Matrix2");
-
+	cout << "A+B = " << endl;
+	double **S = Sum(row_a, col_b, A, B);
+	Print_Matrix(row_a, col_a, S);
+	cout << endl;
+	system("pause");
 	return 0;
 }
 	
