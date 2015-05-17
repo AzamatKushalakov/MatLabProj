@@ -22,8 +22,6 @@ int main()
 		for (int j = 0; j < col_a; ++j)
 			cin >> A[i][j];
 	}
-	cout << "Матрица A:" << endl;
-	Print_Matrix(row_a, col_a, A);
 
 	cout << "Введите число строк и столбцов матрицы B:" << endl;
 	int row_b, col_b;
@@ -37,13 +35,25 @@ int main()
 		for (int j = 0; j < col_b; ++j)
 			cin >> B[i][j];
 	}
+	cout << "Матрица A:" << endl;
+	Print_Matrix(row_a, col_a, A);
 	cout << "Матрица B:" << endl;
 	Print_Matrix(row_b, col_b, B);
 
 	cout << "A+B = " << endl;
-	double **S = Sum(row_a, col_b, A, B);
+	double **S = BinaryOperation(row_a, col_a, A, row_b, col_b, B, '+');
 	Print_Matrix(row_a, col_a, S);
 	cout << endl;
+	cout << "A*B = " << endl;
+	double **P = BinaryOperation(row_a, col_a, A, row_b, col_b, B, '*');
+	Print_Matrix(row_a, col_a, P);
+	cout << endl;
+	double **T = Transpose(row_a, col_a, A);
+	cout << "Transpose(A) =  " << endl;
+	Print_Matrix(col_a, row_a, T);
+	cout << endl;
+	double det = Det(row_b, col_b, B);
+	cout << "Det(B) = " << det << endl;
 	system("pause");
 	return 0;
 }
