@@ -1,4 +1,4 @@
-﻿Сборка начата 18.05.2015 21:19:35.
+﻿Сборка начата 18.05.2015 22:36:17.
      1>Проект "C:\Users\Азамат\Desktop\MatLabProj\Matlab\Matlab\Matlab.vcxproj" в узле 2 (целевые объекты Build).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\MATLAB\R2010b\extern\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt enginedemo.cpp
@@ -11,4 +11,4 @@
 
 Сборка успешно завершена.
 
-Затраченное время: 00:00:02.42
+Затраченное время: 00:00:03.06

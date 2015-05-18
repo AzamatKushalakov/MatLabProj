@@ -7,6 +7,7 @@
 #include "engine.h"
 #include "matrix_operations.h"
 #include <cstdio>
+
 using namespace std;
 
 double** BinaryOperation(int row_a, int col_a, double** Matrix_A , int row_b, int col_b, double** Matrix_B, char operation)
@@ -47,7 +48,7 @@ double** BinaryOperation(int row_a, int col_a, double** Matrix_A , int row_b, in
 	}
 	memcpy(_B, Array_B, row_b*col_b* sizeof(double));
 	engPutVariable(Eg, "B", B);
-	// Выполняем операции над матрицами (Обработать исключения!)
+	// Выполняем операции над матрицами
 	if (operation == '+')
 	{
 		if (row_a == row_b && col_a == col_b)
@@ -86,6 +87,7 @@ double** BinaryOperation(int row_a, int col_a, double** Matrix_A , int row_b, in
 	engClose(Eg); 
 	return Array_R;
 }
+
 double** Transpose(int row, int col, double** Matrix)
 {
 	// Открытие MATLAB
@@ -127,6 +129,7 @@ double** Transpose(int row, int col, double** Matrix)
 	engClose(Eg); // закрываем рабочую область
 	return Array_T;
 }
+
 double Det(int row, int col, double** Matrix)
 {
 	// Открытие MATLAB
@@ -154,6 +157,7 @@ double Det(int row, int col, double** Matrix)
 	double det = *mxGetPr(d);
 	return det;
 }
+
 void Print_Matrix(int row, int col, double** Matrix)
 {	
 	for (int i = 0; i < row; ++i)
