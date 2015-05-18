@@ -1,6 +1,7 @@
 #include <iostream>
 #include <windows.h>
 #include <stdlib.h>
+#include <stdexcept>
 #include <stdio.h>
 #include <string.h>
 #include "engine.h"
@@ -46,15 +47,20 @@ double** BinaryOperation(int row_a, int col_a, double** Matrix_A , int row_b, in
 	}
 	memcpy(_B, Array_B, row_b*col_b* sizeof(double));
 	engPutVariable(Eg, "B", B);
+	// Выполняем операции над матрицами (Обработать исключения!)
 	if (operation == '+')
 	{
 		if (row_a == row_b && col_a == col_b)
 			engEvalString(Eg, "Result = A+B");
+		else
+			throw runtime_error("Размер матриц должен быть одинаковым");
 	}
 	else if (operation == '*')
 	{
-		if (col_a = row_b)
+		if (col_a == row_b)
 			engEvalString(Eg, "Result = A*B");
+		else
+			throw runtime_error("Количество столбцов первой матрицы должно равняться количеству строк второй!!!");
 	}
 	// достаем результат Result
 	mxArray *Result = engGetVariable(Eg, "Result");
@@ -72,10 +78,12 @@ double** BinaryOperation(int row_a, int col_a, double** Matrix_A , int row_b, in
 			Array_R[i][j] = *(mxGetPr(Result) + i + r_row*j);
 		}
 	}
-	mxDestroyArray(A); // освобождаем память
+	// освобождаем память
+	mxDestroyArray(A); 
 	mxDestroyArray(B);
 	mxDestroyArray(Result);
-	engClose(Eg); // закрываем рабочую область
+	// закрываем рабочую область
+	engClose(Eg); 
 	return Array_R;
 }
 double** Transpose(int row, int col, double** Matrix)
@@ -83,6 +91,7 @@ double** Transpose(int row, int col, double** Matrix)
 	// Открытие MATLAB
 	Engine *Eg;
 	Eg = engOpen(NULL);
+	// Создаем матрицу М, делаем все аналогично предыдущему
 	mxArray *M;
 	M = mxCreateDoubleMatrix(row, col, mxREAL);
 	double *_M = mxGetPr(M);
@@ -136,7 +145,10 @@ double Det(int row, int col, double** Matrix)
 	}
 	memcpy(_M, Array_M, row*col* sizeof(double));
 	engPutVariable(Eg, "M", M);
-	engEvalString(Eg, "d = det(M)");
+	if (row == col)
+		engEvalString(Eg, "d = det(M)");
+	else
+		throw runtime_error("Матрица должна быть квадратной!!!");
 	// достаем результат Result
 	mxArray *d = engGetVariable(Eg, "d");
 	double det = *mxGetPr(d);

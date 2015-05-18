@@ -10,9 +10,19 @@ using namespace std;
 int main()
 {
 	setlocale(LC_ALL, "Russian");
-	cout << "Введите число строк и столбцов матрицы A:" << endl;
+	// размеры матрицы А
 	int row_a, col_a;
+	cout << "Введите число строк и столбцов матрицы A:" << endl;
+	
+
 	cin >> row_a >> col_a;
+	
+	if (row_a < 1 || col_a < 1)
+	{
+		cout << "Ошибка!!!! Вам необходимо ввести положительные числа";
+		return 1;
+	}
+
 	double **A = new double *[row_a];
 	for (int i = 0; i < row_a; ++i)
 		A[i] = new double[col_a];
@@ -24,8 +34,14 @@ int main()
 	}
 
 	cout << "Введите число строк и столбцов матрицы B:" << endl;
+	// размеры матрицы B
 	int row_b, col_b;
 	cin >> row_b >> col_b;
+	if (row_b < 1 || col_b < 1)
+	{
+		cout << "Ошибка!!!! Вам необходимо ввести положительные числа";
+		return 1;
+	}
 	double **B = new double *[row_b];
 	for (int i = 0; i < row_b; ++i)
 		B[i] = new double[col_b];
@@ -39,21 +55,51 @@ int main()
 	Print_Matrix(row_a, col_a, A);
 	cout << "Матрица B:" << endl;
 	Print_Matrix(row_b, col_b, B);
-
-	cout << "A+B = " << endl;
-	double **S = BinaryOperation(row_a, col_a, A, row_b, col_b, B, '+');
-	Print_Matrix(row_a, col_a, S);
-	cout << endl;
-	cout << "A*B = " << endl;
-	double **P = BinaryOperation(row_a, col_a, A, row_b, col_b, B, '*');
-	Print_Matrix(row_a, col_a, P);
-	cout << endl;
+	// Сложение
+	cout << "*****************A+B = " << endl;
+	try
+	{
+		double **S = BinaryOperation(row_a, col_a, A, row_b, col_b, B, '+');
+		Print_Matrix(row_a, col_a, S);
+		cout << endl;
+	}
+	catch (exception e)
+	{
+		cout << e.what();
+		return 1;
+	}
+	// Умножение
+	cout << "*****************A*B = " << endl;
+	try
+	{
+		double **P = BinaryOperation(row_a, col_a, A, row_b, col_b, B, '*');
+		Print_Matrix(row_a, col_a, P);
+		cout << endl;
+	}
+	catch (exception e)
+	{
+		cout << e.what();
+		return 1;
+	}
+	
+	// Транспонирование матрицы А
 	double **T = Transpose(row_a, col_a, A);
-	cout << "Transpose(A) =  " << endl;
+	cout << "*****************Transpose(A) =  " << endl;
 	Print_Matrix(col_a, row_a, T);
 	cout << endl;
-	double det = Det(row_b, col_b, B);
-	cout << "Det(B) = " << det << endl;
+	// Определитель матрицы B
+	
+	cout << "*****************Det(B) = ";
+	try
+	{
+		double det = Det(row_b, col_b, B);
+		cout << det << endl;
+	}
+	catch (exception e)
+	{
+		cout << e.what();
+		return 1;
+	}
 	system("pause");
 	return 0;
 }
