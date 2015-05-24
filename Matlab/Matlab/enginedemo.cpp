@@ -62,6 +62,14 @@ int main()
 	cout << "A+B = " << endl;
 	Matrix S = A + B;
 	S.PrintMatr();
+	//cout << "A*B = " << endl;
+	//Matrix P = A * B;
+	//P.PrintMatr();
+	cout << "Transport (B) = " << endl;
+	B.Transport();
+	B.PrintMatr();
+	int det = B.Det();
+	cout << "Det(B) = " << det << endl;
 	system("pause");
 	return 0;
 }

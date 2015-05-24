@@ -16,18 +16,14 @@ private:
 public:
 	Matrix();
 	Matrix(int, int, double**);
-	explicit Matrix(double);
+	Matrix(int, int, mxArray*);
 	~Matrix();
 
-	void SetElements(double **, int, int);
-	void SetRandomElements(int, int);
 	void Transport();
 	void PrintMatr();
+	int Det();
 
 	Matrix  operator = (Matrix);
 	Matrix operator + (Matrix);
 	Matrix operator * (Matrix);
-	double operator () (int, int);
-
-	Matrix operator ! ();
 };

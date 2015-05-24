@@ -17,6 +17,7 @@ Matrix::Matrix()
 	//Функция mxCreateDoubieMatrix выделяет память под структуру mxArray
 	matr = mxCreateDoubleMatrix(row, col, mxREAL);
 }
+
 Matrix::Matrix(int row_, int col_, double** mas)
 {
 	//Engine *Eg;
@@ -42,6 +43,30 @@ Matrix::Matrix(int row_, int col_, double** mas)
 	memcpy(matr_, Array, row*col* sizeof(double));
 
 }
+
+Matrix::Matrix(int row_, int col_, mxArray *matr_)
+{
+	row = row_;
+	col = col_;
+	matr = matr_;
+}
+
+Matrix::~Matrix()
+{
+	// освобождаем память
+	mxDestroyArray(matr);
+}
+
+// Тут по-хорошему ссылки должны быть, надо будет изменить
+Matrix  Matrix::operator = (Matrix  M)
+{
+	mxDestroyArray(matr);
+	row = M.row;
+	col = M.col;
+	matr = M.matr;
+	return *this;
+}
+
 void Matrix::PrintMatr()
 {
 	//Engine *Eg;
@@ -66,10 +91,34 @@ void Matrix::PrintMatr()
 	}
 	cout << endl;
 }
-Matrix::~Matrix()
+void Matrix::Transport()
 {
-	// освобождаем память
+	//Открытие MATLAB
+	Engine *Eg;
+	Eg = engOpen(NULL);
+	engPutVariable(Eg, "M", matr);
+	engEvalString(Eg, "T = M'");
+	// достаем результат T_matr
+	mxArray *T_matr = engGetVariable(Eg, "T");
+	// переводим T в формат С++
+	row = mxGetM(T_matr); // число строк
+	col = mxGetN(T_matr); // число столбцов
 	mxDestroyArray(matr);
+	matr = T_matr;
+}
+int Matrix::Det()
+{
+	// Открытие MATLAB
+	Engine *Eg;
+	Eg = engOpen(NULL);
+	engPutVariable(Eg, "M", matr);
+	engEvalString(Eg, "d = det(M)");
+	if (row == col)
+		engEvalString(Eg, "D = det(M)");
+	// достаем результат D
+	mxArray *D = engGetVariable(Eg, "D");
+	double det = *mxGetPr(D);
+	return det;
 }
 Matrix Matrix::operator + (Matrix M)
 {
@@ -88,15 +137,26 @@ Matrix Matrix::operator + (Matrix M)
 	matr = engGetVariable(Eg, "S");
 	return N;
 }
-// Тут по-хорошему ссылки должны быть, надо будет изменить
-Matrix  Matrix::operator = (Matrix  M)
+Matrix Matrix::operator * (Matrix M)
 {
-	mxDestroyArray(matr);
-	row = M.row;
-	col = M.col;
-	matr = M.matr;
-	return *this;
+	Engine *Eg;
+	Eg = engOpen(NULL);
+	if (col == M.row)
+	{
+		engPutVariable(Eg, "N", matr);
+		engPutVariable(Eg, "M", M.matr);
+		engEvalString(Eg, "P = N*M");
+		mxArray *P_matr = engGetVariable(Eg, "P");
+		int P_row = mxGetM(P_matr); // число строк матрицы P
+		int P_col = mxGetN(P_matr); // число столбцов матрицы P
+		Matrix P(P_row, P_col, P_matr);
+		return P;
+	}
+	//Потом обработаем исключение
+	else
+		return (*this);
 }
+
 //double** BinaryOperation(int row_a, int col_a, double** Matrix_A , int row_b, int col_b, double** Matrix_B, char operation)
 //{
 //	// Открытие MATLAB
