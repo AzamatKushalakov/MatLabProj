@@ -10,163 +10,250 @@
 
 using namespace std;
 
-double** BinaryOperation(int row_a, int col_a, double** Matrix_A , int row_b, int col_b, double** Matrix_B, char operation)
+Matrix::Matrix()
 {
-	// Открытие MATLAB
-	Engine *Eg;
-	Eg = engOpen(NULL);
-
-	// создаем матрицу A
-	mxArray *A;
-	A = mxCreateDoubleMatrix(row_a, col_a, mxREAL);
-	double *_A = mxGetPr(A);
-	double *Array_A = new double[row_a*col_a];
-	for (int j = 0; j < col_a; ++j)
-	{
-		for (int i = 0; i < row_a; ++i)
-		{
-			Array_A[i + j*row_a] = Matrix_A[i][j];
-		}
-	}
-	// Копируем из Arrays_A в A_ 
-	memcpy(_A, Array_A, row_a*col_a* sizeof(double));
-
-	// Помещаем переменную A в рабочую область matlab
-	engPutVariable(Eg, "A", A);
-
-	// Создаем матрицу B и делаем все аналогично
-	mxArray *B;
-	B = mxCreateDoubleMatrix(row_b, col_b, mxREAL);
-	double *_B = mxGetPr(B);
-	double *Array_B = new double[row_b*col_b];
-	for (int j = 0; j < col_b; ++j)
-	{
-		for (int i = 0; i < row_b; ++i)
-		{
-			Array_B[i + j*row_b] = Matrix_B[i][j];
-		}
-	}
-	memcpy(_B, Array_B, row_b*col_b* sizeof(double));
-	engPutVariable(Eg, "B", B);
-	// Выполняем операции над матрицами
-	if (operation == '+')
-	{
-		if (row_a == row_b && col_a == col_b)
-			engEvalString(Eg, "Result = A+B");
-		else
-			throw runtime_error("Размер матриц должен быть одинаковым");
-	}
-	else if (operation == '*')
-	{
-		if (col_a == row_b)
-			engEvalString(Eg, "Result = A*B");
-		else
-			throw runtime_error("Количество столбцов первой матрицы должно равняться количеству строк второй!!!");
-	}
-	// достаем результат Result
-	mxArray *Result = engGetVariable(Eg, "Result");
-
-	// переводим Result в формат С++
-	int r_row = mxGetM(Result); // число строк
-	int r_col = mxGetN(Result); // число столбцов
-	double** Array_R = new double*[r_row];
-	for (int i = 0; i < r_row; ++i)
-		Array_R[i] = new double[r_col];
-	for (int j = 0; j < r_col; ++j)
-	{
-		for (int i = 0; i < r_row; ++i)
-		{
-			Array_R[i][j] = *(mxGetPr(Result) + i + r_row*j);
-		}
-	}
-	// освобождаем память
-	mxDestroyArray(A); 
-	mxDestroyArray(B);
-	mxDestroyArray(Result);
-	// закрываем рабочую область
-	engClose(Eg); 
-	return Array_R;
+	row = 0;
+	col = 0;
+	//Функция mxCreateDoubieMatrix выделяет память под структуру mxArray
+	matr = mxCreateDoubleMatrix(row, col, mxREAL);
 }
-
-double** Transpose(int row, int col, double** Matrix)
+Matrix::Matrix(int row_, int col_, double** mas)
 {
-	// Открытие MATLAB
-	Engine *Eg;
-	Eg = engOpen(NULL);
-	// Создаем матрицу М, делаем все аналогично предыдущему
-	mxArray *M;
-	M = mxCreateDoubleMatrix(row, col, mxREAL);
-	double *_M = mxGetPr(M);
-	double *Array_M = new double[row*col];
+	//Engine *Eg;
+	//Eg = engOpen(NULL);
+	row = row_;
+	col = col_;
+	matr = mxCreateDoubleMatrix(row, col, mxREAL);
+	// получения доступа к элементам массива
+	double* matr_ = mxGetPr(matr);
+
+	// создаем одномерный массив
+	double *Array = new double[row*col];
+
+	// заполняем его элементами двумерного массива mas
 	for (int j = 0; j < col; ++j)
 	{
 		for (int i = 0; i < row; ++i)
 		{
-			Array_M[i + j*row] = Matrix[i][j];
+			Array[i + j*row] = mas[i][j];
 		}
 	}
-	memcpy(_M, Array_M, row*col* sizeof(double));
-	engPutVariable(Eg, "M", M);
-	engEvalString(Eg, "T = M'");
-	// достаем результат Result
-	mxArray *T = engGetVariable(Eg, "T");
+	// Копируем из Array в matr_ 
+	memcpy(matr_, Array, row*col* sizeof(double));
 
-	// переводим Result в формат С++
-	int t_row = mxGetM(T); // число строк
-	int t_col = mxGetN(T); // число столбцов
-	double** Array_T = new double*[t_row];
-	for (int i = 0; i < t_row; ++i)
-		Array_T[i] = new double[t_col];
-	for (int j = 0; j < t_col; ++j)
-	{
-		for (int i = 0; i < t_row; ++i)
-		{
-			Array_T[i][j] = *(mxGetPr(T) + i + t_row*j);
-		}
-	}
-	mxDestroyArray(M); // освобождаем память
-	mxDestroyArray(T);
-	engClose(Eg); // закрываем рабочую область
-	return Array_T;
 }
-
-double Det(int row, int col, double** Matrix)
+void Matrix::PrintMatr()
 {
-	// Открытие MATLAB
-	Engine *Eg;
-	Eg = engOpen(NULL);
-	mxArray *M;
-	M = mxCreateDoubleMatrix(row, col, mxREAL);
-	double *_M = mxGetPr(M);
-	double *Array_M = new double[row*col];
+	//Engine *Eg;
+	//Eg = engOpen(NULL);
+	double** mas = new double*[row];
+	for (int i = 0; i < row; ++i)
+		mas[i] = new double[col];
 	for (int j = 0; j < col; ++j)
 	{
 		for (int i = 0; i < row; ++i)
 		{
-			Array_M[i + j*row] = Matrix[i][j];
+			mas[i][j] = *(mxGetPr(matr) + i + row*j);
 		}
 	}
-	memcpy(_M, Array_M, row*col* sizeof(double));
-	engPutVariable(Eg, "M", M);
-	if (row == col)
-		engEvalString(Eg, "d = det(M)");
-	else
-		throw runtime_error("Матрица должна быть квадратной!!!");
-	// достаем результат Result
-	mxArray *d = engGetVariable(Eg, "d");
-	double det = *mxGetPr(d);
-	return det;
-}
-
-void Print_Matrix(int row, int col, double** Matrix)
-{	
 	for (int i = 0; i < row; ++i)
 	{
 		for (int j = 0; j < col; ++j)
 		{
-			printf("%8.2f", Matrix[i][j]);
+			printf("%8.2f", mas[i][j]);
 		}
 		cout << "\n";
 	}
 	cout << endl;
 }
+Matrix::~Matrix()
+{
+	// освобождаем память
+	mxDestroyArray(matr);
+}
+Matrix Matrix::operator + (Matrix M)
+{
+	Engine *Eg;
+	Eg = engOpen(NULL);
+	Matrix N(*this);
+	if ((N.row == M.row) && (N.col == M.col))
+	{
+		engPutVariable(Eg, "N", matr);
+		engPutVariable(Eg, "M", M.matr);
+		engEvalString(Eg, "S = N+M");
+	}
+	mxDestroyArray(matr);
+
+	// достаем результат из матлаба
+	matr = engGetVariable(Eg, "S");
+	return N;
+}
+// Тут по-хорошему ссылки должны быть, надо будет изменить
+Matrix  Matrix::operator = (Matrix  M)
+{
+	mxDestroyArray(matr);
+	row = M.row;
+	col = M.col;
+	matr = M.matr;
+	return *this;
+}
+//double** BinaryOperation(int row_a, int col_a, double** Matrix_A , int row_b, int col_b, double** Matrix_B, char operation)
+//{
+//	// Открытие MATLAB
+//	Engine *Eg;
+//	Eg = engOpen(NULL);
+//
+//	// создаем матрицу A
+//	mxArray *A;
+//	A = mxCreateDoubleMatrix(row_a, col_a, mxREAL);
+//	double *_A = mxGetPr(A);
+//	double *Array_A = new double[row_a*col_a];
+//	for (int j = 0; j < col_a; ++j)
+//	{
+//		for (int i = 0; i < row_a; ++i)
+//		{
+//			Array_A[i + j*row_a] = Matrix_A[i][j];
+//		}
+//	}
+//	// Копируем из Arrays_A в A_ 
+//	memcpy(_A, Array_A, row_a*col_a* sizeof(double));
+//
+//	// Помещаем переменную A в рабочую область matlab
+//	engPutVariable(Eg, "A", A);
+//
+//	// Создаем матрицу B и делаем все аналогично
+//	mxArray *B;
+//	B = mxCreateDoubleMatrix(row_b, col_b, mxREAL);
+//	double *_B = mxGetPr(B);
+//	double *Array_B = new double[row_b*col_b];
+//	for (int j = 0; j < col_b; ++j)
+//	{
+//		for (int i = 0; i < row_b; ++i)
+//		{
+//			Array_B[i + j*row_b] = Matrix_B[i][j];
+//		}
+//	}
+//	memcpy(_B, Array_B, row_b*col_b* sizeof(double));
+//	engPutVariable(Eg, "B", B);
+//	// Выполняем операции над матрицами
+//	if (operation == '+')
+//	{
+//		if (row_a == row_b && col_a == col_b)
+//			engEvalString(Eg, "Result = A+B");
+//		else
+//			throw runtime_error("Размер матриц должен быть одинаковым");
+//	}
+//	else if (operation == '*')
+//	{
+//		if (col_a == row_b)
+//			engEvalString(Eg, "Result = A*B");
+//		else
+//			throw runtime_error("Количество столбцов первой матрицы должно равняться количеству строк второй!!!");
+//	}
+//	// достаем результат Result
+//	mxArray *Result = engGetVariable(Eg, "Result");
+//
+//	// переводим Result в формат С++
+//	int r_row = mxGetM(Result); // число строк
+//	int r_col = mxGetN(Result); // число столбцов
+//	double** Array_R = new double*[r_row];
+//	for (int i = 0; i < r_row; ++i)
+//		Array_R[i] = new double[r_col];
+//	for (int j = 0; j < r_col; ++j)
+//	{
+//		for (int i = 0; i < r_row; ++i)
+//		{
+//			Array_R[i][j] = *(mxGetPr(Result) + i + r_row*j);
+//		}
+//	}
+//	// освобождаем память
+//	mxDestroyArray(A); 
+//	mxDestroyArray(B);
+//	mxDestroyArray(Result);
+//	// закрываем рабочую область
+//	engClose(Eg); 
+//	return Array_R;
+//}
+//
+//double** Transpose(int row, int col, double** Matrix)
+//{
+//	// Открытие MATLAB
+//	Engine *Eg;
+//	Eg = engOpen(NULL);
+//	// Создаем матрицу М, делаем все аналогично предыдущему
+//	mxArray *M;
+//	M = mxCreateDoubleMatrix(row, col, mxREAL);
+//	double *_M = mxGetPr(M);
+//	double *Array_M = new double[row*col];
+//	for (int j = 0; j < col; ++j)
+//	{
+//		for (int i = 0; i < row; ++i)
+//		{
+//			Array_M[i + j*row] = Matrix[i][j];
+//		}
+//	}
+//	memcpy(_M, Array_M, row*col* sizeof(double));
+//	engPutVariable(Eg, "M", M);
+//	engEvalString(Eg, "T = M'");
+//	// достаем результат Result
+//	mxArray *T = engGetVariable(Eg, "T");
+//
+//	// переводим Result в формат С++
+//	int t_row = mxGetM(T); // число строк
+//	int t_col = mxGetN(T); // число столбцов
+//	double** Array_T = new double*[t_row];
+//	for (int i = 0; i < t_row; ++i)
+//		Array_T[i] = new double[t_col];
+//	for (int j = 0; j < t_col; ++j)
+//	{
+//		for (int i = 0; i < t_row; ++i)
+//		{
+//			Array_T[i][j] = *(mxGetPr(T) + i + t_row*j);
+//		}
+//	}
+//	mxDestroyArray(M); // освобождаем память
+//	mxDestroyArray(T);
+//	engClose(Eg); // закрываем рабочую область
+//	return Array_T;
+//}
+//
+//double Det(int row, int col, double** Matrix)
+//{
+//	// Открытие MATLAB
+//	Engine *Eg;
+//	Eg = engOpen(NULL);
+//	mxArray *M;
+//	M = mxCreateDoubleMatrix(row, col, mxREAL);
+//	double *_M = mxGetPr(M);
+//	double *Array_M = new double[row*col];
+//	for (int j = 0; j < col; ++j)
+//	{
+//		for (int i = 0; i < row; ++i)
+//		{
+//			Array_M[i + j*row] = Matrix[i][j];
+//		}
+//	}
+//	memcpy(_M, Array_M, row*col* sizeof(double));
+//	engPutVariable(Eg, "M", M);
+//	if (row == col)
+//		engEvalString(Eg, "d = det(M)");
+//	else
+//		throw runtime_error("Матрица должна быть квадратной!!!");
+//	// достаем результат Result
+//	mxArray *d = engGetVariable(Eg, "d");
+//	double det = *mxGetPr(d);
+//	return det;
+//}
+//
+//void Print_Matrix(int row, int col, double** Matrix)
+//{	
+//	for (int i = 0; i < row; ++i)
+//	{
+//		for (int j = 0; j < col; ++j)
+//		{
+//			printf("%8.2f", Matrix[i][j]);
+//		}
+//		cout << "\n";
+//	}
+//	cout << endl;
+//}
