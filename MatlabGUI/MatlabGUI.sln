@@ -5,16 +5,30 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MatlabGUI", "MatlabGUI\MatlabGUI.vcxproj", "{797E49D5-32A8-452A-B460-8A752A2DAFF5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Matlab", "..\Matlab\Matlab\Matlab.vcxproj", "{8D87DCAC-3FDB-484F-BCD0-34C976EEC382}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
 		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{797E49D5-32A8-452A-B460-8A752A2DAFF5}.Debug|Win32.ActiveCfg = Debug|Win32
 		{797E49D5-32A8-452A-B460-8A752A2DAFF5}.Debug|Win32.Build.0 = Debug|Win32
+		{797E49D5-32A8-452A-B460-8A752A2DAFF5}.Debug|x64.ActiveCfg = Debug|Win32
 		{797E49D5-32A8-452A-B460-8A752A2DAFF5}.Release|Win32.ActiveCfg = Release|Win32
 		{797E49D5-32A8-452A-B460-8A752A2DAFF5}.Release|Win32.Build.0 = Release|Win32
+		{797E49D5-32A8-452A-B460-8A752A2DAFF5}.Release|x64.ActiveCfg = Release|Win32
+		{8D87DCAC-3FDB-484F-BCD0-34C976EEC382}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8D87DCAC-3FDB-484F-BCD0-34C976EEC382}.Debug|Win32.Build.0 = Debug|Win32
+		{8D87DCAC-3FDB-484F-BCD0-34C976EEC382}.Debug|x64.ActiveCfg = Debug|x64
+		{8D87DCAC-3FDB-484F-BCD0-34C976EEC382}.Debug|x64.Build.0 = Debug|x64
+		{8D87DCAC-3FDB-484F-BCD0-34C976EEC382}.Release|Win32.ActiveCfg = Release|Win32
+		{8D87DCAC-3FDB-484F-BCD0-34C976EEC382}.Release|Win32.Build.0 = Release|Win32
+		{8D87DCAC-3FDB-484F-BCD0-34C976EEC382}.Release|x64.ActiveCfg = Release|x64
+		{8D87DCAC-3FDB-484F-BCD0-34C976EEC382}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
