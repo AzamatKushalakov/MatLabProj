@@ -50,6 +50,12 @@ namespace MatlabGUI {
 	private: System::Windows::Forms::NumericUpDown^  numericUpDown4;
 	private: System::Windows::Forms::DataGridView^  dataGridView1;
 	private: System::Windows::Forms::DataGridView^  dataGridView2;
+	private: System::Windows::Forms::DataGridView^  dataGridView3;
+	private: System::Windows::Forms::Button^  button2;
+	private: System::Windows::Forms::Button^  button3;
+	private: System::Windows::Forms::Button^  button4;
+	private: System::Windows::Forms::Button^  button5;
+	private: System::Windows::Forms::Button^  button6;
 
 
 	private:
@@ -57,6 +63,7 @@ namespace MatlabGUI {
 		/// Требуется переменная конструктора.
 		/// </summary>
 		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -77,19 +84,26 @@ namespace MatlabGUI {
 			this->numericUpDown4 = (gcnew System::Windows::Forms::NumericUpDown());
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
 			this->dataGridView2 = (gcnew System::Windows::Forms::DataGridView());
+			this->dataGridView3 = (gcnew System::Windows::Forms::DataGridView());
+			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->button3 = (gcnew System::Windows::Forms::Button());
+			this->button4 = (gcnew System::Windows::Forms::Button());
+			this->button5 = (gcnew System::Windows::Forms::Button());
+			this->button6 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown3))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown4))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView3))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// radioButton1
 			// 
 			this->radioButton1->AutoSize = true;
 			this->radioButton1->Checked = true;
-			this->radioButton1->Location = System::Drawing::Point(24, 26);
+			this->radioButton1->Location = System::Drawing::Point(27, 12);
 			this->radioButton1->Name = L"radioButton1";
 			this->radioButton1->Size = System::Drawing::Size(94, 17);
 			this->radioButton1->TabIndex = 0;
@@ -99,9 +113,9 @@ namespace MatlabGUI {
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(250, 303);
+			this->button1->Location = System::Drawing::Point(299, 43);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(137, 56);
+			this->button1->Size = System::Drawing::Size(58, 32);
 			this->button1->TabIndex = 2;
 			this->button1->Text = L"OK";
 			this->button1->UseVisualStyleBackColor = true;
@@ -109,14 +123,14 @@ namespace MatlabGUI {
 			// 
 			// numericUpDown1
 			// 
-			this->numericUpDown1->Location = System::Drawing::Point(155, 55);
+			this->numericUpDown1->Location = System::Drawing::Point(157, 43);
 			this->numericUpDown1->Name = L"numericUpDown1";
 			this->numericUpDown1->Size = System::Drawing::Size(120, 20);
 			this->numericUpDown1->TabIndex = 3;
 			// 
 			// numericUpDown2
 			// 
-			this->numericUpDown2->Location = System::Drawing::Point(157, 82);
+			this->numericUpDown2->Location = System::Drawing::Point(157, 62);
 			this->numericUpDown2->Name = L"numericUpDown2";
 			this->numericUpDown2->Size = System::Drawing::Size(120, 20);
 			this->numericUpDown2->TabIndex = 4;
@@ -124,7 +138,7 @@ namespace MatlabGUI {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(24, 57);
+			this->label1->Location = System::Drawing::Point(24, 43);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(109, 13);
 			this->label1->TabIndex = 5;
@@ -133,7 +147,7 @@ namespace MatlabGUI {
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(24, 84);
+			this->label2->Location = System::Drawing::Point(24, 62);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(127, 13);
 			this->label2->TabIndex = 6;
@@ -142,7 +156,7 @@ namespace MatlabGUI {
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(372, 57);
+			this->label3->Location = System::Drawing::Point(372, 43);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(109, 13);
 			this->label3->TabIndex = 7;
@@ -151,7 +165,7 @@ namespace MatlabGUI {
 			// label4
 			// 
 			this->label4->AutoSize = true;
-			this->label4->Location = System::Drawing::Point(372, 84);
+			this->label4->Location = System::Drawing::Point(372, 62);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(127, 13);
 			this->label4->TabIndex = 8;
@@ -159,41 +173,106 @@ namespace MatlabGUI {
 			// 
 			// numericUpDown3
 			// 
-			this->numericUpDown3->Location = System::Drawing::Point(553, 55);
+			this->numericUpDown3->Location = System::Drawing::Point(513, 43);
 			this->numericUpDown3->Name = L"numericUpDown3";
 			this->numericUpDown3->Size = System::Drawing::Size(120, 20);
 			this->numericUpDown3->TabIndex = 9;
 			// 
 			// numericUpDown4
 			// 
-			this->numericUpDown4->Location = System::Drawing::Point(553, 82);
+			this->numericUpDown4->Location = System::Drawing::Point(513, 62);
 			this->numericUpDown4->Name = L"numericUpDown4";
 			this->numericUpDown4->Size = System::Drawing::Size(120, 20);
 			this->numericUpDown4->TabIndex = 10;
 			// 
 			// dataGridView1
 			// 
+			this->dataGridView1->AllowUserToAddRows = false;
 			this->dataGridView1->AllowUserToDeleteRows = false;
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Location = System::Drawing::Point(27, 118);
+			this->dataGridView1->Location = System::Drawing::Point(54, 101);
 			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->Size = System::Drawing::Size(240, 150);
+			this->dataGridView1->Size = System::Drawing::Size(192, 137);
 			this->dataGridView1->TabIndex = 11;
 			// 
 			// dataGridView2
 			// 
+			this->dataGridView2->AllowUserToAddRows = false;
 			this->dataGridView2->AllowUserToDeleteRows = false;
 			this->dataGridView2->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView2->Location = System::Drawing::Point(375, 118);
+			this->dataGridView2->Location = System::Drawing::Point(418, 101);
 			this->dataGridView2->Name = L"dataGridView2";
-			this->dataGridView2->Size = System::Drawing::Size(240, 150);
+			this->dataGridView2->Size = System::Drawing::Size(192, 137);
 			this->dataGridView2->TabIndex = 12;
+			// 
+			// dataGridView3
+			// 
+			this->dataGridView3->AllowUserToAddRows = false;
+			this->dataGridView3->AllowUserToDeleteRows = false;
+			this->dataGridView3->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView3->Location = System::Drawing::Point(228, 258);
+			this->dataGridView3->Name = L"dataGridView3";
+			this->dataGridView3->ReadOnly = true;
+			this->dataGridView3->Size = System::Drawing::Size(192, 137);
+			this->dataGridView3->TabIndex = 13;
+			// 
+			// button2
+			// 
+			this->button2->Location = System::Drawing::Point(299, 101);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(75, 27);
+			this->button2->TabIndex = 14;
+			this->button2->Text = L"+";
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
+			// 
+			// button3
+			// 
+			this->button3->Location = System::Drawing::Point(299, 134);
+			this->button3->Name = L"button3";
+			this->button3->Size = System::Drawing::Size(75, 23);
+			this->button3->TabIndex = 15;
+			this->button3->Text = L"*";
+			this->button3->UseVisualStyleBackColor = true;
+			// 
+			// button4
+			// 
+			this->button4->Location = System::Drawing::Point(299, 164);
+			this->button4->Name = L"button4";
+			this->button4->Size = System::Drawing::Size(75, 23);
+			this->button4->TabIndex = 16;
+			this->button4->Text = L"Определитель";
+			this->button4->UseVisualStyleBackColor = true;
+			// 
+			// button5
+			// 
+			this->button5->Location = System::Drawing::Point(299, 193);
+			this->button5->Name = L"button5";
+			this->button5->Size = System::Drawing::Size(75, 23);
+			this->button5->TabIndex = 17;
+			this->button5->Text = L"Транспонирование";
+			this->button5->UseVisualStyleBackColor = true;
+			// 
+			// button6
+			// 
+			this->button6->Location = System::Drawing::Point(299, 222);
+			this->button6->Name = L"button6";
+			this->button6->Size = System::Drawing::Size(75, 23);
+			this->button6->TabIndex = 18;
+			this->button6->Text = L"Обратная";
+			this->button6->UseVisualStyleBackColor = true;
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(696, 371);
+			this->ClientSize = System::Drawing::Size(674, 422);
+			this->Controls->Add(this->button6);
+			this->Controls->Add(this->button5);
+			this->Controls->Add(this->button4);
+			this->Controls->Add(this->button3);
+			this->Controls->Add(this->button2);
+			this->Controls->Add(this->dataGridView3);
 			this->Controls->Add(this->dataGridView2);
 			this->Controls->Add(this->dataGridView1);
 			this->Controls->Add(this->numericUpDown4);
@@ -208,27 +287,68 @@ namespace MatlabGUI {
 			this->Controls->Add(this->radioButton1);
 			this->Name = L"MyForm";
 			this->Text = L"MatrixCalculator";
-			/*this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);*/
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown3))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown4))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView3))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
 		// Заполнение элементов в таблицу вручную (не знаю как сделать с классами, нужно будет разобраться)
-	private: void Mass_A_Creator(int row_a, int col_a, double **mas_A)
+	private: void Mass_B_Creator(int row_b, int col_b, double **mas_B)
 	{
-				 for (int i = 0; i < row_a; i++){
-					 for (int j = 0; j < col_a; j++){
-						 mas_A[i][j] = Convert::ToInt32(dataGridView1->Rows[i]->Cells[j]->Value);
+				 for (int i = 0; i < row_b; i++){
+					 for (int j = 0; j < col_b; j++){
+						 mas_B[i][j] = Convert::ToInt32(dataGridView1->Rows[i]->Cells[j]->Value);
 					 }
 				 }
 					
+	}
+		private: void Mass_A_Creator(int row_a, int col_a, double **mas_A)
+		{
+					 for (int i = 0; i < row_a; i++){
+						 for (int j = 0; j < col_a; j++){
+							 mas_A[i][j] = Convert::ToInt32(dataGridView1->Rows[i]->Cells[j]->Value);
+						 }
+					 }
+
+		}
+	private:void Show_Mass_A(int row_a, int col_a, double **mas_A)
+	{
+		for (int i = 0; i < row_a; i++){
+			for (int j = 0; j < col_a; j++){
+				// Название таблицы в верхнем левом углу
+				dataGridView1->TopLeftHeaderCell->Value = "Матрица";
+				// Вывод номеров столбцов
+				dataGridView1->Columns[j]->HeaderCell->Value = Convert::ToString(j + 1);
+				// Вывод номеров строк
+				dataGridView1->Rows[i]->HeaderCell->Value = Convert::ToString(i + 1);
+				// Вывод значений
+				dataGridView1->Rows[i]->Cells[j]->Value = mas_A[i][j];
+
+			}
+		}
+	}
+	private:void Show_Mass_B(int row_b, int col_b, double **mas_B)
+	{
+		for (int i = 0; i < row_b; i++){
+			for (int j = 0; j < col_b; j++){
+				// Название таблицы в верхнем левом углу
+				dataGridView2->TopLeftHeaderCell->Value = "Матрица";
+				// Вывод номеров столбцов
+				dataGridView2->Columns[j]->HeaderCell->Value = Convert::ToString(j + 1);
+				// Вывод номеров строк
+				dataGridView2->Rows[i]->HeaderCell->Value = Convert::ToString(i + 1);
+				// Вывод значений
+				dataGridView2->Rows[i]->Cells[j]->Value = mas_B[i][j];
+
+			}
+		}
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 				 // размеры, которые мы ввели в форме
@@ -251,8 +371,22 @@ namespace MatlabGUI {
 				 dataGridView2->RowCount = row_b;
 				 if (radioButton1->Checked){
 					 Mass_A_Creator(row_a,col_a,mas_A);
-					 Matrix A(row_a, col_a, mas_A);
+					 Mass_B_Creator(row_b, col_b, mas_B);
+					 
 				 }
+				 Show_Mass_A(row_a, col_a, mas_A);
+				 Show_Mass_B(row_b, col_b, mas_B);
+				 // Выравнивание ячеек
+				 dataGridView1->AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode::AutoSizeToAllHeaders);
+				 dataGridView1->AutoResizeColumns();
+				 dataGridView2->AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode::AutoSizeToAllHeaders);
+				 dataGridView2->AutoResizeColumns();
+				 Matrix A(row_a, col_a, mas_A);
+				 Matrix B(row_b, col_b, mas_B);
+
 	}
+private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
+
+}
 };
 }

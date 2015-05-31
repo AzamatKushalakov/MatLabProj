@@ -1,1 +1,17 @@
-﻿
+﻿Сборка начата 31.05.2015 20:25:31.
+     1>Проект "C:\Users\Азамат\Desktop\MatLabProj\Matlab\Matlab\Matlab.vcxproj" в узле 3 (целевые объекты Rebuild).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\MATLAB\R2010b\extern\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt enginedemo.cpp matrix_operations.cpp
+         matrix_operations.cpp
+     1>c:\users\азамат\desktop\matlabproj\matlab\matlab\matrix_operations.cpp(121): warning C4244: return: преобразование "double" в "int", возможна потеря данных
+         enginedemo.cpp
+         Создание кода...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Азамат\Desktop\MatLabProj\MatlabGUI\Debug\Matlab.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\MATLAB\R2010b\extern\lib\win32\microsoft" libeng.lib libmx.lib libmat.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Азамат\Desktop\MatLabProj\MatlabGUI\Debug\Matlab.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Азамат\Desktop\MatLabProj\MatlabGUI\Debug\Matlab.lib" /MACHINE:X86 Debug\enginedemo.obj
+         Debug\matrix_operations.obj
+         Matlab.vcxproj -> C:\Users\Азамат\Desktop\MatLabProj\MatlabGUI\Debug\Matlab.exe
+     1>Сборка проекта "C:\Users\Азамат\Desktop\MatLabProj\Matlab\Matlab\Matlab.vcxproj" завершена (целевые объекты Rebuild).
+
+Сборка успешно завершена.
+
+Затраченное время: 00:00:07.27
