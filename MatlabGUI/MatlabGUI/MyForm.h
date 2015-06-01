@@ -1,6 +1,7 @@
 #pragma once
 #include "engine.h"
 #include "matrix_operations.h"
+#include <stdexcept>
 
 namespace MatlabGUI {
 
@@ -210,7 +211,7 @@ namespace MatlabGUI {
 			this->dataGridView3->AllowUserToAddRows = false;
 			this->dataGridView3->AllowUserToDeleteRows = false;
 			this->dataGridView3->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView3->Location = System::Drawing::Point(228, 258);
+			this->dataGridView3->Location = System::Drawing::Point(237, 260);
 			this->dataGridView3->Name = L"dataGridView3";
 			this->dataGridView3->ReadOnly = true;
 			this->dataGridView3->Size = System::Drawing::Size(192, 137);
@@ -349,6 +350,31 @@ namespace MatlabGUI {
 
 			}
 		}
+	}
+			// Считывание из таблицы в массив (поправить исключения)
+	private: double** ReadFromDGV(DataGridView dataGridView)
+	{
+		double **mas = new double *[dataGridView.RowCount];
+		for (int i = 0; i < dataGridView.RowCount; ++i)
+			mas[i] = new double[dataGridView.ColumnCount];
+		try//отлов исключений
+		{
+			for (int i = 0; i < dataGridView.RowCount; i++)
+			{
+				for (int j = 0; j < dataGridView.ColumnCount; j++)
+				{
+					//Преобразуем значения из ячеек в числа, и пишем в массив
+					//Если не число то происходит вызов исключения и его обработка
+					mas[i][j] = Convert::ToDouble(dataGridView.Rows[i]->Cells[j]->Value);
+				}
+			}
+		}
+		catch (System.Exception e)//обработка пойманного исключения
+		{
+			throw new matricException(e.Message + "\n(Использование букв и символов недопустимо!)");
+			// MessageBox.Show(e.Message + "\n(Использование букв и символов недопустимо!)", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+		}
+		return mas;
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 				 // размеры, которые мы ввели в форме
