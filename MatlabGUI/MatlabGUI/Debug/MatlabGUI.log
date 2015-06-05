@@ -1,0 +1,14 @@
+﻿Сборка начата 04.06.2015 12:29:00.
+     1>Проект "C:\Users\Азамат\Desktop\MatLabProj\MatlabGUI\MatlabGUI\MatlabGUI.vcxproj" в узле 2 (целевые объекты Build).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\MATLAB\R2010b\extern\include" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /sdl- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Drawing.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Windows.Forms.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.dll" /analyze- /errorReport:prompt /clr:nostdlib MyForm.cpp
+         MyForm.cpp
+     1>c:\users\азамат\desktop\matlabproj\matlabgui\matlabgui\MyForm.h(372): warning C4101: e: неиспользованная локальная переменная
+     1>c:\users\азамат\desktop\matlabproj\matlabgui\matlabgui\MyForm.h(419): error C2664: "double **MatlabGUI::MyForm::ReadFromDGV(System::Windows::Forms::DataGridView)": невозможно преобразовать аргумент 1 из "System::Windows::Forms::DataGridView ^" в "System::Windows::Forms::DataGridView"
+                 Оператор определенного пользователем преобразования недоступен, или
+                 Для выполнения данного преобразования нет доступного оператора преобразования, определенного пользователем, или вызов оператора невозможен
+     1>Сборка проекта "C:\Users\Азамат\Desktop\MatLabProj\MatlabGUI\MatlabGUI\MatlabGUI.vcxproj" завершена (целевые объекты Build) с ошибкой.
+
+Ошибка сборки.
+
+Затраченное время: 00:00:02.43

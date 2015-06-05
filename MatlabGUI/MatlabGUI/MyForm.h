@@ -369,19 +369,24 @@ namespace MatlabGUI {
 				}
 			}
 		}
-		catch (System.Exception e)//обработка пойманного исключения
+		catch (InvalidCastException^ e)//обработка пойманного исключения
 		{
-			throw new matricException(e.Message + "\n(Использование букв и символов недопустимо!)");
+			MessageBox::Show("\n(Использование букв и символов недопустимо!)");
 			// MessageBox.Show(e.Message + "\n(Использование букв и символов недопустимо!)", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 		return mas;
 	}
+			 int row_a = 0;
+			 int col_a = 0;
+			 int row_b = 0;
+			 int col_b = 0;
+
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 				 // размеры, которые мы ввели в форме
-				 int row_a = Convert::ToInt32(numericUpDown1->Value);
-				 int col_a = Convert::ToInt32(numericUpDown2->Value);
-				 int row_b = Convert::ToInt32(numericUpDown3->Value);
-				 int col_b = Convert::ToInt32(numericUpDown4->Value);
+				 row_a = Convert::ToInt32(numericUpDown1->Value);
+				 col_a = Convert::ToInt32(numericUpDown2->Value);
+				 row_b = Convert::ToInt32(numericUpDown3->Value);
+				 col_b = Convert::ToInt32(numericUpDown4->Value);
 				
 				 double **mas_A = new double *[row_a];
 				 for (int i = 0; i < row_a; ++i)
@@ -409,10 +414,9 @@ namespace MatlabGUI {
 				 dataGridView2->AutoResizeColumns();
 				 Matrix A(row_a, col_a, mas_A);
 				 Matrix B(row_b, col_b, mas_B);
-
 	}
 private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
-
+			  double **p = ReadFromDGV(dataGridView1);
 }
 };
 }
