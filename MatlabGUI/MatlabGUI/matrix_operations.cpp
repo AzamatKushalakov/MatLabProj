@@ -66,7 +66,28 @@ Matrix  Matrix::operator = (Matrix  M)
 	matr = M.matr;
 	return *this;
 }
-
+int Matrix::GetColumns()
+{
+	return col;
+}
+int Matrix::GetRows()
+{
+	return row;
+}
+double** Matrix::ReturnMass(Matrix)
+{
+	double** mas = new double*[row];
+	for (int i = 0; i < row; ++i)
+		mas[i] = new double[col];
+	for (int j = 0; j < col; ++j)
+	{
+		for (int i = 0; i < row; ++i)
+		{
+			mas[i][j] = *(mxGetPr(matr) + i + row*j);
+		}
+	}
+	return mas;
+}
 void Matrix::PrintMatr()
 {
 	//Engine *Eg;

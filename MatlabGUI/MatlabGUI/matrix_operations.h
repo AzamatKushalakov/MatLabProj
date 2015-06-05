@@ -19,10 +19,12 @@ public:
 	Matrix(int, int, mxArray*);
 	~Matrix();
 
+	double** ReturnMass(Matrix);
 	void Transport();
 	void PrintMatr();
 	int Det();
-
+	int GetColumns();
+	int GetRows();
 	Matrix  operator = (Matrix);
 	Matrix operator + (Matrix);
 	Matrix operator * (Matrix);
