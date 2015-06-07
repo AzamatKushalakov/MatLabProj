@@ -1,7 +1,3 @@
-//double** BinaryOperation(int, int, double** , int, int, double **, char);
-//double** Transpose(int, int, double**);
-//double Det(int, int, double**);
-//void Print_Matrix(int, int, double**);
 #pragma once
 #include <iostream>
 
@@ -10,22 +6,23 @@ using namespace std;
 class Matrix
 {
 private:
+	// mxArray - структура представления массивов в Matlab
 	mxArray *matr;
-	int row;
-	int col;
+	int row; // число строк матрицы
+	int col; // столбцов
 public:
-	Matrix();
-	Matrix(int, int, double**);
-	Matrix(int, int, mxArray*);
-	~Matrix();
+	Matrix(); // конструктор, создающий пустую матрицу
+	Matrix(int, int, double**); // конструктор с параметрами, заполняющий матрицу элементами передаваемого двумерного массива
+	Matrix(mxArray*); // конструктор с параметром
+	~Matrix(); // деструктор
 
-	double** ReturnMass(Matrix);
-	void Transport();
-	void PrintMatr();
-	int Det();
-	int GetColumns();
-	int GetRows();
-	Matrix  operator = (Matrix);
-	Matrix operator + (Matrix);
-	Matrix operator * (Matrix);
+	// методы и операторы, выполняющие некоторые операции с матрицами
+	void Transport(); // транспонирование матрицы
+	void PrintMatr(); // вывод матриц в консоль
+	int Det(); // определитель матрицы
+	double** ReturnMass(Matrix); // возвращает двумерный массив, заполненный элементами матрицы Matrix
+
+	Matrix  operator = (Matrix); // оператор присваивания
+	Matrix operator + (Matrix); // оператор сложения
+	Matrix operator * (Matrix); // оператор умножения
 };
