@@ -384,8 +384,8 @@ namespace MatlabGUI {
 	    double **mas = new double *[dataGridView->RowCount];
 		for (int i = 0; i < dataGridView->RowCount; ++i)
 			mas[i] = new double[dataGridView->ColumnCount];
-		try//отлов исключений
-		{
+		//try//отлов исключений
+		//{
 			for (int i = 0; i < dataGridView->RowCount; i++)
 			{
 				for (int j = 0; j < dataGridView->ColumnCount; j++)
@@ -395,12 +395,12 @@ namespace MatlabGUI {
 					mas[i][j] = Convert::ToDouble(dataGridView->Rows[i]->Cells[j]->Value);
 				}
 			}
-		}
-		catch (InvalidCastException^ e)//обработка пойманного исключения
-		{
-			MessageBox::Show("\n(Использование букв и символов недопустимо!)");
-			// MessageBox.Show(e.Message + "\n(Использование букв и символов недопустимо!)", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-		}
+		//}
+		//catch (InvalidCastException^ e)//обработка пойманного исключения
+		//{
+		//	MessageBox::Show("\n(Использование букв и символов недопустимо!)");
+		//	// MessageBox.Show(e.Message + "\n(Использование букв и символов недопустимо!)", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+		//}
 		return mas;
 	}
 			 // размеры
@@ -445,24 +445,38 @@ namespace MatlabGUI {
 	}
 			 // +
 	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
-				  double **mas_A = ReadFromDGV(dataGridView1);
-				  double **mas_B = ReadFromDGV(dataGridView2);
-				  Matrix A(row_a, col_a, mas_A);
-				  Matrix B(row_b, col_b, mas_B);
+				 double **mas_A = new double *[Convert::ToInt32(numericUpDown1->Value)];
+				  for (int i = 0; i < row_a; ++i)
+					  mas_A[i] = new double[Convert::ToInt32(numericUpDown2->Value)];
+				  
+				  double **mas_B = new double *[Convert::ToInt32(numericUpDown3->Value)];
+				  for (int i = 0; i < row_b; ++i)
+					  mas_B[i] = new double[Convert::ToInt32(numericUpDown4->Value)];
+				  
+				  mas_A = ReadFromDGV(dataGridView1);
+				  mas_B = ReadFromDGV(dataGridView2);
+				  Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), mas_A);
+				  Matrix B(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), mas_B);
 				  Matrix C;
 				  C = A + B;
-				  double **mas_C = C.ReturnMass;
-				  Show_Mass(C.GetRows(), C.GetColumns(), mas_C, dataGridView3);
+				  dataGridView3->ColumnCount = C.GetColumns();
+				  dataGridView3->RowCount = C.GetRows();
+				  double **mas_С = new double *[C.GetRows()];
+				  for (int i = 0; i < C.GetRows(); ++i)
+					  mas_С[i] = new double[C.GetColumns()];
+				  
+				  mas_С = C.ReturnMass();
+				  Show_Mass(C.GetRows(), C.GetColumns(), mas_С, dataGridView3);
 	}
 	// Ну тут понятное дело: надо избавиться от повторяющегося кода, думаю как это сделать
 	private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
-				 double **mas_A = ReadFromDGV(dataGridView1);
-				 double **mas_B = ReadFromDGV(dataGridView2);
+				 double** mas_A = ReadFromDGV(dataGridView1);
+				 double** mas_B = ReadFromDGV(dataGridView2);
 				 Matrix A(row_a, col_a, mas_A);
 				 Matrix B(row_b, col_b, mas_B);
 				 Matrix C;
 				 C = A * B;
-				 double **mas_C = C.ReturnMass;
+				 double **mas_C = C.ReturnMass();
 				 Show_Mass(C.GetRows(), C.GetColumns(), mas_C, dataGridView3);
 	}
 };

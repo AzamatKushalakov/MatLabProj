@@ -19,7 +19,14 @@ Matrix::Matrix()
 	//‘ункци€ mxCreateDoubieMatrix выдел€ет пам€ть под структуру mxArray
 	matr = mxCreateDoubleMatrix(row, col, mxREAL);
 }
-
+int Matrix:: GetColumns()
+{
+	return col;
+}
+int Matrix:: GetRows()
+{
+	return row;
+}
 // конструктор с параметрами, заполн€ющий матрицу элементами передаваемого двумерного массива
 Matrix::Matrix(int row_, int col_, double** mas)
 {
@@ -64,7 +71,7 @@ Matrix::~Matrix()
 }
 
 // возвращает двумерный массив, заполненный элементами матрицы Matrix
-double** Matrix::ReturnMass(Matrix)
+double** Matrix::ReturnMass()
 {
 	double** mas = new double*[row];
 	for (int i = 0; i < row; ++i)

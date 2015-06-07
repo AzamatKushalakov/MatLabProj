@@ -17,10 +17,12 @@ public:
 	~Matrix(); // деструктор
 
 	// методы и операторы, выполняющие некоторые операции с матрицами
+	int GetColumns();
+	int GetRows();
 	void Transport(); // транспонирование матрицы
 	void PrintMatr(); // вывод матриц в консоль
 	int Det(); // определитель матрицы
-	double** ReturnMass(Matrix); // возвращает двумерный массив, заполненный элементами матрицы Matrix
+	double** ReturnMass(); // возвращает двумерный массив, заполненный элементами матрицы Matrix
 
 	Matrix  operator = (Matrix); // оператор присваивания
 	Matrix operator + (Matrix); // оператор сложения
