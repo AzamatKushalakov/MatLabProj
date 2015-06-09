@@ -137,7 +137,33 @@ void Matrix::Transport()
 	matr = T_matr; // заполняе матрицу элементами транспонированной матрицы
 	engClose(Eg); // закрываем matlab
 }
+// Обратная матрица
+void Matrix::InverseMatr()
+{
+	//Открытие MATLAB
+	Engine *Eg;
+	Eg = engOpen(NULL);
 
+	// помещаем массив mxArray в рабочее пространство MATLAB
+	engPutVariable(Eg, "M", matr);
+	// проверяем, чтобы матрица была квадратной
+	if (row != col)
+		throw runtime_error("Матрица должна быть квадратной!");
+	
+	if (this->Det() == 0)
+		throw runtime_error("Матрица не обратима");
+	else
+	{
+		// производим транспонирование в MATLABE
+		engEvalString(Eg, "T = inv(M)");
+
+		// достаем результат T_matr
+		mxArray *T_matr = engGetVariable(Eg, "T");
+		mxDestroyArray(matr); // освобождаем память(очищаем исходную матрицу)
+		matr = T_matr; // заполняе матрицу элементами транспонированной матрицы
+		engClose(Eg); // закрываем matlab
+	}	
+}
 // определитель матрицы
 int Matrix::Det()
 {

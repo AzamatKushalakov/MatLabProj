@@ -271,6 +271,7 @@ namespace MatlabGUI {
 			this->button6->TabIndex = 18;
 			this->button6->Text = L"Обратная";
 			this->button6->UseVisualStyleBackColor = true;
+			this->button6->Click += gcnew System::EventHandler(this, &MyForm::button6_Click);
 			// 
 			// menuStrip1
 			// 
@@ -329,7 +330,7 @@ namespace MatlabGUI {
 
 		}
 #pragma endregion
-		// Заполнение элементов в таблицу вручную (не знаю как сделать с классами, нужно будет разобраться)
+		// Заполнение элементов в таблицу вручную
 	private: void Mass_Creator(int row, int col, double **mas, DataGridView^ dataGridView)
 	{
 		for (int i = 0; i < row; i++){
@@ -338,7 +339,7 @@ namespace MatlabGUI {
 			}
 		}
 	}
-	  // Вывод матрицы
+		  // Вывод матрицы
 	private:void Show_Mass(int row, int col, double **mas, DataGridView^ dataGridView)
 	{
 		for (int i = 0; i < row; i++){
@@ -355,15 +356,12 @@ namespace MatlabGUI {
 			}
 		}
 	}
-	// Считывание из таблицы в массив (поправить исключения)
+		// Считывание из таблицы в массив (поправить исключения)
 	private: double** ReadFromDGV(DataGridView^ dataGridView)
-	{
-				 
-	    double **mas = new double *[dataGridView->RowCount];
+	{	 
+		double **mas = new double *[dataGridView->RowCount];
 		for (int i = 0; i < dataGridView->RowCount; ++i)
 			mas[i] = new double[dataGridView->ColumnCount];
-		try//отлов исключений
-		{
 			for (int i = 0; i < dataGridView->RowCount; i++)
 			{
 				for (int j = 0; j < dataGridView->ColumnCount; j++)
@@ -373,14 +371,9 @@ namespace MatlabGUI {
 					mas[i][j] = Convert::ToDouble(dataGridView->Rows[i]->Cells[j]->Value);
 				}
 			}
-		}
-		catch (InvalidCastException^ e)//обработка пойманного исключения
-		{
-			MessageBox::Show("\n(Использование букв и символов недопустимо!)");
-		}
 		return mas;
 	}
-	// очистка таблицы
+		// очистка таблицы
 	private: void Clear(DataGridView^ datagridview)
 	{
 		for (int i = 0; i < datagridview->Rows->Count; i++){
@@ -389,167 +382,292 @@ namespace MatlabGUI {
 			}
 		}
 	}
-			 // ОК - кнопка
+				 // ОК - кнопка
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-				 // размеры, которые мы ввели в форме
-				 int row_a = Convert::ToInt32(numericUpDown1->Value);
-				 int col_a = Convert::ToInt32(numericUpDown2->Value);
-				 int row_b = Convert::ToInt32(numericUpDown3->Value);
-				 int col_b = Convert::ToInt32(numericUpDown4->Value);
+		// размеры, которые мы ввели в форме
+		int row_a = Convert::ToInt32(numericUpDown1->Value);
+		int col_a = Convert::ToInt32(numericUpDown2->Value);
+		int row_b = Convert::ToInt32(numericUpDown3->Value);
+		int col_b = Convert::ToInt32(numericUpDown4->Value);
+		// Выделение памяти
+		double **mas_A = new double *[row_a];
+		for (int i = 0; i < row_a; ++i)
+			mas_A[i] = new double[col_a];
 				
-				 double **mas_A = new double *[row_a];
-				 for (int i = 0; i < row_a; ++i)
-					 mas_A[i] = new double[col_a];
-				
-				 double **mas_B = new double *[row_b];
-				 for (int i = 0; i < row_b; ++i)
-					 mas_B[i] = new double[col_b];
-				 // Создается таблица для матрицы А
-				 dataGridView1->ColumnCount = col_a;
-				 dataGridView1->RowCount = row_a;
-				 // Создается таблица для матрицы В
-				 dataGridView2->ColumnCount = col_b;
-				 dataGridView2->RowCount = row_b;
+		double **mas_B = new double *[row_b];
+		for (int i = 0; i < row_b; ++i)
+			mas_B[i] = new double[col_b];
+		// Создается таблица для матрицы А
+		dataGridView1->ColumnCount = col_a;
+		dataGridView1->RowCount = row_a;
+		// Создается таблица для матрицы В
+		dataGridView2->ColumnCount = col_b;
+		dataGridView2->RowCount = row_b;
 				 
-				 if (radioButton1->Checked){
-					 Mass_Creator(row_a,col_a,mas_A, dataGridView1);
-					 Mass_Creator(row_b, col_b, mas_B, dataGridView2);
+		if (radioButton1->Checked)
+		{
+			try
+			{
+				// Ручной ввод таблиц
+			Mass_Creator(row_a,col_a,mas_A, dataGridView1);
+			Mass_Creator(row_b, col_b, mas_B, dataGridView2);
+			}
+			catch (FormatException ^e)
+			{
+			MessageBox::Show("\nОшибка! Вы уже ввели размер матрицы");
+			return;
+			}
 					 
-				 }
+		}
 				 
-				 // Выравнивание ячеек
-				 dataGridView1->AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode::AutoSizeToAllHeaders);
-				 dataGridView1->AutoResizeColumns();
-				 dataGridView2->AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode::AutoSizeToAllHeaders);
-				 dataGridView2->AutoResizeColumns();
-				 // Вывод в форму
-				 Show_Mass(row_a, col_a, mas_A, dataGridView1);
-				 Show_Mass(row_b, col_b, mas_B, dataGridView1);
-				 // освобождение памяти
-				 for (int i = 0; i < row_a; i++) 
-					 delete[]mas_A[i];
-				 delete[]mas_A;
+		// Выравнивание ячеек
+		dataGridView1->AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode::AutoSizeToAllHeaders);
+		dataGridView1->AutoResizeColumns();
+		dataGridView2->AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode::AutoSizeToAllHeaders);
+		dataGridView2->AutoResizeColumns();
+		// Вывод матриц
+		Show_Mass(row_a, col_a, mas_A, dataGridView1);
+		Show_Mass(row_b, col_b, mas_B, dataGridView2);
+		// освобождение памяти
+		for (int i = 0; i < row_a; i++) 
+			delete[]mas_A[i];
+		delete[]mas_A;
 				 
-				 for (int i = 0; i < row_b; i++)
-					 delete[]mas_B[i];
-				 delete[]mas_B;
+		for (int i = 0; i < row_b; i++)
+			delete[]mas_B[i];
+		delete[]mas_B;
 	}
-			 // +
+				 // +
 	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
-				 double **mas_A = new double *[Convert::ToInt32(numericUpDown1->Value)];
-				 for (int i = 0; i < Convert::ToInt32(numericUpDown1->Value); ++i)
-					  mas_A[i] = new double[Convert::ToInt32(numericUpDown2->Value)];
+		// Выделение памяти
+		double **mas_A = new double *[Convert::ToInt32(numericUpDown1->Value)];
+		for (int i = 0; i < Convert::ToInt32(numericUpDown1->Value); ++i)
+			mas_A[i] = new double[Convert::ToInt32(numericUpDown2->Value)];
 				  
-				  double **mas_B = new double *[Convert::ToInt32(numericUpDown3->Value)];
-				  for (int i = 0; i < Convert::ToInt32(numericUpDown3->Value); ++i)
-					  mas_B[i] = new double[Convert::ToInt32(numericUpDown4->Value)];
+		double **mas_B = new double *[Convert::ToInt32(numericUpDown3->Value)];
+		for (int i = 0; i < Convert::ToInt32(numericUpDown3->Value); ++i)
+			mas_B[i] = new double[Convert::ToInt32(numericUpDown4->Value)];
 				  
-				  mas_A = ReadFromDGV(dataGridView1);
-				  mas_B = ReadFromDGV(dataGridView2);
-				  Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), mas_A);
-				  Matrix B(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), mas_B);
-				  Matrix C = A + B;
-				  dataGridView3->ColumnCount = C.GetColumns();
-				  dataGridView3->RowCount = C.GetRows();
-				  double **mas_С = new double *[C.GetRows()];
-				  for (int i = 0; i < C.GetRows(); ++i)
-					  mas_С[i] = new double[C.GetColumns()];
+		try
+		{
+			// Считывание из таблицы в массив
+			mas_A = ReadFromDGV(dataGridView1);
+			mas_B = ReadFromDGV(dataGridView2);
+		}
+		catch (FormatException^ e)//обработка пойманного исключения
+		{
+			MessageBox::Show("\nИспользование букв и символов недопустимо!");
+			return;
+		}
+		// Создание операнд
+		Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), mas_A);
+		Matrix B(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), mas_B);
+		Matrix C;
+		try
+		{
+			C = A + B;
+		}
+		catch (runtime_error e)
+		{
+			String^ error = gcnew String(e.what());
+			MessageBox::Show(error);
+		};
+		dataGridView3->ColumnCount = C.GetColumns();
+		dataGridView3->RowCount = C.GetRows();
+		double **mas_С = new double *[C.GetRows()];
+		for (int i = 0; i < C.GetRows(); ++i)
+			mas_С[i] = new double[C.GetColumns()];
 				  
-				  mas_С = C.ReturnMass();
-				  Show_Mass(C.GetRows(), C.GetColumns(), mas_С, dataGridView3);
-				  // освобождение памяти
-				  for (int i = 0; i < Convert::ToInt32(numericUpDown1->Value); i++)
-					  delete[]mas_A[i];
-				  delete[]mas_A;
+		mas_С = C.ReturnMass();
+		Show_Mass(C.GetRows(), C.GetColumns(), mas_С, dataGridView3);
+		// освобождение памяти
+		for (int i = 0; i < Convert::ToInt32(numericUpDown1->Value); i++)
+			delete[]mas_A[i];
+		delete[]mas_A;
 
-				  for (int i = 0; i < Convert::ToInt32(numericUpDown3->Value); i++)
-					  delete[]mas_B[i];
-				  delete[]mas_B;
+		for (int i = 0; i < Convert::ToInt32(numericUpDown3->Value); i++)
+			delete[]mas_B[i];
+		delete[]mas_B;
 
-				  for (int i = 0; i < C.GetRows(); i++)
-					  delete[]mas_С[i];
-				  delete[]mas_С;
+		for (int i = 0; i < C.GetRows(); i++)
+			delete[]mas_С[i];
+		delete[]mas_С;
 
-				  A.~Matrix();
-				  B.~Matrix();
-				  C.~Matrix();
+		A.~Matrix();
+		B.~Matrix();
+		C.~Matrix();
 	}
-	// Ну тут понятное дело: надо избавиться от повторяющегося кода, думаю как это сделать
+		// *
 	private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
-				 // Считывание из DGV в двумерный массив
-				 double** mas_A = ReadFromDGV(dataGridView1);
-				 double** mas_B = ReadFromDGV(dataGridView2);
-				 // Создаем операнды
-				 Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), mas_A);
-				 Matrix B(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), mas_B);
-				 Matrix C;
-				 C = A * B;
-				 double **mas_C = C.ReturnMass();
-				 Show_Mass(C.GetRows(), C.GetColumns(), mas_C, dataGridView3);
+		// Выделение памяти
+		double **mas_A = new double *[Convert::ToInt32(numericUpDown1->Value)];
+		for (int i = 0; i < Convert::ToInt32(numericUpDown1->Value); ++i)
+			mas_A[i] = new double[Convert::ToInt32(numericUpDown2->Value)];
+
+		double **mas_B = new double *[Convert::ToInt32(numericUpDown3->Value)];
+		for (int i = 0; i < Convert::ToInt32(numericUpDown3->Value); ++i)
+			mas_B[i] = new double[Convert::ToInt32(numericUpDown4->Value)];
+		// Считывание из DGV в двумерный массив
+		try
+		{
+			mas_A = ReadFromDGV(dataGridView1);
+			mas_B = ReadFromDGV(dataGridView2);
+		}
+		catch (FormatException^ e)//обработка пойманного исключения
+		{
+			MessageBox::Show("\nИспользование букв и символов недопустимо!");
+			return;
+		}
+		// Создаем операнды
+		Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), mas_A);
+		Matrix B(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), mas_B);
+		Matrix C;
+		try
+		{
+			C = A * B;
+		}
+		catch (runtime_error e)
+		{
+			String^ error = gcnew String(e.what());
+			MessageBox::Show(error);
+		};
+		dataGridView3->ColumnCount = C.GetColumns();
+		dataGridView3->RowCount = C.GetRows();
+		double **mas_С = new double *[C.GetRows()];
+		for (int i = 0; i < C.GetRows(); ++i)
+			mas_С[i] = new double[C.GetColumns()];
+
+		mas_С = C.ReturnMass();
+		Show_Mass(C.GetRows(), C.GetColumns(), mas_С, dataGridView3);
 				 
-				 // освобождение памяти
-				 for (int i = 0; i < Convert::ToInt32(numericUpDown1->Value); i++)
-					 delete[]mas_A[i];
-				 delete[]mas_A;
+		// освобождение памяти
+		for (int i = 0; i < Convert::ToInt32(numericUpDown1->Value); i++)
+			delete[]mas_A[i];
+		delete[]mas_A;
 
-				 for (int i = 0; i < Convert::ToInt32(numericUpDown3->Value); i++)
-					 delete[]mas_B[i];
-				 delete[]mas_B;
+		for (int i = 0; i < Convert::ToInt32(numericUpDown3->Value); i++)
+			delete[]mas_B[i];
+		delete[]mas_B;
 
-				 for (int i = 0; i < C.GetRows(); i++)
-					 delete[]mas_C[i];
-				 delete[]mas_C;
+		for (int i = 0; i < C.GetRows(); i++)
+			delete[]mas_С[i];
+		delete[]mas_С;
 
-				 A.~Matrix();
-				 B.~Matrix();
-				 C.~Matrix();
+		A.~Matrix();
+		B.~Matrix();
+		C.~Matrix();
 	}
-	// определитель
-private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
-			 double **mas_A = new double *[Convert::ToInt32(numericUpDown1->Value)];
-			 for (int i = 0; i < Convert::ToInt32(numericUpDown1->Value); ++i)
-				 mas_A[i] = new double[Convert::ToInt32(numericUpDown2->Value)];
-			 // Считывание из DGV в двумерный массив
-			 mas_A = ReadFromDGV(dataGridView1);
+		// определитель
+	private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
+		// Выделение памяти
+		double **mas_A = new double *[Convert::ToInt32(numericUpDown1->Value)];
+		for (int i = 0; i < Convert::ToInt32(numericUpDown1->Value); ++i)
+			mas_A[i] = new double[Convert::ToInt32(numericUpDown2->Value)];
+		// Считывание из DGV в двумерный массив
+		try
+		{
+			// Считывание из таблицы в массив
+			mas_A = ReadFromDGV(dataGridView1);
+		}
+		catch (FormatException^ e)//обработка пойманного исключения
+		{
+			MessageBox::Show("\nИспользование букв и символов недопустимо!");
+			return;
+		}
 
-			 Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), mas_A);
-			 MessageBox::Show("Определитель матрицы = " + A.Det().ToString());
+		Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), mas_A);
+		try
+		{
+			MessageBox::Show("Определитель матрицы = " + A.Det().ToString());
+		}
+		catch (runtime_error e)
+		{
+		String^ error = gcnew String(e.what());
+		MessageBox::Show(error);
+		};
+	}
+			 // Транспонирование
+	private: System::Void button5_Click(System::Object^  sender, System::EventArgs^  e) {
+		// Выделение памяти
+		double **mas_A = new double *[Convert::ToInt32(numericUpDown1->Value)];
+		for (int i = 0; i < Convert::ToInt32(numericUpDown1->Value); ++i)
+			mas_A[i] = new double[Convert::ToInt32(numericUpDown2->Value)];
+		// Считывание из таблицы в двумерный массив
+		try
+		{
+			mas_A = ReadFromDGV(dataGridView1);
+		}
+		catch (FormatException^ e)//обработка пойманного исключения
+		{
+			MessageBox::Show("\nИспользование букв и символов недопустимо!");
+			return;
+		}
+		// Создание матрицы
+		Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), mas_A);
+		// Создание таблиц
+		dataGridView3->ColumnCount = A.GetRows();
+		dataGridView3->RowCount = A.GetColumns();
+		// Транспонирование
+		A.Transport();
 
+		double **mas_С = new double *[A.GetRows()];
+		for (int i = 0; i < A.GetRows(); ++i)
+			mas_С[i] = new double[A.GetColumns()];
+		// Преобразовываем матрицу в двумерный массив
+		mas_С = A.ReturnMass();
+		Show_Mass(dataGridView3->RowCount, dataGridView3->ColumnCount, mas_С, dataGridView3);		 
+	}
+		// При выборе способа вручную, предыдущие таблицы очищаются
+	private: System::Void radioButton1_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+		Clear(dataGridView1);
+		Clear(dataGridView2);
+		Clear(dataGridView3);
 
-}
-		 // Транспонирование
-private: System::Void button5_Click(System::Object^  sender, System::EventArgs^  e) {
-			 double **mas_A = new double *[Convert::ToInt32(numericUpDown1->Value)];
-			 for (int i = 0; i < Convert::ToInt32(numericUpDown1->Value); ++i)
-				 mas_A[i] = new double[Convert::ToInt32(numericUpDown2->Value)];
-			 // Считывание из DGV в двумерный массив
-			 mas_A = ReadFromDGV(dataGridView1);
-
-			 Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), mas_A);
-			 dataGridView3->ColumnCount = A.GetRows();
-			 dataGridView3->RowCount = A.GetColumns();
-			 A.Transport();
-
-			 double **mas_С = new double *[A.GetRows()];
-			 for (int i = 0; i < A.GetRows(); ++i)
-				 mas_С[i] = new double[A.GetColumns()];
-
-			 mas_С = A.ReturnMass();
-			 Show_Mass(dataGridView3->RowCount, dataGridView3->ColumnCount, mas_С, dataGridView3);
-			 
-}
-	// При выборе способа вручную, предыдущие таблицы очищаются
-private: System::Void radioButton1_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
-			 Clear(dataGridView1);
-			 Clear(dataGridView2);
-			 Clear(dataGridView3);
-
-}
-	// Очистить таблицы
-private: System::Void очисткаТаблицToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-			 Clear(dataGridView1);
-			 Clear(dataGridView2);
-			 Clear(dataGridView3);
-}
-};
+	}
+		// Очистить таблицы
+	private: System::Void очисткаТаблицToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+		Clear(dataGridView1);
+		Clear(dataGridView2);
+		Clear(dataGridView3);
+	}
+	private: System::Void button6_Click(System::Object^  sender, System::EventArgs^  e) {
+		// Выделение памяти
+		double **mas_A = new double *[Convert::ToInt32(numericUpDown1->Value)];
+		for (int i = 0; i < Convert::ToInt32(numericUpDown1->Value); ++i)
+			mas_A[i] = new double[Convert::ToInt32(numericUpDown2->Value)];
+		// Считывание из DGV в двумерный массив
+		try
+		{
+			mas_A = ReadFromDGV(dataGridView1);
+		}
+		catch (FormatException^ e)//обработка пойманного исключения
+		{
+			MessageBox::Show("\nИспользование букв и символов недопустимо!");
+			return;
+		}
+		// Создание матрицы
+		Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), mas_A);
+		// Обратная матрица 		
+		try
+		{
+			A.InverseMatr();
+		}
+		catch (runtime_error e)
+		{
+			String^ error = gcnew String(e.what());
+			MessageBox::Show(error);
+			return;
+		};
+		// Создание таблицы
+		dataGridView3->ColumnCount = A.GetRows();
+		dataGridView3->RowCount = A.GetColumns();
+		double **mas_С = new double *[A.GetRows()];
+		for (int i = 0; i < A.GetRows(); ++i)
+			mas_С[i] = new double[A.GetColumns()];
+		// Преобразовываем матрицу в двумерный массив
+			mas_С = A.ReturnMass();
+		// Вывод матрицы
+		Show_Mass(dataGridView3->RowCount, dataGridView3->ColumnCount, mas_С, dataGridView3);
+	}
+  };
 }

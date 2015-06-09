@@ -20,6 +20,7 @@ public:
 	int GetColumns();
 	int GetRows();
 	void Transport(); // транспонирование матрицы
+	void InverseMatr();
 	void PrintMatr(); // вывод матриц в консоль
 	int Det(); // определитель матрицы
 	double** ReturnMass(); // возвращает двумерный массив, заполненный элементами матрицы Matrix
