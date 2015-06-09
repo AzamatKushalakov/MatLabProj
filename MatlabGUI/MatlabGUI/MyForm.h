@@ -245,6 +245,7 @@ namespace MatlabGUI {
 			this->button4->TabIndex = 16;
 			this->button4->Text = L"Определитель";
 			this->button4->UseVisualStyleBackColor = true;
+			this->button4->Click += gcnew System::EventHandler(this, &MyForm::button4_Click);
 			// 
 			// button5
 			// 
@@ -254,6 +255,7 @@ namespace MatlabGUI {
 			this->button5->TabIndex = 17;
 			this->button5->Text = L"Транспонирование";
 			this->button5->UseVisualStyleBackColor = true;
+			this->button5->Click += gcnew System::EventHandler(this, &MyForm::button5_Click);
 			// 
 			// button6
 			// 
@@ -457,8 +459,7 @@ namespace MatlabGUI {
 				  mas_B = ReadFromDGV(dataGridView2);
 				  Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), mas_A);
 				  Matrix B(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), mas_B);
-				  Matrix C;
-				  C = A + B;
+				  Matrix C= A + B;
 				  dataGridView3->ColumnCount = C.GetColumns();
 				  dataGridView3->RowCount = C.GetRows();
 				  double **mas_С = new double *[C.GetRows()];
@@ -479,5 +480,39 @@ namespace MatlabGUI {
 				 double **mas_C = C.ReturnMass();
 				 Show_Mass(C.GetRows(), C.GetColumns(), mas_C, dataGridView3);
 	}
+	// определитель
+private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
+			 double **mas_A = new double *[Convert::ToInt32(numericUpDown1->Value)];
+			 for (int i = 0; i < row_a; ++i)
+				 mas_A[i] = new double[Convert::ToInt32(numericUpDown2->Value)];
+
+			 mas_A = ReadFromDGV(dataGridView1);
+
+			 Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), mas_A);
+			 MessageBox::Show("Определитель матрицы = " + A.Det().ToString());
+
+
+}
+		 // Транспонирование
+private: System::Void button5_Click(System::Object^  sender, System::EventArgs^  e) {
+			 double **mas_A = new double *[Convert::ToInt32(numericUpDown1->Value)];
+			 for (int i = 0; i < row_a; ++i)
+				 mas_A[i] = new double[Convert::ToInt32(numericUpDown2->Value)];
+
+			 mas_A = ReadFromDGV(dataGridView1);
+
+			 Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), mas_A);
+			 dataGridView3->ColumnCount = A.GetRows();
+			 dataGridView3->RowCount = A.GetColumns();
+			 A.Transport();
+
+			 double **mas_С = new double *[A.GetRows()];
+			 for (int i = 0; i < A.GetRows(); ++i)
+				 mas_С[i] = new double[A.GetColumns()];
+
+			 mas_С = A.ReturnMass();
+			 Show_Mass(dataGridView3->RowCount, dataGridView3->ColumnCount, mas_С, dataGridView3);
+			 
+}
 };
 }

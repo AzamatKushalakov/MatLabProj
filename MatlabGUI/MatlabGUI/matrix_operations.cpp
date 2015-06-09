@@ -7,9 +7,9 @@
 #include "engine.h"
 #include "matrix_operations.h"
 #include <cstdio>
+#include "MyForm.h"
 
 using namespace std;
-
 // конструктор по умолчанию
 Matrix::Matrix()
 {
