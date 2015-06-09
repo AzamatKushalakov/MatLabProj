@@ -57,6 +57,8 @@ namespace MatlabGUI {
 	private: System::Windows::Forms::Button^  button4;
 	private: System::Windows::Forms::Button^  button5;
 	private: System::Windows::Forms::Button^  button6;
+	private: System::Windows::Forms::MenuStrip^  menuStrip1;
+	private: System::Windows::Forms::ToolStripMenuItem^  очисткаТаблицToolStripMenuItem;
 
 
 	private:
@@ -91,6 +93,8 @@ namespace MatlabGUI {
 			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->button5 = (gcnew System::Windows::Forms::Button());
 			this->button6 = (gcnew System::Windows::Forms::Button());
+			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
+			this->очисткаТаблицToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown3))->BeginInit();
@@ -98,19 +102,21 @@ namespace MatlabGUI {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView3))->BeginInit();
+			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// radioButton1
 			// 
 			this->radioButton1->AutoSize = true;
 			this->radioButton1->Checked = true;
-			this->radioButton1->Location = System::Drawing::Point(27, 12);
+			this->radioButton1->Location = System::Drawing::Point(27, 23);
 			this->radioButton1->Name = L"radioButton1";
 			this->radioButton1->Size = System::Drawing::Size(94, 17);
 			this->radioButton1->TabIndex = 0;
 			this->radioButton1->TabStop = true;
 			this->radioButton1->Text = L"Ввод вручную";
 			this->radioButton1->UseVisualStyleBackColor = true;
+			this->radioButton1->CheckedChanged += gcnew System::EventHandler(this, &MyForm::radioButton1_CheckedChanged);
 			// 
 			// button1
 			// 
@@ -266,6 +272,22 @@ namespace MatlabGUI {
 			this->button6->Text = L"Обратная";
 			this->button6->UseVisualStyleBackColor = true;
 			// 
+			// menuStrip1
+			// 
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->очисткаТаблицToolStripMenuItem });
+			this->menuStrip1->Location = System::Drawing::Point(0, 0);
+			this->menuStrip1->Name = L"menuStrip1";
+			this->menuStrip1->Size = System::Drawing::Size(674, 24);
+			this->menuStrip1->TabIndex = 19;
+			this->menuStrip1->Text = L"menuStrip1";
+			// 
+			// очисткаТаблицToolStripMenuItem
+			// 
+			this->очисткаТаблицToolStripMenuItem->Name = L"очисткаТаблицToolStripMenuItem";
+			this->очисткаТаблицToolStripMenuItem->Size = System::Drawing::Size(107, 20);
+			this->очисткаТаблицToolStripMenuItem->Text = L"Очистка таблиц";
+			this->очисткаТаблицToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::очисткаТаблицToolStripMenuItem_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -289,6 +311,8 @@ namespace MatlabGUI {
 			this->Controls->Add(this->numericUpDown1);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->radioButton1);
+			this->Controls->Add(this->menuStrip1);
+			this->MainMenuStrip = this->menuStrip1;
 			this->Name = L"MyForm";
 			this->Text = L"MatrixCalculator";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->EndInit();
@@ -298,43 +322,27 @@ namespace MatlabGUI {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView3))->EndInit();
+			this->menuStrip1->ResumeLayout(false);
+			this->menuStrip1->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
 		// Заполнение элементов в таблицу вручную (не знаю как сделать с классами, нужно будет разобраться)
-		// То что я закомментил - это мусор! Но не удаляй пока его.
 	private: void Mass_Creator(int row, int col, double **mas, DataGridView^ dataGridView)
 	{
-		for (int i = 0; i < row_b; i++){
-			for (int j = 0; j < col_b; j++){
+		for (int i = 0; i < row; i++){
+			for (int j = 0; j < col; j++){
 				mas[i][j] = Convert::ToInt32(dataGridView->Rows[i]->Cells[j]->Value);
 			}
 		}
 	}
-	/*private: void Mass_B_Creator(int row_b, int col_b, double **mas_B)
-	{
-				 for (int i = 0; i < row_b; i++){
-					 for (int j = 0; j < col_b; j++){
-						 mas_B[i][j] = Convert::ToInt32(dataGridView1->Rows[i]->Cells[j]->Value);
-					 }
-				 }
-					
-	}
-		private: void Mass_A_Creator(int row_a, int col_a, double **mas_A)
-		{
-					 for (int i = 0; i < row_a; i++){
-						 for (int j = 0; j < col_a; j++){
-							 mas_A[i][j] = Convert::ToInt32(dataGridView1->Rows[i]->Cells[j]->Value);
-						 }
-					 }
-
-		}*/
+	  // Вывод матрицы
 	private:void Show_Mass(int row, int col, double **mas, DataGridView^ dataGridView)
 	{
-		for (int i = 0; i < row_a; i++){
-			for (int j = 0; j < col_a; j++){
+		for (int i = 0; i < row; i++){
+			for (int j = 0; j < col; j++){
 				// Название таблицы в верхнем левом углу
 				dataGridView->TopLeftHeaderCell->Value = "Матрица";
 				// Вывод номеров столбцов
@@ -347,47 +355,15 @@ namespace MatlabGUI {
 			}
 		}
 	}
-	//private:void Show_Mass_A(int row_a, int col_a, double **mas_A)
-	//{
-	//	for (int i = 0; i < row_a; i++){
-	//		for (int j = 0; j < col_a; j++){
-	//			// Название таблицы в верхнем левом углу
-	//			dataGridView1->TopLeftHeaderCell->Value = "Матрица";
-	//			// Вывод номеров столбцов
-	//			dataGridView1->Columns[j]->HeaderCell->Value = Convert::ToString(j + 1);
-	//			// Вывод номеров строк
-	//			dataGridView1->Rows[i]->HeaderCell->Value = Convert::ToString(i + 1);
-	//			// Вывод значений
-	//			dataGridView1->Rows[i]->Cells[j]->Value = mas_A[i][j];
-
-	//		}
-	//	}
-	//}
-	//private:void Show_Mass_B(int row_b, int col_b, double **mas_B)
-	//{
-	//	for (int i = 0; i < row_b; i++){
-	//		for (int j = 0; j < col_b; j++){
-	//			// Название таблицы в верхнем левом углу
-	//			dataGridView2->TopLeftHeaderCell->Value = "Матрица";
-	//			// Вывод номеров столбцов
-	//			dataGridView2->Columns[j]->HeaderCell->Value = Convert::ToString(j + 1);
-	//			// Вывод номеров строк
-	//			dataGridView2->Rows[i]->HeaderCell->Value = Convert::ToString(i + 1);
-	//			// Вывод значений
-	//			dataGridView2->Rows[i]->Cells[j]->Value = mas_B[i][j];
-
-	//		}
-	//	}
-	//}
-			// Считывание из таблицы в массив (поправить исключения)
+	// Считывание из таблицы в массив (поправить исключения)
 	private: double** ReadFromDGV(DataGridView^ dataGridView)
 	{
 				 
 	    double **mas = new double *[dataGridView->RowCount];
 		for (int i = 0; i < dataGridView->RowCount; ++i)
 			mas[i] = new double[dataGridView->ColumnCount];
-		//try//отлов исключений
-		//{
+		try//отлов исключений
+		{
 			for (int i = 0; i < dataGridView->RowCount; i++)
 			{
 				for (int j = 0; j < dataGridView->ColumnCount; j++)
@@ -397,69 +373,82 @@ namespace MatlabGUI {
 					mas[i][j] = Convert::ToDouble(dataGridView->Rows[i]->Cells[j]->Value);
 				}
 			}
-		//}
-		//catch (InvalidCastException^ e)//обработка пойманного исключения
-		//{
-		//	MessageBox::Show("\n(Использование букв и символов недопустимо!)");
-		//	// MessageBox.Show(e.Message + "\n(Использование букв и символов недопустимо!)", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-		//}
+		}
+		catch (InvalidCastException^ e)//обработка пойманного исключения
+		{
+			MessageBox::Show("\n(Использование букв и символов недопустимо!)");
+		}
 		return mas;
 	}
-			 // размеры
-			 int row_a = 0;
-			 int col_a = 0;
-			 int row_b = 0;
-			 int col_b = 0;
-			 // ОК
+	// очистка таблицы
+	private: void Clear(DataGridView^ datagridview)
+	{
+		for (int i = 0; i < datagridview->Rows->Count; i++){
+			for (int j = 0; j < datagridview->Columns->Count; j++){
+				datagridview->Rows[i]->Cells[j]->Value = 0;
+			}
+		}
+	}
+			 // ОК - кнопка
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 				 // размеры, которые мы ввели в форме
-				 row_a = Convert::ToInt32(numericUpDown1->Value);
-				 col_a = Convert::ToInt32(numericUpDown2->Value);
-				 row_b = Convert::ToInt32(numericUpDown3->Value);
-				 col_b = Convert::ToInt32(numericUpDown4->Value);
+				 int row_a = Convert::ToInt32(numericUpDown1->Value);
+				 int col_a = Convert::ToInt32(numericUpDown2->Value);
+				 int row_b = Convert::ToInt32(numericUpDown3->Value);
+				 int col_b = Convert::ToInt32(numericUpDown4->Value);
 				
 				 double **mas_A = new double *[row_a];
 				 for (int i = 0; i < row_a; ++i)
 					 mas_A[i] = new double[col_a];
-				 // Создается таблица для матрицы А
-				 dataGridView1->ColumnCount = col_a;
-				 dataGridView1->RowCount = row_a;
+				
 				 double **mas_B = new double *[row_b];
 				 for (int i = 0; i < row_b; ++i)
 					 mas_B[i] = new double[col_b];
+				 // Создается таблица для матрицы А
+				 dataGridView1->ColumnCount = col_a;
+				 dataGridView1->RowCount = row_a;
 				 // Создается таблица для матрицы В
 				 dataGridView2->ColumnCount = col_b;
 				 dataGridView2->RowCount = row_b;
+				 
 				 if (radioButton1->Checked){
 					 Mass_Creator(row_a,col_a,mas_A, dataGridView1);
 					 Mass_Creator(row_b, col_b, mas_B, dataGridView2);
 					 
 				 }
-				 Show_Mass(row_a, col_a, mas_A,dataGridView1);
-				 Show_Mass(row_b, col_b, mas_B,dataGridView1);
+				 
 				 // Выравнивание ячеек
 				 dataGridView1->AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode::AutoSizeToAllHeaders);
 				 dataGridView1->AutoResizeColumns();
 				 dataGridView2->AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode::AutoSizeToAllHeaders);
 				 dataGridView2->AutoResizeColumns();
-				 Matrix A(row_a, col_a, mas_A);
-				 Matrix B(row_b, col_b, mas_B);
+				 // Вывод в форму
+				 Show_Mass(row_a, col_a, mas_A, dataGridView1);
+				 Show_Mass(row_b, col_b, mas_B, dataGridView1);
+				 // освобождение памяти
+				 for (int i = 0; i < row_a; i++) 
+					 delete[]mas_A[i];
+				 delete[]mas_A;
+				 
+				 for (int i = 0; i < row_b; i++)
+					 delete[]mas_B[i];
+				 delete[]mas_B;
 	}
 			 // +
 	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
 				 double **mas_A = new double *[Convert::ToInt32(numericUpDown1->Value)];
-				  for (int i = 0; i < row_a; ++i)
+				 for (int i = 0; i < Convert::ToInt32(numericUpDown1->Value); ++i)
 					  mas_A[i] = new double[Convert::ToInt32(numericUpDown2->Value)];
 				  
 				  double **mas_B = new double *[Convert::ToInt32(numericUpDown3->Value)];
-				  for (int i = 0; i < row_b; ++i)
+				  for (int i = 0; i < Convert::ToInt32(numericUpDown3->Value); ++i)
 					  mas_B[i] = new double[Convert::ToInt32(numericUpDown4->Value)];
 				  
 				  mas_A = ReadFromDGV(dataGridView1);
 				  mas_B = ReadFromDGV(dataGridView2);
 				  Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), mas_A);
 				  Matrix B(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), mas_B);
-				  Matrix C= A + B;
+				  Matrix C = A + B;
 				  dataGridView3->ColumnCount = C.GetColumns();
 				  dataGridView3->RowCount = C.GetRows();
 				  double **mas_С = new double *[C.GetRows()];
@@ -468,24 +457,59 @@ namespace MatlabGUI {
 				  
 				  mas_С = C.ReturnMass();
 				  Show_Mass(C.GetRows(), C.GetColumns(), mas_С, dataGridView3);
+				  // освобождение памяти
+				  for (int i = 0; i < Convert::ToInt32(numericUpDown1->Value); i++)
+					  delete[]mas_A[i];
+				  delete[]mas_A;
+
+				  for (int i = 0; i < Convert::ToInt32(numericUpDown3->Value); i++)
+					  delete[]mas_B[i];
+				  delete[]mas_B;
+
+				  for (int i = 0; i < C.GetRows(); i++)
+					  delete[]mas_С[i];
+				  delete[]mas_С;
+
+				  A.~Matrix();
+				  B.~Matrix();
+				  C.~Matrix();
 	}
 	// Ну тут понятное дело: надо избавиться от повторяющегося кода, думаю как это сделать
 	private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
+				 // Считывание из DGV в двумерный массив
 				 double** mas_A = ReadFromDGV(dataGridView1);
 				 double** mas_B = ReadFromDGV(dataGridView2);
-				 Matrix A(row_a, col_a, mas_A);
-				 Matrix B(row_b, col_b, mas_B);
+				 // Создаем операнды
+				 Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), mas_A);
+				 Matrix B(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), mas_B);
 				 Matrix C;
 				 C = A * B;
 				 double **mas_C = C.ReturnMass();
 				 Show_Mass(C.GetRows(), C.GetColumns(), mas_C, dataGridView3);
+				 
+				 // освобождение памяти
+				 for (int i = 0; i < Convert::ToInt32(numericUpDown1->Value); i++)
+					 delete[]mas_A[i];
+				 delete[]mas_A;
+
+				 for (int i = 0; i < Convert::ToInt32(numericUpDown3->Value); i++)
+					 delete[]mas_B[i];
+				 delete[]mas_B;
+
+				 for (int i = 0; i < C.GetRows(); i++)
+					 delete[]mas_C[i];
+				 delete[]mas_C;
+
+				 A.~Matrix();
+				 B.~Matrix();
+				 C.~Matrix();
 	}
 	// определитель
 private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
 			 double **mas_A = new double *[Convert::ToInt32(numericUpDown1->Value)];
-			 for (int i = 0; i < row_a; ++i)
+			 for (int i = 0; i < Convert::ToInt32(numericUpDown1->Value); ++i)
 				 mas_A[i] = new double[Convert::ToInt32(numericUpDown2->Value)];
-
+			 // Считывание из DGV в двумерный массив
 			 mas_A = ReadFromDGV(dataGridView1);
 
 			 Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), mas_A);
@@ -496,9 +520,9 @@ private: System::Void button4_Click(System::Object^  sender, System::EventArgs^ 
 		 // Транспонирование
 private: System::Void button5_Click(System::Object^  sender, System::EventArgs^  e) {
 			 double **mas_A = new double *[Convert::ToInt32(numericUpDown1->Value)];
-			 for (int i = 0; i < row_a; ++i)
+			 for (int i = 0; i < Convert::ToInt32(numericUpDown1->Value); ++i)
 				 mas_A[i] = new double[Convert::ToInt32(numericUpDown2->Value)];
-
+			 // Считывание из DGV в двумерный массив
 			 mas_A = ReadFromDGV(dataGridView1);
 
 			 Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), mas_A);
@@ -513,6 +537,19 @@ private: System::Void button5_Click(System::Object^  sender, System::EventArgs^ 
 			 mas_С = A.ReturnMass();
 			 Show_Mass(dataGridView3->RowCount, dataGridView3->ColumnCount, mas_С, dataGridView3);
 			 
+}
+	// При выборе способа вручную, предыдущие таблицы очищаются
+private: System::Void radioButton1_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+			 Clear(dataGridView1);
+			 Clear(dataGridView2);
+			 Clear(dataGridView3);
+
+}
+	// Очистить таблицы
+private: System::Void очисткаТаблицToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+			 Clear(dataGridView1);
+			 Clear(dataGridView2);
+			 Clear(dataGridView3);
 }
 };
 }
