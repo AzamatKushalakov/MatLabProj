@@ -1,16 +1,25 @@
-﻿Сборка начата 09.06.2015 23:38:46.
+﻿Сборка начата 11.06.2015 10:04:06.
      1>Проект "C:\Users\Азамат\Desktop\MatLabProj\MatlabGUI\MatlabGUI\MatlabGUI.vcxproj" в узле 2 (целевые объекты Build).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\MATLAB\R2010b\extern\include" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /sdl- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Drawing.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Windows.Forms.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.dll" /analyze- /errorReport:prompt /clr:nostdlib matrix_operations.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\MATLAB\R2010b\extern\include" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /sdl- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Drawing.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Windows.Forms.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.dll" /analyze- /errorReport:prompt /clr:nostdlib MyForm.cpp matrix_operations.cpp
+         MyForm.cpp
+     1>c:\users\азамат\desktop\matlabproj\matlabgui\matlabgui\MyForm.h(381): warning C4965: неявная упаковка целого числа 0; используйте nullptr или явное приведение типов
+     1>c:\users\азамат\desktop\matlabproj\matlabgui\matlabgui\MyForm.h(415): warning C4101: e: неиспользованная локальная переменная
+     1>c:\users\азамат\desktop\matlabproj\matlabgui\matlabgui\MyForm.h(457): warning C4101: e: неиспользованная локальная переменная
+     1>c:\users\азамат\desktop\matlabproj\matlabgui\matlabgui\MyForm.h(518): warning C4101: e: неиспользованная локальная переменная
+     1>c:\users\азамат\desktop\matlabproj\matlabgui\matlabgui\MyForm.h(575): warning C4101: e: неиспользованная локальная переменная
+     1>c:\users\азамат\desktop\matlabproj\matlabgui\matlabgui\MyForm.h(603): warning C4101: e: неиспользованная локальная переменная
+     1>c:\users\азамат\desktop\matlabproj\matlabgui\matlabgui\MyForm.h(646): warning C4101: e: неиспользованная локальная переменная
          matrix_operations.cpp
      1>c:\users\азамат\desktop\matlabproj\matlabgui\matlabgui\MyForm.h(381): warning C4965: неявная упаковка целого числа 0; используйте nullptr или явное приведение типов
      1>c:\users\азамат\desktop\matlabproj\matlabgui\matlabgui\MyForm.h(415): warning C4101: e: неиспользованная локальная переменная
      1>c:\users\азамат\desktop\matlabproj\matlabgui\matlabgui\MyForm.h(457): warning C4101: e: неиспользованная локальная переменная
-     1>c:\users\азамат\desktop\matlabproj\matlabgui\matlabgui\MyForm.h(516): warning C4101: e: неиспользованная локальная переменная
-     1>c:\users\азамат\desktop\matlabproj\matlabgui\matlabgui\MyForm.h(572): warning C4101: e: неиспользованная локальная переменная
-     1>c:\users\азамат\desktop\matlabproj\matlabgui\matlabgui\MyForm.h(600): warning C4101: e: неиспользованная локальная переменная
-     1>c:\users\азамат\desktop\matlabproj\matlabgui\matlabgui\MyForm.h(643): warning C4101: e: неиспользованная локальная переменная
-     1>matrix_operations.cpp(186): warning C4244: return: преобразование "double" в "int", возможна потеря данных
+     1>c:\users\азамат\desktop\matlabproj\matlabgui\matlabgui\MyForm.h(518): warning C4101: e: неиспользованная локальная переменная
+     1>c:\users\азамат\desktop\matlabproj\matlabgui\matlabgui\MyForm.h(575): warning C4101: e: неиспользованная локальная переменная
+     1>c:\users\азамат\desktop\matlabproj\matlabgui\matlabgui\MyForm.h(603): warning C4101: e: неиспользованная локальная переменная
+     1>c:\users\азамат\desktop\matlabproj\matlabgui\matlabgui\MyForm.h(646): warning C4101: e: неиспользованная локальная переменная
+     1>matrix_operations.cpp(198): warning C4244: return: преобразование "double" в "int", возможна потеря данных
+         Создание кода...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Азамат\Desktop\MatLabProj\MatlabGUI\Debug\MatlabGUI.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\MATLAB\R2010b\extern\lib\win32\microsoft" libeng.lib libmx.lib libmat.lib /ASSEMBLYRESOURCE:Debug\MatlabGUI.MyForm.resources /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Азамат\Desktop\MatLabProj\MatlabGUI\Debug\MatlabGUI.pdb" /ASSEMBLYDEBUG /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"main" /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X86 Debug\matrix_operations.obj
          Debug\MyForm.obj
@@ -22,4 +31,4 @@
 
 Сборка успешно завершена.
 
-Затраченное время: 00:00:01.83
+Затраченное время: 00:00:02.65

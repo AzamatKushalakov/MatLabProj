@@ -462,40 +462,42 @@ namespace MatlabGUI {
 		// Создание операнд
 		Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), mas_A);
 		Matrix B(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), mas_B);
-		Matrix C;
 		try
 		{
-			C = A + B;
+			Matrix C = A + B;
+			dataGridView3->ColumnCount = C.GetColumns();
+			dataGridView3->RowCount = C.GetRows();
+			double **mas_С = new double *[C.GetRows()];
+			for (int i = 0; i < C.GetRows(); ++i)
+				mas_С[i] = new double[C.GetColumns()];
+
+			mas_С = C.ReturnMass();
+			Show_Mass(C.GetRows(), C.GetColumns(), mas_С, dataGridView3);
+			// освобождение памяти
+			for (int i = 0; i < Convert::ToInt32(numericUpDown1->Value); i++)
+				delete[]mas_A[i];
+			delete[]mas_A;
+
+			for (int i = 0; i < Convert::ToInt32(numericUpDown3->Value); i++)
+				delete[]mas_B[i];
+			delete[]mas_B;
+
+			for (int i = 0; i < C.GetRows(); i++)
+				delete[]mas_С[i];
+			delete[]mas_С;
+
+
 		}
 		catch (runtime_error e)
 		{
 			String^ error = gcnew String(e.what());
 			MessageBox::Show(error);
+			return;
 		};
-		dataGridView3->ColumnCount = C.GetColumns();
-		dataGridView3->RowCount = C.GetRows();
-		double **mas_С = new double *[C.GetRows()];
-		for (int i = 0; i < C.GetRows(); ++i)
-			mas_С[i] = new double[C.GetColumns()];
-				  
-		mas_С = C.ReturnMass();
-		Show_Mass(C.GetRows(), C.GetColumns(), mas_С, dataGridView3);
-		// освобождение памяти
-		for (int i = 0; i < Convert::ToInt32(numericUpDown1->Value); i++)
-			delete[]mas_A[i];
-		delete[]mas_A;
-
-		for (int i = 0; i < Convert::ToInt32(numericUpDown3->Value); i++)
-			delete[]mas_B[i];
-		delete[]mas_B;
-
-		for (int i = 0; i < C.GetRows(); i++)
-			delete[]mas_С[i];
-		delete[]mas_С;
-
-		A.~Matrix();
-		B.~Matrix();
-		C.~Matrix();
+		//A.~Matrix();
+		//B.~Matrix();
+		//C.~Matrix();
+		
 	}
 		// *
 	private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -521,41 +523,42 @@ namespace MatlabGUI {
 		// Создаем операнды
 		Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), mas_A);
 		Matrix B(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), mas_B);
-		Matrix C;
 		try
 		{
-			C = A * B;
+			Matrix C = A * B;
+			dataGridView3->ColumnCount = C.GetColumns();
+			dataGridView3->RowCount = C.GetRows();
+			double **mas_С = new double *[C.GetRows()];
+			for (int i = 0; i < C.GetRows(); ++i)
+				mas_С[i] = new double[C.GetColumns()];
+
+			mas_С = C.ReturnMass();
+			Show_Mass(C.GetRows(), C.GetColumns(), mas_С, dataGridView3);
+			// освобождение памяти
+			for (int i = 0; i < Convert::ToInt32(numericUpDown1->Value); i++)
+				delete[]mas_A[i];
+			delete[]mas_A;
+
+			for (int i = 0; i < Convert::ToInt32(numericUpDown3->Value); i++)
+				delete[]mas_B[i];
+			delete[]mas_B;
+
+			for (int i = 0; i < C.GetRows(); i++)
+				delete[]mas_С[i];
+			delete[]mas_С;
+
+
 		}
 		catch (runtime_error e)
 		{
 			String^ error = gcnew String(e.what());
 			MessageBox::Show(error);
+			return;
 		};
-		dataGridView3->ColumnCount = C.GetColumns();
-		dataGridView3->RowCount = C.GetRows();
-		double **mas_С = new double *[C.GetRows()];
-		for (int i = 0; i < C.GetRows(); ++i)
-			mas_С[i] = new double[C.GetColumns()];
 
-		mas_С = C.ReturnMass();
-		Show_Mass(C.GetRows(), C.GetColumns(), mas_С, dataGridView3);
-				 
-		// освобождение памяти
-		for (int i = 0; i < Convert::ToInt32(numericUpDown1->Value); i++)
-			delete[]mas_A[i];
-		delete[]mas_A;
-
-		for (int i = 0; i < Convert::ToInt32(numericUpDown3->Value); i++)
-			delete[]mas_B[i];
-		delete[]mas_B;
-
-		for (int i = 0; i < C.GetRows(); i++)
-			delete[]mas_С[i];
-		delete[]mas_С;
-
-		A.~Matrix();
-		B.~Matrix();
-		C.~Matrix();
+		//A.~Matrix();
+		//B.~Matrix();
+		//C.~Matrix();
 	}
 		// определитель
 	private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {

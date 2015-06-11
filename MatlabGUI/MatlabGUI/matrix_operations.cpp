@@ -19,6 +19,7 @@ Matrix::Matrix()
 	//Функция mxCreateDoubieMatrix выделяет память под структуру mxArray
 	matr = mxCreateDoubleMatrix(row, col, mxREAL);
 }
+
 int Matrix:: GetColumns()
 {
 	return col;
@@ -60,7 +61,18 @@ Matrix::Matrix(mxArray *matr_)
 {
 	row = mxGetM(matr_); // получаем число строк матрицы, представленной матлабовским массивом mxArray
 	col = mxGetN(matr_); // число столбцов
-	matr = matr_;
+
+	matr = mxCreateDoubleMatrix(row, col, mxREAL);
+	memcpy(mxGetPr(matr), mxGetPr(matr_), row*col* sizeof(double));
+}
+
+Matrix::Matrix(const Matrix& other)
+{
+	row = other.row; // получаем число строк матрицы, представленной матлабовским массивом mxArray
+	col = other.col; // число столбцов
+
+	matr = mxCreateDoubleMatrix(row, col, mxREAL);
+	memcpy(mxGetPr(matr), mxGetPr(other.matr), row*col* sizeof(double));
 }
 
 // деструктор
@@ -199,7 +211,7 @@ Matrix  Matrix::operator = (Matrix  M)
 }
 
 // оператор сложения
-Matrix Matrix::operator + (Matrix M)
+Matrix Matrix::operator + (const Matrix& M)
 {
 	// Открытие MATLAB
 	Engine *Eg;
@@ -216,9 +228,9 @@ Matrix Matrix::operator + (Matrix M)
 		engEvalString(Eg, "S = N+M"); // вычисляем сумму в Matlab
 	}
 	mxArray *S_matr = engGetVariable(Eg, "S"); // достаем результат из матлаба
-	Matrix S(S_matr); // создаем вычисленную матрицу конструктором
-	return S;
-	engClose(Eg); // закрываем matlab
+	Matrix *S = new Matrix(S_matr); // создаем вычисленную матрицу конструктором
+	//engClose(Eg); // закрываем matlab
+	return *S;
 }
 
 // оператор умножения
@@ -239,7 +251,8 @@ Matrix Matrix::operator * (Matrix M)
 		engEvalString(Eg, "P = N*M"); // перемножаем матрицы в рабочей области Matlab
 	}
 	mxArray *P_matr = engGetVariable(Eg, "P"); // достаем результат из матлаба
-	Matrix P(P_matr); // создаем вычисленную матрицу конструктором
-	return P;
-	engClose(Eg); // закрываем matlab
+	Matrix *P = new Matrix(P_matr); // создаем вычисленную матрицу конструктором	
+	//engClose(Eg); // закрываем matlab
+	return *P;
+
 }
