@@ -21,9 +21,15 @@
     <ClCompile Include="matrix_operations.cpp">
       <Filter>Заголовочные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Mass.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyForm.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Mass.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="matrix_operations.h">

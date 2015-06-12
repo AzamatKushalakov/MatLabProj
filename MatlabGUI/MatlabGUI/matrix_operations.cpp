@@ -306,7 +306,7 @@ Matrix Matrix::operator + (const Matrix& M)
 	Eg = engOpen(NULL);
 
 	// проверяем, чтобы матрицы были одинаковых размеров
-	if ((row != M.row) && (col != M.col))
+	if ((row != M.row) || (col != M.col))
 		throw runtime_error("Матрица должны быть одинаковых размеров!");
 	else
 	{
