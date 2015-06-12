@@ -44,7 +44,7 @@ void MyForm::Show_Mass(int row, int col, DataGridView^ dataGridView)
 			dataGridView->TopLeftHeaderCell->Value = "Матрица";
 			// Вывод номеров столбцов
 			dataGridView->Columns[j]->HeaderCell->Value = Convert::ToString(j + 1);
-			// Вывод номеров строк
+			// Вывод ныомеров строк
 			dataGridView->Rows[i]->HeaderCell->Value = Convert::ToString(i + 1);
 		}
 }
