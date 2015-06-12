@@ -316,6 +316,7 @@ namespace MatlabGUI {
 			this->MainMenuStrip = this->menuStrip1;
 			this->Name = L"MyForm";
 			this->Text = L"MatrixCalculator";
+			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown3))->EndInit();
@@ -672,5 +673,7 @@ namespace MatlabGUI {
 		// Вывод матрицы
 		Show_Mass(dataGridView3->RowCount, dataGridView3->ColumnCount, mas_С, dataGridView3);
 	}
-  };
+  private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
+  }
+};
 }

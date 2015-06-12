@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <windows.h>
 #include <stdlib.h>
 #include <stdexcept>
@@ -10,6 +11,7 @@
 #include "MyForm.h"
 
 using namespace std;
+
 // конструктор по умолчанию
 Matrix::Matrix()
 {
@@ -20,14 +22,93 @@ Matrix::Matrix()
 	matr = mxCreateDoubleMatrix(row, col, mxREAL);
 }
 
-int Matrix:: GetColumns()
+// конструктор, создающий нулевую матрицу 
+Matrix::Matrix(int row_, int col_)
 {
-	return col;
+	row = row_;
+	col = col_;
+
+	// выдел€ем пам€ть под структуру mxArray
+	matr = mxCreateDoubleMatrix(row, col, mxREAL);
+
+	// получение доступа к элементам массива
+	double* matr_ = mxGetPr(matr);
+
+	// создаем одномерный массив
+	double *Array = new double[row*col];
+
+	// заполн€ем его нул€ми
+	for (int i = 0; i < row*col; ++i)
+		Array[i] = 0;
+
+	//  опируем из Array в matr_
+	memcpy(matr_, Array, row*col* sizeof(double));
 }
-int Matrix:: GetRows()
+
+// конструктор, создающий единичную матрицу 
+Matrix::Matrix(int size)
 {
-	return row;
+	row = size;
+	col = size;
+
+	// выдел€ем пам€ть под структуру mxArray
+	matr = mxCreateDoubleMatrix(row, col, mxREAL);
+
+	// получение доступа к элементам массива
+	double* matr_ = mxGetPr(matr);
+
+	// создаем одномерный массив
+	double *Array = new double[row*col];
+
+	// заполн€ем его единицами на диагонали
+	for (int i = 0; i < row*col; ++i)
+	{
+		if (i % (size + 1) == 0)
+			Array[i] = 1;
+		else
+			Array[i] = 0; // и нул€ми не на диагонали
+	}
+
+	//  опируем из Array в matr_
+	memcpy(matr_, Array, row*col* sizeof(double));
 }
+
+// конструктор, создающий матрицу с элементами, считанными из файла
+Matrix::Matrix(int row_, int col_, char* fileName)
+{
+	row = row_;
+	col = col_;
+
+	// ¬ыделение динамической пам€ти дл€ матрицы
+	double **mas = new double *[row];	// ”казатель на массив указателей;
+	for (int i = 0; i < row; ++i)
+		mas[i] = new double[col];
+	ifstream inarray(fileName);	// ќткрытие файла дл€ ввода
+	if (!inarray)
+		throw runtime_error("Ќевозможно открыть файл");
+
+	// «аполнение матрицы (считыванием из файла)
+	for (int i = 0; i < row; ++i) {
+		for (int j = 0; j < col; ++j) {
+			inarray >> mas[i][j];
+		}
+	}
+	inarray.close();
+	matr = mxCreateDoubleMatrix(row, col, mxREAL);// выдел€ем пам€ть под структуру mxArray
+	double* matr_ = mxGetPr(matr);// получение доступа к элементам массива
+	double *Array = new double[row*col]; // создаем одномерный массив
+
+	// заполн€ем его элементами двумерного массива mas
+	for (int j = 0; j < col; ++j)
+	{
+		for (int i = 0; i < row; ++i)
+		{
+			Array[i + j*row] = mas[i][j];
+		}
+	}
+	memcpy(matr_, Array, row*col* sizeof(double)); //  опируем из Array в matr_ 
+}
+
 // конструктор с параметрами, заполн€ющий матрицу элементами передаваемого двумерного массива
 Matrix::Matrix(int row_, int col_, double** mas)
 {
@@ -81,7 +162,14 @@ Matrix::~Matrix()
 	// освобождаем пам€ть
 	mxDestroyArray(matr);
 }
-
+int Matrix::GetColumns()
+{
+	return col;
+}
+int Matrix::GetRows()
+{
+	return row;
+}
 // возвращает двумерный массив, заполненный элементами матрицы Matrix
 double** Matrix::ReturnMass()
 {
