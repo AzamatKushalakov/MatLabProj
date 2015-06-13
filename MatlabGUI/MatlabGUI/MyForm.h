@@ -2,6 +2,7 @@
 #include "engine.h"
 #include "matrix_operations.h"
 #include <stdexcept>
+#include <fstream>
 
 namespace MatlabGUI {
 
@@ -37,7 +38,7 @@ namespace MatlabGUI {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::RadioButton^  radioButton1;
+
 	protected:
 
 	private: System::Windows::Forms::Button^  button1;
@@ -59,15 +60,18 @@ namespace MatlabGUI {
 	private: System::Windows::Forms::Button^  button6;
 	private: System::Windows::Forms::MenuStrip^  menuStrip1;
 	private: System::Windows::Forms::ToolStripMenuItem^  очисткаТаблицToolStripMenuItem;
-	private: System::Windows::Forms::RadioButton^  radioButton2;
-	private: System::Windows::Forms::TextBox^  textBox1;
-	private: System::Windows::Forms::TextBox^  textBox2;
-	private: System::Windows::Forms::Button^  button7;
-	private: System::Windows::Forms::Button^  button8;
+
+
+
+
+
 	private: System::Windows::Forms::Button^  button9;
 	private: System::Windows::Forms::Button^  button10;
 	private: System::Windows::Forms::Button^  button11;
 	private: System::Windows::Forms::Button^  button12;
+	private: System::Windows::Forms::Button^  button7;
+	private: System::Windows::Forms::Button^  button8;
+	private: System::Windows::Forms::OpenFileDialog^  openFileDialog1;
 
 
 	private:
@@ -84,7 +88,6 @@ namespace MatlabGUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->radioButton1 = (gcnew System::Windows::Forms::RadioButton());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->numericUpDown1 = (gcnew System::Windows::Forms::NumericUpDown());
 			this->numericUpDown2 = (gcnew System::Windows::Forms::NumericUpDown());
@@ -104,15 +107,13 @@ namespace MatlabGUI {
 			this->button6 = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->очисткаТаблицToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->radioButton2 = (gcnew System::Windows::Forms::RadioButton());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
-			this->button7 = (gcnew System::Windows::Forms::Button());
-			this->button8 = (gcnew System::Windows::Forms::Button());
 			this->button9 = (gcnew System::Windows::Forms::Button());
 			this->button10 = (gcnew System::Windows::Forms::Button());
 			this->button11 = (gcnew System::Windows::Forms::Button());
 			this->button12 = (gcnew System::Windows::Forms::Button());
+			this->button7 = (gcnew System::Windows::Forms::Button());
+			this->button8 = (gcnew System::Windows::Forms::Button());
+			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown3))->BeginInit();
@@ -122,19 +123,6 @@ namespace MatlabGUI {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView3))->BeginInit();
 			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
-			// 
-			// radioButton1
-			// 
-			this->radioButton1->AutoSize = true;
-			this->radioButton1->Checked = true;
-			this->radioButton1->Location = System::Drawing::Point(140, 7);
-			this->radioButton1->Name = L"radioButton1";
-			this->radioButton1->Size = System::Drawing::Size(94, 17);
-			this->radioButton1->TabIndex = 0;
-			this->radioButton1->TabStop = true;
-			this->radioButton1->Text = L"Ввод вручную";
-			this->radioButton1->UseVisualStyleBackColor = true;
-			this->radioButton1->CheckedChanged += gcnew System::EventHandler(this, &MyForm::radioButton1_CheckedChanged);
 			// 
 			// button1
 			// 
@@ -307,49 +295,6 @@ namespace MatlabGUI {
 			this->очисткаТаблицToolStripMenuItem->Text = L"Очистка таблиц";
 			this->очисткаТаблицToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::очисткаТаблицToolStripMenuItem_Click);
 			// 
-			// radioButton2
-			// 
-			this->radioButton2->AutoSize = true;
-			this->radioButton2->Location = System::Drawing::Point(298, 7);
-			this->radioButton2->Name = L"radioButton2";
-			this->radioButton2->Size = System::Drawing::Size(100, 17);
-			this->radioButton2->TabIndex = 20;
-			this->radioButton2->TabStop = true;
-			this->radioButton2->Text = L"Ввод из файла";
-			this->radioButton2->UseVisualStyleBackColor = true;
-			// 
-			// textBox1
-			// 
-			this->textBox1->Location = System::Drawing::Point(108, 96);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(100, 20);
-			this->textBox1->TabIndex = 21;
-			// 
-			// textBox2
-			// 
-			this->textBox2->Location = System::Drawing::Point(549, 96);
-			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(100, 20);
-			this->textBox2->TabIndex = 22;
-			// 
-			// button7
-			// 
-			this->button7->Location = System::Drawing::Point(224, 94);
-			this->button7->Name = L"button7";
-			this->button7->Size = System::Drawing::Size(34, 23);
-			this->button7->TabIndex = 23;
-			this->button7->Text = L"OK";
-			this->button7->UseVisualStyleBackColor = true;
-			// 
-			// button8
-			// 
-			this->button8->Location = System::Drawing::Point(666, 94);
-			this->button8->Name = L"button8";
-			this->button8->Size = System::Drawing::Size(34, 23);
-			this->button8->TabIndex = 24;
-			this->button8->Text = L"OK";
-			this->button8->UseVisualStyleBackColor = true;
-			// 
 			// button9
 			// 
 			this->button9->Location = System::Drawing::Point(12, 122);
@@ -368,6 +313,7 @@ namespace MatlabGUI {
 			this->button10->TabIndex = 26;
 			this->button10->Text = L"Нулевая матрица";
 			this->button10->UseVisualStyleBackColor = true;
+			this->button10->Click += gcnew System::EventHandler(this, &MyForm::button10_Click);
 			// 
 			// button11
 			// 
@@ -377,6 +323,7 @@ namespace MatlabGUI {
 			this->button11->TabIndex = 27;
 			this->button11->Text = L"Единичная";
 			this->button11->UseVisualStyleBackColor = true;
+			this->button11->Click += gcnew System::EventHandler(this, &MyForm::button11_Click);
 			// 
 			// button12
 			// 
@@ -386,21 +333,44 @@ namespace MatlabGUI {
 			this->button12->TabIndex = 28;
 			this->button12->Text = L"Нулевая";
 			this->button12->UseVisualStyleBackColor = true;
+			this->button12->Click += gcnew System::EventHandler(this, &MyForm::button12_Click);
+			// 
+			// button7
+			// 
+			this->button7->Location = System::Drawing::Point(108, 93);
+			this->button7->Name = L"button7";
+			this->button7->Size = System::Drawing::Size(148, 23);
+			this->button7->TabIndex = 29;
+			this->button7->Text = L"Загрузить из файла";
+			this->button7->UseVisualStyleBackColor = true;
+			this->button7->Click += gcnew System::EventHandler(this, &MyForm::button7_Click);
+			// 
+			// button8
+			// 
+			this->button8->Location = System::Drawing::Point(549, 93);
+			this->button8->Name = L"button8";
+			this->button8->Size = System::Drawing::Size(156, 23);
+			this->button8->TabIndex = 30;
+			this->button8->Text = L"Загрузить из файла";
+			this->button8->UseVisualStyleBackColor = true;
+			this->button8->Click += gcnew System::EventHandler(this, &MyForm::button8_Click);
+			// 
+			// openFileDialog1
+			// 
+			this->openFileDialog1->FileName = L"openFileDialog1";
+			this->openFileDialog1->FileOk += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::openFileDialog1_FileOk);
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(848, 436);
+			this->Controls->Add(this->button8);
+			this->Controls->Add(this->button7);
 			this->Controls->Add(this->button12);
 			this->Controls->Add(this->button11);
 			this->Controls->Add(this->button10);
 			this->Controls->Add(this->button9);
-			this->Controls->Add(this->button8);
-			this->Controls->Add(this->button7);
-			this->Controls->Add(this->textBox2);
-			this->Controls->Add(this->textBox1);
-			this->Controls->Add(this->radioButton2);
 			this->Controls->Add(this->button6);
 			this->Controls->Add(this->button5);
 			this->Controls->Add(this->button4);
@@ -418,7 +388,6 @@ namespace MatlabGUI {
 			this->Controls->Add(this->numericUpDown2);
 			this->Controls->Add(this->numericUpDown1);
 			this->Controls->Add(this->button1);
-			this->Controls->Add(this->radioButton1);
 			this->Controls->Add(this->menuStrip1);
 			this->MainMenuStrip = this->menuStrip1;
 			this->Name = L"MyForm";
@@ -438,201 +407,51 @@ namespace MatlabGUI {
 
 		}
 #pragma endregion
-		// Заполнение элементов в таблицу вручную
+	// Заполнение элементов в таблицу вручную
 	private: void Mass_Creator(int row, int col, DataGridView^ dataGridView);
-		  // Вывод матрицы
+	// Вывод матрицы
 	private: void Show_Mass(int row, int col, double **mas, DataGridView^ dataGridView);
-			// Вывод матрицы
+	// Вывод матрицы
 	private: void Show_Mass(int row, int col, DataGridView^ dataGridView);
-		// Считывание из таблицы в массив (поправить исключения)
+	// Считывание из таблицы в массив
 	private: double** ReadFromDGV(DataGridView^ dataGridView);
-		// очистка таблицы
+	// очистка таблицы
 	private: void Clear(DataGridView^ datagridview);
-			 // ОК - кнопка
-	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-		// Создается таблица для матрицы А
-		dataGridView1->ColumnCount = Convert::ToInt32(numericUpDown2->Value);
-		dataGridView1->RowCount = Convert::ToInt32(numericUpDown1->Value);
-		// Создается таблица для матрицы В
-		dataGridView2->ColumnCount = Convert::ToInt32(numericUpDown4->Value);
-		dataGridView2->RowCount = Convert::ToInt32(numericUpDown3->Value);
-		// Выравнивание ячеек
-		dataGridView1->AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode::AutoSizeToAllHeaders);
-		dataGridView1->AutoResizeColumns();
-		dataGridView2->AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode::AutoSizeToAllHeaders);
-		dataGridView2->AutoResizeColumns();
-		if (radioButton1->Checked)
-		{
-			try
-			{
-				// Ручной ввод таблиц
-				Mass_Creator(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), dataGridView1);
-				Mass_Creator(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), dataGridView2);
-			}
-			catch (FormatException ^e)
-			{
-			MessageBox::Show("\nОшибка! Вы уже ввели размер матрицы");
-			return;
-			}
-					 
-		}
-		// Вывод матриц
-		Show_Mass(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), dataGridView1);
-		Show_Mass(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), dataGridView2);
-	}
-				 // +
-	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
-		// Выделение памяти				  
-		try
-		{
-			// Считывание из таблицы в массив
-			ReadFromDGV(dataGridView1);
-			ReadFromDGV(dataGridView2);
-		}
-		catch (FormatException^ e)//обработка пойманного исключения
-		{
-			MessageBox::Show("\nИспользование букв и символов недопустимо!");
-			return;
-		}
-		// Создание операнд
-		Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), ReadFromDGV(dataGridView1));
-		Matrix B(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), ReadFromDGV(dataGridView2));
-		try
-		{
-			Matrix C = A + B;
-			dataGridView3->ColumnCount = C.GetColumns();
-			dataGridView3->RowCount = C.GetRows();
-			Show_Mass(C.GetRows(), C.GetColumns(), C.ReturnMass(), dataGridView3);
-		}
-		catch (runtime_error e)
-		{
-			String^ error = gcnew String(e.what());
-			MessageBox::Show(error);
-			return;
-		};
-	}
-		// *
-	private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
-		// Выделение памяти				  
-		try
-		{
-			// Считывание из таблицы в массив
-			ReadFromDGV(dataGridView1);
-			ReadFromDGV(dataGridView2);
-		}
-		catch (FormatException^ e)//обработка пойманного исключения
-		{
-			MessageBox::Show("\nИспользование букв и символов недопустимо!");
-			return;
-		}
-		// Создание операнд
-		Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), ReadFromDGV(dataGridView1));
-		Matrix B(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), ReadFromDGV(dataGridView2));
-		try
-		{
-			Matrix C = A * B;
-			dataGridView3->ColumnCount = C.GetColumns();
-			dataGridView3->RowCount = C.GetRows();
-			Show_Mass(C.GetRows(), C.GetColumns(), C.ReturnMass(), dataGridView3);
-		}
-		catch (runtime_error e)
-		{
-			String^ error = gcnew String(e.what());
-			MessageBox::Show(error);
-			return;
-		};
-	}
-		// определитель
-	private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
-		// Считывание из DGV в двумерный массив
-		try
-		{
-			// Считывание из таблицы в массив
-			ReadFromDGV(dataGridView1);
-		}
-		catch (FormatException^ e)//обработка пойманного исключения
-		{
-			MessageBox::Show("\nИспользование букв и символов недопустимо!");
-			return;
-		}
-
-		Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), ReadFromDGV(dataGridView1));
-		try
-		{
-			MessageBox::Show("Определитель матрицы = " + A.Det().ToString());
-		}
-		catch (runtime_error e)
-		{
-		String^ error = gcnew String(e.what());
-		MessageBox::Show(error);
-		};
-	}
-			 // Транспонирование
-	private: System::Void button5_Click(System::Object^  sender, System::EventArgs^  e) {
-		
-		// Считывание из таблицы в двумерный массив
-		try
-		{
-			ReadFromDGV(dataGridView1);
-		}
-		catch (FormatException^ e)//обработка пойманного исключения
-		{
-			MessageBox::Show("\nИспользование букв и символов недопустимо!");
-			return;
-		}
-		// Создание матрицы
-		Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), ReadFromDGV(dataGridView1));
-		// Создание таблиц
-		dataGridView1->ColumnCount = A.GetRows();
-		dataGridView1->RowCount = A.GetColumns();
-		// Транспонирование
-		A.Transport();
-		Show_Mass(dataGridView1->RowCount, dataGridView1->ColumnCount, A.ReturnMass(), dataGridView1);
-	}
-		// При выборе способа вручную, предыдущие таблицы очищаются
-	private: System::Void radioButton1_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
-		Clear(dataGridView1);
-		Clear(dataGridView2);
-		Clear(dataGridView3);
-	}
-		// Очистить таблицы
+	private: System::Void FillGridFromFile(DataGridView^ dg, String^ fileName);
+	// ОК - кнопка
+	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e);
+	// +
+	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e);
+	// *
+	private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e);
+	// определитель
+	private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e);
+	// Транспонирование
+	private: System::Void button5_Click(System::Object^  sender, System::EventArgs^  e);
+	// единичная для 1 матрицы
+	private: System::Void button9_Click(System::Object^  sender, System::EventArgs^  e);
+	// единичная для 2 матрицы
+	private: System::Void button11_Click(System::Object^  sender, System::EventArgs^  e);
+	// нулевая для 1 матрицы
+	private: System::Void button10_Click(System::Object^  sender, System::EventArgs^  e);
+	// нулевая для 2 матрицы
+	private: System::Void button12_Click(System::Object^  sender, System::EventArgs^  e);
+	// Очистить таблицы
 	private: System::Void очисткаТаблицToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 		Clear(dataGridView1);
 		Clear(dataGridView2);
 		Clear(dataGridView3);
 	}
-	private: System::Void button6_Click(System::Object^  sender, System::EventArgs^  e) {
-		// Считывание из DGV в двумерный массив
-		try
-		{
-			ReadFromDGV(dataGridView1);
-		}
-		catch (FormatException^ e)//обработка пойманного исключения
-		{
-			MessageBox::Show("\nИспользование букв и символов недопустимо!");
-			return;
-		}
-		// Создание матрицы
-		Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), ReadFromDGV(dataGridView1));
-		// Обратная матрица 		
-		try
-		{
-			A.InverseMatr();
-		}
-		catch (runtime_error e)
-		{
-			String^ error = gcnew String(e.what());
-			MessageBox::Show(error);
-			return;
-		};
-		// Вывод матрицы
-		Show_Mass(dataGridView1->RowCount, dataGridView1->ColumnCount, A.ReturnMass(), dataGridView1);
+	private: System::Void button6_Click(System::Object^  sender, System::EventArgs^  e);
+	// форма
+	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
 	}
-  private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
-  }
-private: System::Void button9_Click(System::Object^  sender, System::EventArgs^  e) {
-			 dataGridView1->ColumnCount = Convert::ToInt32(numericUpDown2->Value);
-			 dataGridView1->RowCount = Convert::ToInt32(numericUpDown1->Value);
-}
+	// Считывание в 1 матрицу
+	private: System::Void button7_Click(System::Object^  sender, System::EventArgs^  e);
+	// Возможность считывать из файла
+	private: System::Void openFileDialog1_FileOk(System::Object^  sender, System::ComponentModel::CancelEventArgs^  e) {
+	}
+	// Считывание во 2 матрицу
+	private: System::Void button8_Click(System::Object^  sender, System::EventArgs^  e);
 };
 }

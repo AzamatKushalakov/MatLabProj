@@ -72,3 +72,228 @@ void MyForm::Clear(DataGridView^ datagridview)
 		}
 	}
 }
+System::Void MyForm::FillGridFromFile(DataGridView^ dg, String^ fileName)
+{
+	char file[255];
+	sprintf(file, "%s", fileName);
+
+	ifstream inarray(file);	// Открытие файла для ввода
+
+	double nextValue;
+	//Заполнение матрицы (считыванием из файла)
+	for (int i = 0; i < dg->RowCount; ++i) {
+		for (int j = 0; j < dg->ColumnCount; ++j) {
+			inarray >> nextValue;
+			dg->Rows[i]->Cells[j]->Value = nextValue;
+		}
+	}
+	inarray.close();
+}
+System::Void MyForm::button1_Click(System::Object^  sender, System::EventArgs^  e) {
+	// Создается таблица для матрицы А
+	dataGridView1->ColumnCount = Convert::ToInt32(numericUpDown2->Value);
+	dataGridView1->RowCount = Convert::ToInt32(numericUpDown1->Value);
+	// Создается таблица для матрицы В
+	dataGridView2->ColumnCount = Convert::ToInt32(numericUpDown4->Value);
+	dataGridView2->RowCount = Convert::ToInt32(numericUpDown3->Value);
+	// Выравнивание ячеек
+	dataGridView1->AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode::AutoSizeToAllHeaders);
+	dataGridView1->AutoResizeColumns();
+	dataGridView2->AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode::AutoSizeToAllHeaders);
+	dataGridView2->AutoResizeColumns();
+	try
+	{
+		// Ручной ввод таблиц
+		Mass_Creator(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), dataGridView1);
+		Mass_Creator(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), dataGridView2);
+	}
+	catch (FormatException ^e)
+	{
+		MessageBox::Show("\nОшибка! Вы уже ввели размер матрицы");
+		return;
+	}
+	// Вывод матриц
+	Show_Mass(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), dataGridView1);
+	Show_Mass(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), dataGridView2);
+}
+System::Void MyForm::button2_Click(System::Object^  sender, System::EventArgs^  e) {			  
+	try
+	{
+		// Считывание из таблицы в массив
+		ReadFromDGV(dataGridView1);
+		ReadFromDGV(dataGridView2);
+	}
+	catch (FormatException^ e)//обработка пойманного исключения
+	{
+		MessageBox::Show("\nИспользование букв и символов недопустимо!");
+		return;
+	}
+	// Создание операнд
+	Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), ReadFromDGV(dataGridView1));
+	Matrix B(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), ReadFromDGV(dataGridView2));
+	try
+	{
+		Matrix C = A + B;
+		dataGridView3->ColumnCount = C.GetColumns();
+		dataGridView3->RowCount = C.GetRows();
+		Show_Mass(C.GetRows(), C.GetColumns(), C.ReturnMass(), dataGridView3);
+	}
+	catch (runtime_error e)
+	{
+		String^ error = gcnew String(e.what());
+		MessageBox::Show(error);
+		return;
+	};
+}
+System::Void MyForm::button3_Click(System::Object^  sender, System::EventArgs^  e) {
+	try
+	{
+		// Считывание из таблицы в массив
+		ReadFromDGV(dataGridView1);
+		ReadFromDGV(dataGridView2);
+	}
+	catch (FormatException^ e)//обработка пойманного исключения
+	{
+		MessageBox::Show("\nИспользование букв и символов недопустимо!");
+		return;
+	}
+	// Создание операнд
+	Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), ReadFromDGV(dataGridView1));
+	Matrix B(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), ReadFromDGV(dataGridView2));
+	try
+	{
+		Matrix C = A * B;
+		dataGridView3->ColumnCount = C.GetColumns();
+		dataGridView3->RowCount = C.GetRows();
+		Show_Mass(C.GetRows(), C.GetColumns(), C.ReturnMass(), dataGridView3);
+	}
+	catch (runtime_error e)
+	{
+		String^ error = gcnew String(e.what());
+		MessageBox::Show(error);
+		return;
+	};
+}
+System::Void MyForm::button4_Click(System::Object^  sender, System::EventArgs^  e) {
+	// Считывание из DGV в двумерный массив
+	try
+	{
+		// Считывание из таблицы в массив
+		ReadFromDGV(dataGridView1);
+	}
+	catch (FormatException^ e)//обработка пойманного исключения
+	{
+		MessageBox::Show("\nИспользование букв и символов недопустимо!");
+		return;
+	}
+
+	Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), ReadFromDGV(dataGridView1));
+	try
+	{
+		MessageBox::Show("Определитель матрицы = " + A.Det().ToString());
+	}
+	catch (runtime_error e)
+	{
+		String^ error = gcnew String(e.what());
+		MessageBox::Show(error);
+	};
+}
+System::Void MyForm::button5_Click(System::Object^  sender, System::EventArgs^  e) {
+	// Считывание из таблицы в двумерный массив
+	try
+	{
+		ReadFromDGV(dataGridView1);
+	}
+	catch (FormatException^ e)//обработка пойманного исключения
+	{
+		MessageBox::Show("\nИспользование букв и символов недопустимо!");
+		return;
+	}
+	// Создание матрицы
+	Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), ReadFromDGV(dataGridView1));
+	// Создание таблиц
+	dataGridView1->ColumnCount = A.GetRows();
+	dataGridView1->RowCount = A.GetColumns();
+	// Транспонирование
+	A.Transport();
+	Show_Mass(dataGridView1->RowCount, dataGridView1->ColumnCount, A.ReturnMass(), dataGridView1);
+}
+System::Void MyForm::button6_Click(System::Object^  sender, System::EventArgs^  e) {
+	// Считывание из DGV в двумерный массив
+	try
+	{
+		ReadFromDGV(dataGridView1);
+	}
+	catch (FormatException^ e)//обработка пойманного исключения
+	{
+		MessageBox::Show("\nИспользование букв и символов недопустимо!");
+		return;
+	}
+	// Создание матрицы
+	Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), ReadFromDGV(dataGridView1));
+	// Обратная матрица 		
+	try
+	{
+		A.InverseMatr();
+	}
+	catch (runtime_error e)
+	{
+		String^ error = gcnew String(e.what());
+		MessageBox::Show(error);
+		return;
+	};
+	// Вывод матрицы
+	Show_Mass(dataGridView1->RowCount, dataGridView1->ColumnCount, A.ReturnMass(), dataGridView1);
+}
+System::Void MyForm::button9_Click(System::Object^  sender, System::EventArgs^  e) {
+	// Размер таблиц
+	dataGridView1->ColumnCount = Convert::ToInt32(numericUpDown2->Value);
+	dataGridView1->RowCount = Convert::ToInt32(numericUpDown1->Value);
+	// Проверка данных на входе
+	if (dataGridView1->ColumnCount != dataGridView1->RowCount)
+	{
+		MessageBox::Show("\nЕдиничная матрица должна быть квадратной!");
+		return;
+	}
+	Matrix A(dataGridView1->RowCount);
+	// Вывод матрицы
+	Show_Mass(dataGridView1->RowCount, dataGridView1->RowCount, A.ReturnMass(), dataGridView1);
+}
+System::Void MyForm::button11_Click(System::Object^  sender, System::EventArgs^  e) {
+	// Размер таблиц
+	dataGridView2->ColumnCount = Convert::ToInt32(numericUpDown4->Value);
+	dataGridView2->RowCount = Convert::ToInt32(numericUpDown3->Value);
+	// Проверка данных на входе
+	if (dataGridView2->ColumnCount != dataGridView2->RowCount)
+	{
+		MessageBox::Show("\nЕдиничная матрица должна быть квадратной!");
+		return;
+	}
+	Matrix A(dataGridView2->RowCount);
+	// Вывод матрицы
+	Show_Mass(dataGridView2->RowCount, dataGridView2->RowCount, A.ReturnMass(), dataGridView2);
+}
+System::Void MyForm::button10_Click(System::Object^  sender, System::EventArgs^  e) {
+	// Размер таблиц
+	dataGridView1->ColumnCount = Convert::ToInt32(numericUpDown2->Value);
+	dataGridView1->RowCount = Convert::ToInt32(numericUpDown1->Value);
+	Matrix A(dataGridView1->RowCount, dataGridView1->ColumnCount);
+	// Вывод матрицы
+	Show_Mass(dataGridView1->RowCount, dataGridView1->ColumnCount, A.ReturnMass(), dataGridView1);
+}
+System::Void MyForm::button12_Click(System::Object^  sender, System::EventArgs^  e) {
+	// Размер таблиц
+	dataGridView2->ColumnCount = Convert::ToInt32(numericUpDown4->Value);
+	dataGridView2->RowCount = Convert::ToInt32(numericUpDown3->Value);
+	Matrix A(dataGridView2->RowCount, dataGridView2->ColumnCount);
+	// Вывод матрицы
+	Show_Mass(dataGridView2->RowCount, dataGridView2->ColumnCount, A.ReturnMass(), dataGridView2);
+}
+System::Void MyForm::button7_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+		FillGridFromFile(dataGridView1, openFileDialog1->FileName);
+}
+System::Void MyForm::button8_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+		FillGridFromFile(dataGridView1, openFileDialog1->FileName);
+}

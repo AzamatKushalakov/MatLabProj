@@ -1,9 +1,30 @@
-﻿Сборка начата 13.06.2015 15:14:25.
-     1>Проект "e:\ТимП\MatLabProj\MatlabGUI\MatlabGUI\MatlabGUI.vcxproj" в узле 2 (целевые объекты Build).
-     1>Link:
-         MatlabGUI.vcxproj -> E:\ТимП\MatLabProj\MatlabGUI\Debug\MatlabGUI.exe
-     1>Сборка проекта "e:\ТимП\MatLabProj\MatlabGUI\MatlabGUI\MatlabGUI.vcxproj" завершена (целевые объекты Build).
+﻿Сборка начата 13.06.2015 22:25:56.
+     1>Проект "C:\Users\Азамат\Desktop\MatLabProj\MatlabGUI\MatlabGUI\MatlabGUI.vcxproj" в узле 2 (целевые объекты Build).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\MATLAB\R2010b\extern\include" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /sdl- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Drawing.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Windows.Forms.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.dll" /analyze- /errorReport:prompt /clr:nostdlib matrix_operations.cpp MyForm.cpp
+         matrix_operations.cpp
+     1>matrix_operations.cpp(290): warning C4244: return: преобразование "double" в "int", возможна потеря данных
+         MyForm.cpp
+     1>MyForm.cpp(71): warning C4965: неявная упаковка целого числа 0; используйте nullptr или явное приведение типов
+     1>MyForm.cpp(78): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include\stdio.h(356): см. объявление "sprintf"
+     1>MyForm.cpp(110): warning C4101: e: неиспользованная локальная переменная
+     1>MyForm.cpp(126): warning C4101: e: неиспользованная локальная переменная
+     1>MyForm.cpp(155): warning C4101: e: неиспользованная локальная переменная
+     1>MyForm.cpp(184): warning C4101: e: неиспользованная локальная переменная
+     1>MyForm.cpp(207): warning C4101: e: неиспользованная локальная переменная
+     1>MyForm.cpp(227): warning C4101: e: неиспользованная локальная переменная
+         Создание кода...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Азамат\Desktop\MatLabProj\MatlabGUI\Debug\MatlabGUI.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\MATLAB\R2010b\extern\lib\win32\microsoft" libeng.lib libmx.lib libmat.lib /ASSEMBLYRESOURCE:Debug\MatlabGUI.MyForm.resources /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Азамат\Desktop\MatLabProj\MatlabGUI\Debug\MatlabGUI.pdb" /ASSEMBLYDEBUG /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"main" /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X86 Debug\Mass.obj
+         Debug\matrix_operations.obj
+         Debug\MyForm.obj
+         "Debug\.NETFramework,Version=v4.5.AssemblyAttributes.obj"
+     1>matrix_operations.obj : warning LNK4248: эхЁрчЁх°хээр  ыхъёхьр TypeRef (01000027) фы  "mxArray_tag"; юсЁрч эхы№ч  чряєёЄшЄ№
+     1>matrix_operations.obj : warning LNK4248: эхЁрчЁх°хээр  ыхъёхьр TypeRef (0100002B) фы  "engine"; юсЁрч эхы№ч  чряєёЄшЄ№
+         MatlabGUI.vcxproj -> C:\Users\Азамат\Desktop\MatLabProj\MatlabGUI\Debug\MatlabGUI.exe
+     1>Сборка проекта "C:\Users\Азамат\Desktop\MatLabProj\MatlabGUI\MatlabGUI\MatlabGUI.vcxproj" завершена (целевые объекты Build).
 
 Сборка успешно завершена.
 
-Затраченное время: 00:00:00.08
+Затраченное время: 00:00:03.79

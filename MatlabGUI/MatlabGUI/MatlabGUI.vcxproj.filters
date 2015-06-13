@@ -38,6 +38,9 @@
     <ClInclude Include="Matrix_exceptions.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Документы\ЯП\ТиМП\MatLabProj\MatlabGUI\MatlabGUI\MyForm.h">
+      <Filter>Файлы ресурсов</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyForm.resx">

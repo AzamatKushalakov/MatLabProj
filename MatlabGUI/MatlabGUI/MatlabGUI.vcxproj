@@ -86,6 +86,7 @@
     <ClCompile Include="MyForm.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\Документы\ЯП\ТиМП\MatLabProj\MatlabGUI\MatlabGUI\MyForm.h" />
     <ClInclude Include="Mass.h" />
     <ClInclude Include="Matrix_exceptions.h" />
     <ClInclude Include="matrix_operations.h" />
