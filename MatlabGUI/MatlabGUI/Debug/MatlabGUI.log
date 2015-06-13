@@ -1,34 +1,9 @@
-﻿Сборка начата 12.06.2015 23:31:52.
-     1>Проект "C:\Users\Азамат\Desktop\Документы\ЯП\ТиМП\MatLabProj\MatlabGUI\MatlabGUI\MatlabGUI.vcxproj" в узле 2 (целевые объекты Build).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\MATLAB\R2010b\extern\include" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /sdl- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Drawing.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Windows.Forms.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.dll" /analyze- /errorReport:prompt /clr:nostdlib MyForm.cpp matrix_operations.cpp
-         MyForm.cpp
-     1>c:\users\азамат\desktop\документы\яп\тимп\matlabproj\matlabgui\matlabgui\MyForm.h(423): warning C4101: e: неиспользованная локальная переменная
-     1>c:\users\азамат\desktop\документы\яп\тимп\matlabproj\matlabgui\matlabgui\MyForm.h(443): warning C4101: e: неиспользованная локальная переменная
-     1>c:\users\азамат\desktop\документы\яп\тимп\matlabproj\matlabgui\matlabgui\MyForm.h(474): warning C4101: e: неиспользованная локальная переменная
-     1>c:\users\азамат\desktop\документы\яп\тимп\matlabproj\matlabgui\matlabgui\MyForm.h(504): warning C4101: e: неиспользованная локальная переменная
-     1>c:\users\азамат\desktop\документы\яп\тимп\matlabproj\matlabgui\matlabgui\MyForm.h(529): warning C4101: e: неиспользованная локальная переменная
-     1>c:\users\азамат\desktop\документы\яп\тимп\matlabproj\matlabgui\matlabgui\MyForm.h(561): warning C4101: e: неиспользованная локальная переменная
-     1>MyForm.cpp(71): warning C4965: неявная упаковка целого числа 0; используйте nullptr или явное приведение типов
-         matrix_operations.cpp
-     1>c:\users\азамат\desktop\документы\яп\тимп\matlabproj\matlabgui\matlabgui\MyForm.h(423): warning C4101: e: неиспользованная локальная переменная
-     1>c:\users\азамат\desktop\документы\яп\тимп\matlabproj\matlabgui\matlabgui\MyForm.h(443): warning C4101: e: неиспользованная локальная переменная
-     1>c:\users\азамат\desktop\документы\яп\тимп\matlabproj\matlabgui\matlabgui\MyForm.h(474): warning C4101: e: неиспользованная локальная переменная
-     1>c:\users\азамат\desktop\документы\яп\тимп\matlabproj\matlabgui\matlabgui\MyForm.h(504): warning C4101: e: неиспользованная локальная переменная
-     1>c:\users\азамат\desktop\документы\яп\тимп\matlabproj\matlabgui\matlabgui\MyForm.h(529): warning C4101: e: неиспользованная локальная переменная
-     1>c:\users\азамат\desktop\документы\яп\тимп\matlabproj\matlabgui\matlabgui\MyForm.h(561): warning C4101: e: неиспользованная локальная переменная
-     1>matrix_operations.cpp(286): warning C4244: return: преобразование "double" в "int", возможна потеря данных
-         Создание кода...
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Азамат\Desktop\Документы\ЯП\ТиМП\MatLabProj\MatlabGUI\Debug\MatlabGUI.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\MATLAB\R2010b\extern\lib\win32\microsoft" libeng.lib libmx.lib libmat.lib /ASSEMBLYRESOURCE:Debug\MatlabGUI.MyForm.resources /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Азамат\Desktop\Документы\ЯП\ТиМП\MatLabProj\MatlabGUI\Debug\MatlabGUI.pdb" /ASSEMBLYDEBUG /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"main" /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X86 Debug\Mass.obj
-         Debug\matrix_operations.obj
-         Debug\MyForm.obj
-         "Debug\.NETFramework,Version=v4.5.AssemblyAttributes.obj"
-     1>matrix_operations.obj : warning LNK4248: эхЁрчЁх°хээр  ыхъёхьр TypeRef (01000028) фы  "mxArray_tag"; юсЁрч эхы№ч  чряєёЄшЄ№
-     1>matrix_operations.obj : warning LNK4248: эхЁрчЁх°хээр  ыхъёхьр TypeRef (0100002C) фы  "engine"; юсЁрч эхы№ч  чряєёЄшЄ№
-         MatlabGUI.vcxproj -> C:\Users\Азамат\Desktop\Документы\ЯП\ТиМП\MatLabProj\MatlabGUI\Debug\MatlabGUI.exe
-     1>Сборка проекта "C:\Users\Азамат\Desktop\Документы\ЯП\ТиМП\MatLabProj\MatlabGUI\MatlabGUI\MatlabGUI.vcxproj" завершена (целевые объекты Build).
+﻿Сборка начата 13.06.2015 15:14:25.
+     1>Проект "e:\ТимП\MatLabProj\MatlabGUI\MatlabGUI\MatlabGUI.vcxproj" в узле 2 (целевые объекты Build).
+     1>Link:
+         MatlabGUI.vcxproj -> E:\ТимП\MatLabProj\MatlabGUI\Debug\MatlabGUI.exe
+     1>Сборка проекта "e:\ТимП\MatLabProj\MatlabGUI\MatlabGUI\MatlabGUI.vcxproj" завершена (целевые объекты Build).
 
 Сборка успешно завершена.
 
-Затраченное время: 00:00:02.58
+Затраченное время: 00:00:00.08

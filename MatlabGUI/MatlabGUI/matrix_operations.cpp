@@ -7,6 +7,7 @@
 #include <string.h>
 #include "engine.h"
 #include "matrix_operations.h"
+#include "Matrix_exceptions.h"
 #include <cstdio>
 #include "MyForm.h"
 
@@ -85,7 +86,7 @@ Matrix::Matrix(int row_, int col_, char* fileName)
 		mas[i] = new double[col];
 	ifstream inarray(fileName);	// Открытие файла для ввода
 	if (!inarray)
-		throw runtime_error("Невозможно открыть файл");
+		throw file_error();
 
 	// Заполнение матрицы (считыванием из файла)
 	for (int i = 0; i < row; ++i) {
@@ -170,6 +171,7 @@ int Matrix::GetRows()
 {
 	return row;
 }
+
 // возвращает двумерный массив, заполненный элементами матрицы Matrix
 double** Matrix::ReturnMass()
 {
@@ -185,6 +187,7 @@ double** Matrix::ReturnMass()
 	}
 	return mas;
 }
+
 // вывод матрицы
 void Matrix::PrintMatr()
 {
@@ -237,6 +240,7 @@ void Matrix::Transport()
 	matr = T_matr; // заполняе матрицу элементами транспонированной матрицы
 	engClose(Eg); // закрываем matlab
 }
+
 // Обратная матрица
 void Matrix::InverseMatr()
 {
@@ -248,10 +252,10 @@ void Matrix::InverseMatr()
 	engPutVariable(Eg, "M", matr);
 	// проверяем, чтобы матрица была квадратной
 	if (row != col)
-		throw runtime_error("Матрица должна быть квадратной!");
+		throw matrix_is_not_square();
 	
 	if (this->Det() == 0)
-		throw runtime_error("Матрица не обратима");
+		throw matrix_is_not_invertible();
 	else
 	{
 		// производим транспонирование в MATLABE
@@ -276,7 +280,7 @@ int Matrix::Det()
 
 	// проверяем, чтобы матрица была квадратной
 	if (row != col)
-		throw runtime_error("Матрица должна быть квадратной!");
+		throw matrix_is_not_square();
 	else
 	{
 		// находим определитель в MATLABE
@@ -307,7 +311,7 @@ Matrix Matrix::operator + (const Matrix& M)
 
 	// проверяем, чтобы матрицы были одинаковых размеров
 	if ((row != M.row) || (col != M.col))
-		throw runtime_error("Матрица должны быть одинаковых размеров!");
+		throw incorrect_size();
 	else
 	{
 		// помещаем массивы matr и M.matr в рабочее пространство MATLAB
@@ -330,7 +334,7 @@ Matrix Matrix::operator * (Matrix M)
 
 	// проверка на правильност задания перемножаемых матриц
 	if (col != M.row)
-		throw runtime_error("Матрицы определены не верно!");
+		throw incorrect_size();
 	else
 	{
 		// помещаем массивы matr и M.matr в рабочее пространство MATLAB

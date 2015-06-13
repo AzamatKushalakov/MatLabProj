@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mass.h" />
+    <ClInclude Include="Matrix_exceptions.h" />
     <ClInclude Include="matrix_operations.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
