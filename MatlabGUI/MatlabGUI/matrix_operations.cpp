@@ -280,7 +280,7 @@ int Matrix::Det()
 
 	// проверяем, чтобы матрица была квадратной
 	if (row != col)
-		throw matrix_is_not_square();
+		throw mins;
 	else
 	{
 		// находим определитель в MATLABE
@@ -311,7 +311,7 @@ Matrix Matrix::operator + (const Matrix& M)
 
 	// проверяем, чтобы матрицы были одинаковых размеров
 	if ((row != M.row) || (col != M.col))
-		throw incorrect_size();
+		throw ics;
 	else
 	{
 		// помещаем массивы matr и M.matr в рабочее пространство MATLAB
@@ -334,7 +334,7 @@ Matrix Matrix::operator * (Matrix M)
 
 	// проверка на правильност задания перемножаемых матриц
 	if (col != M.row)
-		throw incorrect_size();
+		throw ics;
 	else
 	{
 		// помещаем массивы matr и M.matr в рабочее пространство MATLAB

@@ -3,6 +3,7 @@
 #include "matrix_operations.h"
 #include <stdexcept>
 #include <fstream>
+//#include "Matrix_exceptions.h"
 
 namespace MatlabGUI {
 
@@ -41,7 +42,7 @@ namespace MatlabGUI {
 
 	protected:
 
-	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::Button^  OK;
 	private: System::Windows::Forms::NumericUpDown^  numericUpDown1;
 	private: System::Windows::Forms::NumericUpDown^  numericUpDown2;
 	private: System::Windows::Forms::Label^  label1;
@@ -53,11 +54,11 @@ namespace MatlabGUI {
 	private: System::Windows::Forms::DataGridView^  dataGridView1;
 	private: System::Windows::Forms::DataGridView^  dataGridView2;
 	private: System::Windows::Forms::DataGridView^  dataGridView3;
-	private: System::Windows::Forms::Button^  button2;
-	private: System::Windows::Forms::Button^  button3;
-	private: System::Windows::Forms::Button^  button4;
-	private: System::Windows::Forms::Button^  button5;
-	private: System::Windows::Forms::Button^  button6;
+	private: System::Windows::Forms::Button^  SummOfMatrix;
+	private: System::Windows::Forms::Button^  MultiplicationOfMatrix;
+	private: System::Windows::Forms::Button^  DeterminateFirstMatrix;
+	private: System::Windows::Forms::Button^  TransposeFirstMatrix;
+	private: System::Windows::Forms::Button^  InverseFirstMatrix;
 	private: System::Windows::Forms::MenuStrip^  menuStrip1;
 	private: System::Windows::Forms::ToolStripMenuItem^  очисткаТаблицToolStripMenuItem;
 
@@ -65,12 +66,12 @@ namespace MatlabGUI {
 
 
 
-	private: System::Windows::Forms::Button^  button9;
-	private: System::Windows::Forms::Button^  button10;
-	private: System::Windows::Forms::Button^  button11;
-	private: System::Windows::Forms::Button^  button12;
-	private: System::Windows::Forms::Button^  button7;
-	private: System::Windows::Forms::Button^  button8;
+	private: System::Windows::Forms::Button^  UnitFirstMatrix;
+	private: System::Windows::Forms::Button^  NullFirstMatrix;
+	private: System::Windows::Forms::Button^  UnitSecondMatrix;
+	private: System::Windows::Forms::Button^  NullSecondMatrix;
+	private: System::Windows::Forms::Button^  InputToFirstMatrix;
+	private: System::Windows::Forms::Button^  InputToSecondMatrix;
 	private: System::Windows::Forms::OpenFileDialog^  openFileDialog1;
 
 
@@ -88,7 +89,7 @@ namespace MatlabGUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->OK = (gcnew System::Windows::Forms::Button());
 			this->numericUpDown1 = (gcnew System::Windows::Forms::NumericUpDown());
 			this->numericUpDown2 = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label1 = (gcnew System::Windows::Forms::Label());
@@ -100,19 +101,19 @@ namespace MatlabGUI {
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
 			this->dataGridView2 = (gcnew System::Windows::Forms::DataGridView());
 			this->dataGridView3 = (gcnew System::Windows::Forms::DataGridView());
-			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->button3 = (gcnew System::Windows::Forms::Button());
-			this->button4 = (gcnew System::Windows::Forms::Button());
-			this->button5 = (gcnew System::Windows::Forms::Button());
-			this->button6 = (gcnew System::Windows::Forms::Button());
+			this->SummOfMatrix = (gcnew System::Windows::Forms::Button());
+			this->MultiplicationOfMatrix = (gcnew System::Windows::Forms::Button());
+			this->DeterminateFirstMatrix = (gcnew System::Windows::Forms::Button());
+			this->TransposeFirstMatrix = (gcnew System::Windows::Forms::Button());
+			this->InverseFirstMatrix = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->очисткаТаблицToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->button9 = (gcnew System::Windows::Forms::Button());
-			this->button10 = (gcnew System::Windows::Forms::Button());
-			this->button11 = (gcnew System::Windows::Forms::Button());
-			this->button12 = (gcnew System::Windows::Forms::Button());
-			this->button7 = (gcnew System::Windows::Forms::Button());
-			this->button8 = (gcnew System::Windows::Forms::Button());
+			this->UnitFirstMatrix = (gcnew System::Windows::Forms::Button());
+			this->NullFirstMatrix = (gcnew System::Windows::Forms::Button());
+			this->UnitSecondMatrix = (gcnew System::Windows::Forms::Button());
+			this->NullSecondMatrix = (gcnew System::Windows::Forms::Button());
+			this->InputToFirstMatrix = (gcnew System::Windows::Forms::Button());
+			this->InputToSecondMatrix = (gcnew System::Windows::Forms::Button());
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown2))->BeginInit();
@@ -124,15 +125,15 @@ namespace MatlabGUI {
 			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
-			// button1
+			// OK
 			// 
-			this->button1->Location = System::Drawing::Point(363, 43);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(111, 39);
-			this->button1->TabIndex = 2;
-			this->button1->Text = L"OK";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
+			this->OK->Location = System::Drawing::Point(363, 43);
+			this->OK->Name = L"OK";
+			this->OK->Size = System::Drawing::Size(111, 39);
+			this->OK->TabIndex = 2;
+			this->OK->Text = L"OK";
+			this->OK->UseVisualStyleBackColor = true;
+			this->OK->Click += gcnew System::EventHandler(this, &MyForm::OK_Click);
 			// 
 			// numericUpDown1
 			// 
@@ -229,55 +230,55 @@ namespace MatlabGUI {
 			this->dataGridView3->Size = System::Drawing::Size(192, 137);
 			this->dataGridView3->TabIndex = 13;
 			// 
-			// button2
+			// SummOfMatrix
 			// 
-			this->button2->Location = System::Drawing::Point(382, 122);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(75, 52);
-			this->button2->TabIndex = 14;
-			this->button2->Text = L"+";
-			this->button2->UseVisualStyleBackColor = true;
-			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
+			this->SummOfMatrix->Location = System::Drawing::Point(382, 122);
+			this->SummOfMatrix->Name = L"SummOfMatrix";
+			this->SummOfMatrix->Size = System::Drawing::Size(75, 52);
+			this->SummOfMatrix->TabIndex = 14;
+			this->SummOfMatrix->Text = L"+";
+			this->SummOfMatrix->UseVisualStyleBackColor = true;
+			this->SummOfMatrix->Click += gcnew System::EventHandler(this, &MyForm::SummOfMatrix_Click);
 			// 
-			// button3
+			// MultiplicationOfMatrix
 			// 
-			this->button3->Location = System::Drawing::Point(382, 207);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(75, 52);
-			this->button3->TabIndex = 15;
-			this->button3->Text = L"*";
-			this->button3->UseVisualStyleBackColor = true;
-			this->button3->Click += gcnew System::EventHandler(this, &MyForm::button3_Click);
+			this->MultiplicationOfMatrix->Location = System::Drawing::Point(382, 207);
+			this->MultiplicationOfMatrix->Name = L"MultiplicationOfMatrix";
+			this->MultiplicationOfMatrix->Size = System::Drawing::Size(75, 52);
+			this->MultiplicationOfMatrix->TabIndex = 15;
+			this->MultiplicationOfMatrix->Text = L"*";
+			this->MultiplicationOfMatrix->UseVisualStyleBackColor = true;
+			this->MultiplicationOfMatrix->Click += gcnew System::EventHandler(this, &MyForm::MultiplicationOfMatrix_Click);
 			// 
-			// button4
+			// DeterminateFirstMatrix
 			// 
-			this->button4->Location = System::Drawing::Point(12, 178);
-			this->button4->Name = L"button4";
-			this->button4->Size = System::Drawing::Size(90, 23);
-			this->button4->TabIndex = 16;
-			this->button4->Text = L"Определитель";
-			this->button4->UseVisualStyleBackColor = true;
-			this->button4->Click += gcnew System::EventHandler(this, &MyForm::button4_Click);
+			this->DeterminateFirstMatrix->Location = System::Drawing::Point(12, 178);
+			this->DeterminateFirstMatrix->Name = L"DeterminateFirstMatrix";
+			this->DeterminateFirstMatrix->Size = System::Drawing::Size(90, 23);
+			this->DeterminateFirstMatrix->TabIndex = 16;
+			this->DeterminateFirstMatrix->Text = L"Определитель";
+			this->DeterminateFirstMatrix->UseVisualStyleBackColor = true;
+			this->DeterminateFirstMatrix->Click += gcnew System::EventHandler(this, &MyForm::DeterminateFirstMatrix_Click);
 			// 
-			// button5
+			// TransposeFirstMatrix
 			// 
-			this->button5->Location = System::Drawing::Point(12, 207);
-			this->button5->Name = L"button5";
-			this->button5->Size = System::Drawing::Size(90, 23);
-			this->button5->TabIndex = 17;
-			this->button5->Text = L"Транспонирование";
-			this->button5->UseVisualStyleBackColor = true;
-			this->button5->Click += gcnew System::EventHandler(this, &MyForm::button5_Click);
+			this->TransposeFirstMatrix->Location = System::Drawing::Point(12, 207);
+			this->TransposeFirstMatrix->Name = L"TransposeFirstMatrix";
+			this->TransposeFirstMatrix->Size = System::Drawing::Size(90, 23);
+			this->TransposeFirstMatrix->TabIndex = 17;
+			this->TransposeFirstMatrix->Text = L"Транспонирование";
+			this->TransposeFirstMatrix->UseVisualStyleBackColor = true;
+			this->TransposeFirstMatrix->Click += gcnew System::EventHandler(this, &MyForm::TransposeFirstMatrix_Click);
 			// 
-			// button6
+			// InverseFirstMatrix
 			// 
-			this->button6->Location = System::Drawing::Point(12, 236);
-			this->button6->Name = L"button6";
-			this->button6->Size = System::Drawing::Size(90, 23);
-			this->button6->TabIndex = 18;
-			this->button6->Text = L"Обратная";
-			this->button6->UseVisualStyleBackColor = true;
-			this->button6->Click += gcnew System::EventHandler(this, &MyForm::button6_Click);
+			this->InverseFirstMatrix->Location = System::Drawing::Point(12, 236);
+			this->InverseFirstMatrix->Name = L"InverseFirstMatrix";
+			this->InverseFirstMatrix->Size = System::Drawing::Size(90, 23);
+			this->InverseFirstMatrix->TabIndex = 18;
+			this->InverseFirstMatrix->Text = L"Обратная";
+			this->InverseFirstMatrix->UseVisualStyleBackColor = true;
+			this->InverseFirstMatrix->Click += gcnew System::EventHandler(this, &MyForm::InverseFirstMatrix_Click);
 			// 
 			// menuStrip1
 			// 
@@ -295,65 +296,65 @@ namespace MatlabGUI {
 			this->очисткаТаблицToolStripMenuItem->Text = L"Очистка таблиц";
 			this->очисткаТаблицToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::очисткаТаблицToolStripMenuItem_Click);
 			// 
-			// button9
+			// UnitFirstMatrix
 			// 
-			this->button9->Location = System::Drawing::Point(12, 122);
-			this->button9->Name = L"button9";
-			this->button9->Size = System::Drawing::Size(90, 23);
-			this->button9->TabIndex = 25;
-			this->button9->Text = L"Единичная матрица";
-			this->button9->UseVisualStyleBackColor = true;
-			this->button9->Click += gcnew System::EventHandler(this, &MyForm::button9_Click);
+			this->UnitFirstMatrix->Location = System::Drawing::Point(12, 122);
+			this->UnitFirstMatrix->Name = L"UnitFirstMatrix";
+			this->UnitFirstMatrix->Size = System::Drawing::Size(90, 23);
+			this->UnitFirstMatrix->TabIndex = 25;
+			this->UnitFirstMatrix->Text = L"Единичная матрица";
+			this->UnitFirstMatrix->UseVisualStyleBackColor = true;
+			this->UnitFirstMatrix->Click += gcnew System::EventHandler(this, &MyForm::UnitFirstMatrix_Click);
 			// 
-			// button10
+			// NullFirstMatrix
 			// 
-			this->button10->Location = System::Drawing::Point(12, 149);
-			this->button10->Name = L"button10";
-			this->button10->Size = System::Drawing::Size(90, 23);
-			this->button10->TabIndex = 26;
-			this->button10->Text = L"Нулевая матрица";
-			this->button10->UseVisualStyleBackColor = true;
-			this->button10->Click += gcnew System::EventHandler(this, &MyForm::button10_Click);
+			this->NullFirstMatrix->Location = System::Drawing::Point(12, 149);
+			this->NullFirstMatrix->Name = L"NullFirstMatrix";
+			this->NullFirstMatrix->Size = System::Drawing::Size(90, 23);
+			this->NullFirstMatrix->TabIndex = 26;
+			this->NullFirstMatrix->Text = L"Нулевая матрица";
+			this->NullFirstMatrix->UseVisualStyleBackColor = true;
+			this->NullFirstMatrix->Click += gcnew System::EventHandler(this, &MyForm::NullFirstMatrix_Click);
 			// 
-			// button11
+			// UnitSecondMatrix
 			// 
-			this->button11->Location = System::Drawing::Point(747, 122);
-			this->button11->Name = L"button11";
-			this->button11->Size = System::Drawing::Size(90, 23);
-			this->button11->TabIndex = 27;
-			this->button11->Text = L"Единичная";
-			this->button11->UseVisualStyleBackColor = true;
-			this->button11->Click += gcnew System::EventHandler(this, &MyForm::button11_Click);
+			this->UnitSecondMatrix->Location = System::Drawing::Point(747, 122);
+			this->UnitSecondMatrix->Name = L"UnitSecondMatrix";
+			this->UnitSecondMatrix->Size = System::Drawing::Size(90, 23);
+			this->UnitSecondMatrix->TabIndex = 27;
+			this->UnitSecondMatrix->Text = L"Единичная";
+			this->UnitSecondMatrix->UseVisualStyleBackColor = true;
+			this->UnitSecondMatrix->Click += gcnew System::EventHandler(this, &MyForm::UnitSecondMatrix_Click);
 			// 
-			// button12
+			// NullSecondMatrix
 			// 
-			this->button12->Location = System::Drawing::Point(747, 149);
-			this->button12->Name = L"button12";
-			this->button12->Size = System::Drawing::Size(90, 23);
-			this->button12->TabIndex = 28;
-			this->button12->Text = L"Нулевая";
-			this->button12->UseVisualStyleBackColor = true;
-			this->button12->Click += gcnew System::EventHandler(this, &MyForm::button12_Click);
+			this->NullSecondMatrix->Location = System::Drawing::Point(747, 149);
+			this->NullSecondMatrix->Name = L"NullSecondMatrix";
+			this->NullSecondMatrix->Size = System::Drawing::Size(90, 23);
+			this->NullSecondMatrix->TabIndex = 28;
+			this->NullSecondMatrix->Text = L"Нулевая";
+			this->NullSecondMatrix->UseVisualStyleBackColor = true;
+			this->NullSecondMatrix->Click += gcnew System::EventHandler(this, &MyForm::NullSecondMatrix_Click);
 			// 
-			// button7
+			// InputToFirstMatrix
 			// 
-			this->button7->Location = System::Drawing::Point(108, 93);
-			this->button7->Name = L"button7";
-			this->button7->Size = System::Drawing::Size(148, 23);
-			this->button7->TabIndex = 29;
-			this->button7->Text = L"Загрузить из файла";
-			this->button7->UseVisualStyleBackColor = true;
-			this->button7->Click += gcnew System::EventHandler(this, &MyForm::button7_Click);
+			this->InputToFirstMatrix->Location = System::Drawing::Point(108, 93);
+			this->InputToFirstMatrix->Name = L"InputToFirstMatrix";
+			this->InputToFirstMatrix->Size = System::Drawing::Size(148, 23);
+			this->InputToFirstMatrix->TabIndex = 29;
+			this->InputToFirstMatrix->Text = L"Загрузить из файла";
+			this->InputToFirstMatrix->UseVisualStyleBackColor = true;
+			this->InputToFirstMatrix->Click += gcnew System::EventHandler(this, &MyForm::InputToFirstMatrix_Click);
 			// 
-			// button8
+			// InputToSecondMatrix
 			// 
-			this->button8->Location = System::Drawing::Point(549, 93);
-			this->button8->Name = L"button8";
-			this->button8->Size = System::Drawing::Size(156, 23);
-			this->button8->TabIndex = 30;
-			this->button8->Text = L"Загрузить из файла";
-			this->button8->UseVisualStyleBackColor = true;
-			this->button8->Click += gcnew System::EventHandler(this, &MyForm::button8_Click);
+			this->InputToSecondMatrix->Location = System::Drawing::Point(549, 93);
+			this->InputToSecondMatrix->Name = L"InputToSecondMatrix";
+			this->InputToSecondMatrix->Size = System::Drawing::Size(156, 23);
+			this->InputToSecondMatrix->TabIndex = 30;
+			this->InputToSecondMatrix->Text = L"Загрузить из файла";
+			this->InputToSecondMatrix->UseVisualStyleBackColor = true;
+			this->InputToSecondMatrix->Click += gcnew System::EventHandler(this, &MyForm::InputToSecondMatrix_Click);
 			// 
 			// openFileDialog1
 			// 
@@ -365,17 +366,17 @@ namespace MatlabGUI {
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(848, 436);
-			this->Controls->Add(this->button8);
-			this->Controls->Add(this->button7);
-			this->Controls->Add(this->button12);
-			this->Controls->Add(this->button11);
-			this->Controls->Add(this->button10);
-			this->Controls->Add(this->button9);
-			this->Controls->Add(this->button6);
-			this->Controls->Add(this->button5);
-			this->Controls->Add(this->button4);
-			this->Controls->Add(this->button3);
-			this->Controls->Add(this->button2);
+			this->Controls->Add(this->InputToSecondMatrix);
+			this->Controls->Add(this->InputToFirstMatrix);
+			this->Controls->Add(this->NullSecondMatrix);
+			this->Controls->Add(this->UnitSecondMatrix);
+			this->Controls->Add(this->NullFirstMatrix);
+			this->Controls->Add(this->UnitFirstMatrix);
+			this->Controls->Add(this->InverseFirstMatrix);
+			this->Controls->Add(this->TransposeFirstMatrix);
+			this->Controls->Add(this->DeterminateFirstMatrix);
+			this->Controls->Add(this->MultiplicationOfMatrix);
+			this->Controls->Add(this->SummOfMatrix);
 			this->Controls->Add(this->dataGridView3);
 			this->Controls->Add(this->dataGridView2);
 			this->Controls->Add(this->dataGridView1);
@@ -387,7 +388,7 @@ namespace MatlabGUI {
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->numericUpDown2);
 			this->Controls->Add(this->numericUpDown1);
-			this->Controls->Add(this->button1);
+			this->Controls->Add(this->OK);
 			this->Controls->Add(this->menuStrip1);
 			this->MainMenuStrip = this->menuStrip1;
 			this->Name = L"MyForm";
@@ -419,39 +420,39 @@ namespace MatlabGUI {
 	private: void Clear(DataGridView^ datagridview);
 	private: System::Void FillGridFromFile(DataGridView^ dg, String^ fileName);
 	// ОК - кнопка
-	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void OK_Click(System::Object^  sender, System::EventArgs^  e);
 	// +
-	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void SummOfMatrix_Click(System::Object^  sender, System::EventArgs^  e);
 	// *
-	private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void MultiplicationOfMatrix_Click(System::Object^  sender, System::EventArgs^  e);
 	// определитель
-	private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void DeterminateFirstMatrix_Click(System::Object^  sender, System::EventArgs^  e);
 	// Транспонирование
-	private: System::Void button5_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void TransposeFirstMatrix_Click(System::Object^  sender, System::EventArgs^  e);
 	// единичная для 1 матрицы
-	private: System::Void button9_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void UnitFirstMatrix_Click(System::Object^  sender, System::EventArgs^  e);
 	// единичная для 2 матрицы
-	private: System::Void button11_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void UnitSecondMatrix_Click(System::Object^  sender, System::EventArgs^  e);
 	// нулевая для 1 матрицы
-	private: System::Void button10_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void NullFirstMatrix_Click(System::Object^  sender, System::EventArgs^  e);
 	// нулевая для 2 матрицы
-	private: System::Void button12_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void NullSecondMatrix_Click(System::Object^  sender, System::EventArgs^  e);
 	// Очистить таблицы
 	private: System::Void очисткаТаблицToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 		Clear(dataGridView1);
 		Clear(dataGridView2);
 		Clear(dataGridView3);
 	}
-	private: System::Void button6_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void InverseFirstMatrix_Click(System::Object^  sender, System::EventArgs^  e);
 	// форма
 	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
 	}
 	// Считывание в 1 матрицу
-	private: System::Void button7_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void InputToFirstMatrix_Click(System::Object^  sender, System::EventArgs^  e);
 	// Возможность считывать из файла
 	private: System::Void openFileDialog1_FileOk(System::Object^  sender, System::ComponentModel::CancelEventArgs^  e) {
 	}
 	// Считывание во 2 матрицу
-	private: System::Void button8_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void InputToSecondMatrix_Click(System::Object^  sender, System::EventArgs^  e);
 };
 }
