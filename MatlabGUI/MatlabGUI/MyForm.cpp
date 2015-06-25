@@ -1,5 +1,5 @@
 #include "MyForm.h"
-
+#include "Matrix_exceptions.h"
 
 using namespace MatlabGUI; //name of project
 
@@ -12,6 +12,7 @@ int main(array<System::String ^> ^args)
 	Application::Run(gcnew MyForm());
 	return 0;
 }
+
 // Ручной ввод матриц
 void MyForm::Mass_Creator(int row, int col,  DataGridView^ dataGridView)
 {
@@ -24,6 +25,7 @@ void MyForm::Mass_Creator(int row, int col,  DataGridView^ dataGridView)
 		for (int j = 0; j < col; j++)
 			mas[i][j] = Convert::ToInt32(dataGridView->Rows[i]->Cells[j]->Value);
 }
+
 // Вывод матриц в таблицу
 void MyForm::Show_Mass(int row, int col, double **mas, DataGridView^ dataGridView)
 {
@@ -40,6 +42,7 @@ void MyForm::Show_Mass(int row, int col, double **mas, DataGridView^ dataGridVie
 			dataGridView->Rows[i]->Cells[j]->Value = mas[i][j];
 		}
 }
+
 // Вывод пустой матрицы в таблицу
 void MyForm::Show_Mass(int row, int col, DataGridView^ dataGridView)
 {
@@ -54,6 +57,7 @@ void MyForm::Show_Mass(int row, int col, DataGridView^ dataGridView)
 			dataGridView->Rows[i]->HeaderCell->Value = Convert::ToString(i + 1);
 		}
 }
+
 // Считывание из таблицы в двумерный массив. Данная функция нужна для вывода матриц
 double**MyForm::ReadFromDGV(DataGridView^ dataGridView)
 {
@@ -62,13 +66,20 @@ double**MyForm::ReadFromDGV(DataGridView^ dataGridView)
 	for (int i = 0; i < dataGridView->RowCount; ++i)
 		mas[i] = new double[dataGridView->ColumnCount];
 	// Считывание
-	for (int i = 0; i < dataGridView->RowCount; i++)
-		for (int j = 0; j < dataGridView->ColumnCount; j++)
-			//Преобразуем значения из ячеек в числа, и пишем в массив
-			//Если не число то происходит вызов исключения и его обработка
-			mas[i][j] = Convert::ToDouble(dataGridView->Rows[i]->Cells[j]->Value);
+	try
+	{
+		for (int i = 0; i < dataGridView->RowCount; i++)
+			for (int j = 0; j < dataGridView->ColumnCount; j++)
+				//Преобразуем значения из ячеек в числа, и пишем в массив. Если не число то происходит вызов исключения и его обработка
+				mas[i][j] = Convert::ToDouble(dataGridView->Rows[i]->Cells[j]->Value);
+	}
+	catch (System::FormatException ^e)
+	{
+		MessageBox::Show("Вводить символы и буквы запрещено!");
+	};	
 	return mas;
 }
+
 // Очистка таблиц (заполнение ячеек нулями)
 void MyForm::Clear(DataGridView^ datagridview)
 {
@@ -76,6 +87,7 @@ void MyForm::Clear(DataGridView^ datagridview)
 		for (int j = 0; j < datagridview->Columns->Count; j++)
 			datagridview->Rows[i]->Cells[j]->Value = 0;
 }
+
 // Считывание из файла в таблицу
 System::Void MyForm::FillGridFromFile(DataGridView^ dg, String^ fileName)
 {
@@ -96,6 +108,8 @@ System::Void MyForm::FillGridFromFile(DataGridView^ dg, String^ fileName)
 	// Проработать исключение на количество
 	inarray.close();
 }
+
+// OK
 System::Void MyForm::OK_Click(System::Object^  sender, System::EventArgs^  e) {
 	// Создается таблица для матрицы А
 	dataGridView1->ColumnCount = Convert::ToInt32(numericUpDown2->Value);
@@ -108,34 +122,19 @@ System::Void MyForm::OK_Click(System::Object^  sender, System::EventArgs^  e) {
 	dataGridView1->AutoResizeColumns();
 	dataGridView2->AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode::AutoSizeToAllHeaders);
 	dataGridView2->AutoResizeColumns();
-	try
-	{
-		// Ручной ввод таблиц
-		Mass_Creator(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), dataGridView1);
-		Mass_Creator(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), dataGridView2);
-	}
-	catch (FormatException ^e)
-	{
-		MessageBox::Show("\nОшибка! Вы уже ввели размер матрицы");
-		return;
-	}
+	// Ручной ввод таблиц
+	Mass_Creator(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), dataGridView1);
+	Mass_Creator(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), dataGridView2);
 	// Вывод матриц
 	Show_Mass(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), dataGridView1);
 	Show_Mass(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), dataGridView2);
 }
+
+// Сложение
 System::Void MyForm::SummOfMatrix_Click(System::Object^  sender, System::EventArgs^  e) {			  
-	try
-	{
 		// Считывание из таблицы в массив
 		ReadFromDGV(dataGridView1);
 		ReadFromDGV(dataGridView2);
-	}
-	//обработка пойманного исключения
-	catch (FormatException^ e)
-	{
-		MessageBox::Show("\nИспользование букв и символов недопустимо!");
-		return;
-	}
 	// Создание операнд
 	Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), ReadFromDGV(dataGridView1));
 	Matrix B(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), ReadFromDGV(dataGridView2));
@@ -150,24 +149,18 @@ System::Void MyForm::SummOfMatrix_Click(System::Object^  sender, System::EventAr
 		Show_Mass(C.GetRows(), C.GetColumns(), C.ReturnMass(), dataGridView3);
 	}
 	// обработка исключения
-	catch (exception& e)
+	catch (incorrect_size& e)
 	{
 		String^ error = gcnew String(e.what());
 		MessageBox::Show(error);
 	};
 }
+
+// Умножение
 System::Void MyForm::MultiplicationOfMatrix_Click(System::Object^  sender, System::EventArgs^  e) {
-	try
-	{
-		// Считывание из таблицы в массив
-		ReadFromDGV(dataGridView1);
-		ReadFromDGV(dataGridView2);
-	}
-	catch (FormatException^ e)//обработка пойманного исключения
-	{
-		MessageBox::Show("\nИспользование букв и символов недопустимо!");
-		return;
-	}
+	// Считывание из таблицы в массив
+	ReadFromDGV(dataGridView1);
+	ReadFromDGV(dataGridView2);
 	// Создание операнд
 	Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), ReadFromDGV(dataGridView1));
 	Matrix B(Convert::ToInt32(numericUpDown3->Value), Convert::ToInt32(numericUpDown4->Value), ReadFromDGV(dataGridView2));
@@ -181,47 +174,34 @@ System::Void MyForm::MultiplicationOfMatrix_Click(System::Object^  sender, Syste
 		// Выводим результат
 		Show_Mass(C.GetRows(), C.GetColumns(), C.ReturnMass(), dataGridView3);
 	}
-	catch (exception& e)
+	catch (incorrect_size& e)
 	{
 		String^ error = gcnew String(e.what());
 		MessageBox::Show(error);
 	};
 }
+
+// Определитель
 System::Void MyForm::DeterminateFirstMatrix_Click(System::Object^  sender, System::EventArgs^  e) {
 	// Считывание из DGV в двумерный массив
-	try
-	{
-		// Считывание из таблицы в массив
-		ReadFromDGV(dataGridView1);
-	}
-	catch (FormatException^ e)//обработка пойманного исключения
-	{
-		MessageBox::Show("\nИспользование букв и символов недопустимо!");
-		return;
-	}
+	ReadFromDGV(dataGridView1);
 
 	Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), ReadFromDGV(dataGridView1));
 	try
 	{
 		MessageBox::Show("Определитель матрицы = " + A.Det().ToString());
 	}
-	catch (exception& e)
+	catch (matrix_is_not_square& e)
 	{
 		String^ error = gcnew String(e.what());
 		MessageBox::Show(error);
 	};
 }
+
+// Транспонирование
 System::Void MyForm::TransposeFirstMatrix_Click(System::Object^  sender, System::EventArgs^  e) {
 	// Считывание из таблицы в двумерный массив
-	try
-	{
-		ReadFromDGV(dataGridView1);
-	}
-	catch (FormatException^ e)//обработка пойманного исключения
-	{
-		MessageBox::Show("\nИспользование букв и символов недопустимо!");
-		return;
-	}
+	ReadFromDGV(dataGridView1);
 	// Создание матрицы
 	Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), ReadFromDGV(dataGridView1));
 	// Создание таблиц
@@ -232,17 +212,11 @@ System::Void MyForm::TransposeFirstMatrix_Click(System::Object^  sender, System:
 	// вывод матрицы
 	Show_Mass(A.GetRows(), A.GetColumns(), A.ReturnMass(), dataGridView1);
 }
+
+// Обратная матрица
 System::Void MyForm::InverseFirstMatrix_Click(System::Object^  sender, System::EventArgs^  e) {
 	// Считывание из DGV в двумерный массив
-	try
-	{
-		ReadFromDGV(dataGridView1);
-	}
-	catch (FormatException^ e)//обработка пойманного исключения
-	{
-		MessageBox::Show("\nИспользование букв и символов недопустимо!");
-		return;
-	}
+	ReadFromDGV(dataGridView1);
 	// Создание матрицы
 	Matrix A(Convert::ToInt32(numericUpDown1->Value), Convert::ToInt32(numericUpDown2->Value), ReadFromDGV(dataGridView1));
 	// Обратная матрица 		
@@ -250,7 +224,14 @@ System::Void MyForm::InverseFirstMatrix_Click(System::Object^  sender, System::E
 	{
 		A.InverseMatr();
 	}
-	catch (exception& e)
+	// матрица неквадратная
+	catch (matrix_is_not_square& e)
+	{
+		String^ error = gcnew String(e.what());
+		MessageBox::Show(error);
+	}
+	// матрица необратимая
+	catch (matrix_is_not_invertible& e)
 	{
 		String^ error = gcnew String(e.what());
 		MessageBox::Show(error);
@@ -258,6 +239,8 @@ System::Void MyForm::InverseFirstMatrix_Click(System::Object^  sender, System::E
 	// Вывод матрицы
 	Show_Mass(dataGridView1->RowCount, dataGridView1->ColumnCount, A.ReturnMass(), dataGridView1);
 }
+
+// Единичная матрица для левой таблицы
 System::Void MyForm::UnitFirstMatrix_Click(System::Object^  sender, System::EventArgs^  e) {
 	// Размер таблиц
 	dataGridView1->ColumnCount = Convert::ToInt32(numericUpDown2->Value);
@@ -272,6 +255,8 @@ System::Void MyForm::UnitFirstMatrix_Click(System::Object^  sender, System::Even
 	// Вывод матрицы
 	Show_Mass(dataGridView1->RowCount, dataGridView1->RowCount, A.ReturnMass(), dataGridView1);
 }
+
+// Единичная матрица для правой таблицы
 System::Void MyForm::UnitSecondMatrix_Click(System::Object^  sender, System::EventArgs^  e) {
 	// Размер таблиц
 	dataGridView2->ColumnCount = Convert::ToInt32(numericUpDown4->Value);
@@ -286,6 +271,8 @@ System::Void MyForm::UnitSecondMatrix_Click(System::Object^  sender, System::Eve
 	// Вывод матрицы
 	Show_Mass(dataGridView2->RowCount, dataGridView2->RowCount, A.ReturnMass(), dataGridView2);
 }
+
+// Нулевая матрица для левой таблицы
 System::Void MyForm::NullFirstMatrix_Click(System::Object^  sender, System::EventArgs^  e) {
 	// Размер таблиц
 	dataGridView1->ColumnCount = Convert::ToInt32(numericUpDown2->Value);
@@ -294,6 +281,8 @@ System::Void MyForm::NullFirstMatrix_Click(System::Object^  sender, System::Even
 	// Вывод матрицы
 	Show_Mass(dataGridView1->RowCount, dataGridView1->ColumnCount, A.ReturnMass(), dataGridView1);
 }
+
+// Единичная матрица для правой таблицы
 System::Void MyForm::NullSecondMatrix_Click(System::Object^  sender, System::EventArgs^  e) {
 	// Размер таблиц
 	dataGridView2->ColumnCount = Convert::ToInt32(numericUpDown4->Value);
@@ -302,11 +291,15 @@ System::Void MyForm::NullSecondMatrix_Click(System::Object^  sender, System::Eve
 	// Вывод матрицы
 	Show_Mass(dataGridView2->RowCount, dataGridView2->ColumnCount, A.ReturnMass(), dataGridView2);
 }
+
+// Ввод из файла в левую таблицу
 System::Void MyForm::InputToFirstMatrix_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
 		// считывание из файла
 		FillGridFromFile(dataGridView1, openFileDialog1->FileName);
 }
+
+// Ввод из файла в правую таблицу
 System::Void MyForm::InputToSecondMatrix_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
 		// считвание из файла

@@ -1,40 +1,46 @@
 #pragma once
 #include <exception>
+#include <stdexcept>
 
-//using std::exception;
-
-class file_error: public exception
+// Исключение на файловый ввод
+class file_error : public exception
 {
+public:
+	file_error(const string m = "Ошибка в чтении из файла") :msg(m){}
+	~file_error(){}
+	const char* what(){ return msg.c_str(); }
+private:
+	string msg;
+};
 
-}fe;
+// Исключение выбрасываетсяв случае неквадратной матрицы
+class matrix_is_not_square :public exception{
+public:
+	matrix_is_not_square(const string m = "Матрица должна быть квадратной") :msg(m){}
+	~matrix_is_not_square(){}
+	const char* what(){ return msg.c_str(); }
+private:
+	string msg;
+};
 
-class matrix_is_not_square: public exception
+// Исключение выбрасывается в случае необратимости матрицы
+class matrix_is_not_invertible : public exception
 {
-	virtual const char* what() const throw()
-	{
-		return "Матрица должна быть квадратной";
-	}
-} mins;
+public:
+	matrix_is_not_invertible(const string m = "Матрица необратима") :msg(m){}
+	~matrix_is_not_invertible(){}
+	const char* what(){ return msg.c_str(); }
+private:
+	string msg;
+};
 
-class matrix_is_not_invertible: public exception
+// Исключение выбрасывается, если размеры, введенные в форме не позволяют корректно вычислить результат
+class incorrect_size : public exception
 {
-	virtual const char* what() const throw()
-	{
-		return "Матрица не обратима";
-	}
-} mini;
-
-class incorrect_size: public exception
-{
-	virtual const char* what() const throw()
-	{
-		return "Задан некорректный размер матриц для данной операции";
-	}
-} ics;
-class incorrect_input_value : public exception
-{
-	virtual const char* what() const throw()
-	{
-		return "Некорректный ввод! Используйте числа для ввода.";
-	}
-} icus;
+public:
+	incorrect_size(const string m = "Некорректные размеры для данной операции") :msg(m){}
+	~incorrect_size(){}
+	const char* what(){ return msg.c_str(); }
+private:
+	string msg;
+};

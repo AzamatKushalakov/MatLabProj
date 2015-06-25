@@ -280,7 +280,7 @@ int Matrix::Det()
 
 	// проверяем, чтобы матрица была квадратной
 	if (row != col)
-		throw mins;
+		throw matrix_is_not_square();
 	else
 	{
 		// находим определитель в MATLABE
@@ -309,16 +309,16 @@ Matrix Matrix::operator + (const Matrix& M)
 	Engine *Eg;
 	Eg = engOpen(NULL);
 
-	// проверяем, чтобы матрицы были одинаковых размеров
-	if ((row != M.row) || (col != M.col))
-		throw ics;
-	else
-	{
+	//// проверяем, чтобы матрицы были одинаковых размеров
+	//if ((row != M.row) || (col != M.col))
+	//	throw incorrect_size();
+	/*else
+	{*/
 		// помещаем массивы matr и M.matr в рабочее пространство MATLAB
 		engPutVariable(Eg, "N", matr);
 		engPutVariable(Eg, "M", M.matr);
 		engEvalString(Eg, "S = N+M"); // вычисляем сумму в Matlab
-	}
+	/*}*/
 	mxArray *S_matr = engGetVariable(Eg, "S"); // достаем результат из матлаба
 	Matrix *S = new Matrix(S_matr); // создаем вычисленную матрицу конструктором
 	//engClose(Eg); // закрываем matlab
@@ -334,7 +334,7 @@ Matrix Matrix::operator * (Matrix M)
 
 	// проверка на правильност задания перемножаемых матриц
 	if (col != M.row)
-		throw ics;
+		throw incorrect_size();
 	else
 	{
 		// помещаем массивы matr и M.matr в рабочее пространство MATLAB

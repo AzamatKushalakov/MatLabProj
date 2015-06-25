@@ -81,13 +81,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Mass.cpp" />
     <ClCompile Include="matrix_operations.cpp" />
     <ClCompile Include="MyForm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Документы\ЯП\ТиМП\MatLabProj\MatlabGUI\MatlabGUI\MyForm.h" />
-    <ClInclude Include="Mass.h" />
     <ClInclude Include="Matrix_exceptions.h" />
     <ClInclude Include="matrix_operations.h" />
     <ClInclude Include="MyForm.h">
